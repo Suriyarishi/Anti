@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'dashboard': document.getElementById('dashboard-view'),
         'categories': document.getElementById('categories-view'),
         'create-category': document.getElementById('create-category-view'),
-        'property-list': document.getElementById('property-list-view')
+        'property-list': document.getElementById('property-list-view'),
+        'add-property': document.getElementById('add-property-view')
     };
     const navItems = document.querySelectorAll('.nav-item[data-view]');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -88,8 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create button (dynamic check for both List views)
         const createBtn = e.target.closest('.btn-primary');
         if (createBtn && createBtn.textContent.trim().includes('Create')) {
-            switchView('create-category');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
+            const currentView = Object.keys(views).find(key => views[key].style.display === 'block');
+
+            if (currentView === 'property-list') {
+                switchView('add-property');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Add Property';
+            } else {
+                switchView('create-category');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
+            }
         }
 
         // Cancel button in Form
@@ -103,13 +111,118 @@ document.addEventListener('DOMContentLoaded', () => {
             const section = e.target.getAttribute('data-section');
             const checkboxes = document.querySelectorAll(`.${section}-cb`);
             const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+        }
 
-            checkboxes.forEach(cb => {
-                cb.checked = !allChecked;
+        // Add Property Form Navigation
+        if (e.target.closest('#add-property-view')) {
+            const btn = e.target.closest('.btn');
+            if (btn) {
+                const btnId = btn.id;
+                const btnText = btn.textContent.trim();
+                const stepperItems = document.querySelectorAll('#add-property-view .stepper-item');
+
+                // Initialize current step if not defined
+                if (window.currentAddPropStep === undefined) window.currentAddPropStep = 1;
+
+                const navigate = (direction) => {
+                    const currentStepEl = document.getElementById(`step-${window.currentAddPropStep}-content`);
+                    let nextStep = window.currentAddPropStep + direction;
+
+                    if (nextStep < 1 || nextStep > 4) return;
+
+                    const nextStepEl = document.getElementById(`step-${nextStep}-content`);
+                    const nextBtn = document.getElementById('btn-add-prop-next');
+                    const prevBtn = document.getElementById('btn-add-prop-prev');
+
+                    // Animated Transition
+                    currentStepEl.style.transition = 'all 0.3s ease';
+                    currentStepEl.style.opacity = '0';
+                    currentStepEl.style.transform = direction > 0 ? 'translateX(-20px)' : 'translateX(20px)';
+
+                    setTimeout(() => {
+                        currentStepEl.style.display = 'none';
+                        nextStepEl.style.display = 'block';
+                        nextStepEl.style.opacity = '0';
+                        nextStepEl.style.transform = direction > 0 ? 'translateX(20px)' : 'translateX(-20px)';
+
+                        // Force reflow
+                        nextStepEl.offsetHeight;
+
+                        nextStepEl.style.transition = 'all 0.3s ease';
+                        nextStepEl.style.opacity = '1';
+                        nextStepEl.style.transform = 'translateX(0)';
+
+                        // Update Stepper
+                        stepperItems.forEach((item, idx) => {
+                            const stepIdx = idx + 1;
+                            item.classList.remove('active', 'completed');
+                            if (stepIdx < nextStep) item.classList.add('completed');
+                            if (stepIdx === nextStep) item.classList.add('active');
+                        });
+
+                        // Update Button Text
+                        if (nextStep === 4) {
+                            nextBtn.querySelector('span').textContent = 'Submit';
+                        } else {
+                            nextBtn.querySelector('span').textContent = 'Continue';
+                        }
+
+                        if (nextStep === 1) {
+                            prevBtn.textContent = 'Cancel';
+                        } else {
+                            prevBtn.textContent = 'Back';
+                        }
+
+                        window.currentAddPropStep = nextStep;
+                    }, 300);
+                };
+
+                if (btnId === 'btn-add-prop-next') {
+                    if (window.currentAddPropStep === 4) {
+                        // Submit - go back to list
+                        switchView('property-list');
+                        if (breadcrumbActive) breadcrumbActive.textContent = 'Property/ data view';
+                        // Reset for next time (handled in switchView or here)
+                        setTimeout(() => resetAddPropertyForm(), 500);
+                    } else {
+                        navigate(1);
+                    }
+                } else if (btnId === 'btn-add-prop-prev') {
+                    if (window.currentAddPropStep === 1) {
+                        // Cancel - go back to list
+                        switchView('property-list');
+                        if (breadcrumbActive) breadcrumbActive.textContent = 'Property/ data view';
+                        setTimeout(() => resetAddPropertyForm(), 500);
+                    } else {
+                        navigate(-1);
+                    }
+                }
+            }
+        }
+
+        function resetAddPropertyForm() {
+            window.currentAddPropStep = 1;
+            const stepperItems = document.querySelectorAll('#add-property-view .stepper-item');
+            const nextBtn = document.getElementById('btn-add-prop-next');
+            const prevBtn = document.getElementById('btn-add-prop-prev');
+
+            for (let i = 1; i <= 4; i++) {
+                const el = document.getElementById(`step-${i}-content`);
+                if (el) {
+                    el.style.display = i === 1 ? 'block' : 'none';
+                    el.style.opacity = '1';
+                    el.style.transform = 'none';
+                }
+            }
+
+            stepperItems.forEach((item, idx) => {
+                item.classList.remove('active', 'completed');
+                if (idx === 0) item.classList.add('active');
             });
 
-            e.target.textContent = allChecked ? 'Select All' : 'Deselect All';
-            e.target.classList.toggle('active', !allChecked);
+            if (nextBtn) nextBtn.querySelector('span').textContent = 'Continue';
+            if (prevBtn) prevBtn.textContent = 'Cancel';
         }
     });
 
