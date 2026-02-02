@@ -14,7 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'property-list': document.getElementById('property-list-view'),
         'add-property': document.getElementById('add-property-view'),
         'project-attr-cat': document.getElementById('project-attr-cat-list-view'),
-        'create-project-attr-cat': document.getElementById('create-project-attr-cat-view')
+        'create-project-attr-cat': document.getElementById('create-project-attr-cat-view'),
+        'project-attr': document.getElementById('project-attr-list-view'),
+        'create-project-attr': document.getElementById('create-project-attr-view'),
+        'project-list': document.getElementById('project-list-view'),
+        'create-project': document.getElementById('create-project-view')
     };
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -50,6 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             populatePropertyListTable();
         } else if (viewKey === 'project-attr-cat') {
             populateProjectAttrCatTable();
+        } else if (viewKey === 'project-attr') {
+            populateProjectAttributesTable();
+        } else if (viewKey === 'project-list') {
+            populateProjectListTable();
+        } else if (viewKey === 'create-project') {
+            if (window.resetCreateProjectForm) window.resetCreateProjectForm();
         }
 
         // Animated entry
@@ -110,9 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentView === 'property-list') {
                 switchView('add-property');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Add Property';
+            } else if (currentView === 'project-list') {
+                switchView('create-project');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Add Project';
             } else if (currentView === 'project-attr-cat') {
                 switchView('create-project-attr-cat');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes Category';
+            } else if (currentView === 'project-attr') {
+                switchView('create-project-attr');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes';
             } else {
                 switchView('create-category');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
@@ -125,10 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (breadcrumbActive) breadcrumbActive.textContent = 'Property Category';
         }
 
+        // Project Form Cancel (from Step 1)
+        if (e.target.id === 'btn-project-prev' && window.currentProjectStep === 1) {
+            switchView('project-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Management';
+        }
+
         // Project Attr Cancel
         if (e.target.classList.contains('btn-cancel-project-attr')) {
             switchView('project-attr-cat');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attribute Category';
+        }
+
+        // Project Attr Details Cancel
+        if (e.target.classList.contains('btn-cancel-project-attr-details')) {
+            switchView('project-attr');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attributes';
         }
 
         // Select All logic
@@ -137,6 +165,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const checkboxes = document.querySelectorAll(`.${section}-cb`);
             const allChecked = Array.from(checkboxes).every(cb => cb.checked);
             checkboxes.forEach(cb => cb.checked = !allChecked);
+        }
+
+        // Add Project Form Navigation (Refactored for reliability)
+        if (e.target.closest('#create-project-view')) {
+            const btn = e.target.closest('.btn');
+            if (btn) {
+                const btnId = btn.id;
+
+                if (btnId === 'btn-project-next') {
+                    if (window.currentProjectStep < 4) {
+                        window.currentProjectStep++;
+                        if (typeof window.updateProjectStep === 'function') {
+                            window.updateProjectStep(window.currentProjectStep);
+                        }
+                    }
+                } else if (btnId === 'btn-project-prev') {
+                    if (window.currentProjectStep > 1) {
+                        window.currentProjectStep--;
+                        if (typeof window.updateProjectStep === 'function') {
+                            window.updateProjectStep(window.currentProjectStep);
+                        }
+                    } else {
+                        switchView('project-list');
+                    }
+                } else if (btnId === 'btn-project-finish') {
+                    alert('Project created successfully!');
+                    switchView('project-list');
+                }
+            }
         }
 
         // Add Property Form Navigation
@@ -269,6 +326,16 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Project Attribute Category created successfully!');
             switchView('project-attr-cat');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attribute Category';
+        });
+    }
+
+    const createProjectAttrDetailsForm = document.getElementById('create-project-attr-form');
+    if (createProjectAttrDetailsForm) {
+        createProjectAttrDetailsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Project Attributes created successfully!');
+            switchView('project-attr');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attributes';
         });
     }
 
@@ -445,31 +512,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tbody.innerHTML = propertyData.map(item => `
         <tr>
-            <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-            <td><div style="font-weight: 600; color: #475569;">${item.postedBy}</div></td>
-            <td><span style="color: var(--text-muted); font-size: 12px;">${item.title || '-'}</span></td>
-            <td><span style="font-weight: 500;">${item.for}</span></td>
-            <td><span style="color: #64748b;">${item.type}</span></td>
-            <td><span style="color: #64748b;">${item.location}</span></td>
+            <td style="font-weight: 500; color: var(--text-muted); text-align: center;">${item.sno}</td>
+            <td style="text-align: center; color: var(--text-muted);">${item.postedBy}</td>
+            <td style="text-align: center;"><span style="color: #64748b; font-weight: 500;">${item.title || ''}</span></td>
+            <td style="text-align: center; color: var(--text-muted);">${item.for}</td>
+            <td style="text-align: center; color: var(--text-muted);">${item.type}</td>
+            <td style="text-align: center; color: var(--text-muted);">${item.location}</td>
             <td>
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <button class="action-btn btn-view" title="View" style="background: #22c55e; color: white; border: none; padding: 4px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="eye" style="width: 12px; height: 12px;"></i>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                    <button class="action-icon-btn" style="background: #2FED9A; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
                     </button>
-                    <button class="action-btn btn-delete" title="Delete" style="background: #ef4444; color: white; border: none; padding: 4px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="x" style="width: 12px; height: 12px;"></i>
+                    <button class="action-icon-btn" style="background: #FF5E5E; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="x" style="width: 14px; height: 14px;"></i>
                     </button>
-                    <span class="status-pill ${item.status === 'active' ? 'status-active' : 'status-pending'}" style="padding: 2px 8px; font-size: 10px; font-weight: 700; text-transform: capitalize; border-radius: 4px; min-width: 60px; text-align: center;">${item.status}</span>
+                    <button class="status-btn" style="background: #3B82F6; color: white; padding: 4px 10px; font-size: 11px; border-radius: 4px; border: none; font-weight: 600; text-transform: capitalize;">${item.status}</button>
                 </div>
             </td>
             <td>
-                <button class="status-btn ${item.verified === 'yes' ? 'verified-primary' : 'verified-secondary'}" style="width: 100%; border-radius: 4px; padding: 6px; font-size: 12px; font-weight: 600; border: none; color: white; background: ${item.verified === 'yes' ? '#10b981' : '#f59e0b'};">
+                <button class="status-btn" style="width: 100%; border-radius: 4px; padding: 6px; font-size: 12px; font-weight: 600; border: none; color: white; background: ${item.verified === 'yes' ? '#20C997' : '#F59E0B'};">
                     ${item.verified === 'yes' ? 'Yes' : 'No'}
                 </button>
             </td>
             <td>
-                <button class="status-btn premium-secondary" style="width: 100%; border-radius: 4px; padding: 6px; font-size: 12px; font-weight: 600; border: none; color: white; background: #f59e0b;">
-                    No
+                <button class="status-btn" style="width: 100%; border-radius: 4px; padding: 6px; font-size: 12px; font-weight: 600; border: none; color: white; background: ${item.premium === 'yes' ? '#20C997' : '#F59E0B'};">
+                    ${item.premium === 'yes' ? 'Yes' : 'No'}
+                </button>
+            </td>
+        </tr>
+    `).join('');
+
+        lucide.createIcons();
+    }
+
+    const projectData = [
+        { sno: 1, postedBy: 'Builder', name: 'Developer Project', for: 'Rent', type: 'Flats', url: '#', verified: 'no' },
+        { sno: 2, postedBy: 'Builder', name: 'New House edit', for: 'Sell', type: 'Penthouse', url: '#', verified: 'yes' },
+        { sno: 3, postedBy: 'Builder', name: 'Platinum', for: 'Sell', type: 'Builder Floor', url: 'dsddsds', verified: 'no' },
+        { sno: 4, postedBy: 'Builder', name: 'Bronze', for: 'Rent', type: 'Multi-story Apartments', url: '#', verified: 'no' },
+        { sno: 5, postedBy: 'Builder', name: 'Housing colony', for: 'Sell', type: 'Multi-story Apartments', url: '#', verified: 'no' },
+        { sno: 6, postedBy: 'Builder', name: 'project 01', for: 'Rent', type: 'Flats', url: '#', verified: 'no' },
+        { sno: 7, postedBy: 'Builder', name: 'Avadh Colony', for: 'Rent', type: 'Flats', url: '#', verified: 'no' },
+        { sno: 8, postedBy: 'Builder', name: 'Supernova', for: 'Rent', type: 'Flats', url: '#supertechlimited.com', verified: 'no' }
+    ];
+
+    function populateProjectListTable() {
+        const tbody = document.getElementById('project-list-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = projectData.map(item => `
+        <tr>
+            <td style="font-weight: 500; color: var(--text-muted); text-align: center;">${item.sno}</td>
+            <td style="text-align: center; color: var(--text-muted);">${item.postedBy}</td>
+            <td style="text-align: center;"><span style="color: #64748b; font-weight: 500;">${item.name}</span></td>
+            <td style="text-align: center; color: var(--text-muted);">${item.for}</td>
+            <td style="text-align: center; color: var(--text-muted);">${item.type}</td>
+            <td style="text-align: center; color: var(--text-muted);">${item.url}</td>
+            <td>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                    <button class="action-icon-btn" style="background: #2FED9A; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                    </button>
+                    <button class="action-icon-btn" style="background: #FF5E5E; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                    </button>
+                    <button class="status-btn" style="background: #3B82F6; color: white; padding: 4px 10px; font-size: 11px; border-radius: 4px; border: none; font-weight: 600;">Active</button>
+                </div>
+            </td>
+            <td>
+                <button class="status-btn" style="width: 100%; border-radius: 4px; padding: 6px; font-size: 12px; font-weight: 600; border: none; color: white; background: ${item.verified === 'yes' ? '#20C997' : '#F59E0B'};">
+                    ${item.verified === 'yes' ? 'Yes' : 'No'}
                 </button>
             </td>
         </tr>
@@ -509,6 +621,144 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
+    function populateProjectAttributesTable() {
+        const body = document.getElementById('project-attributes-table-body');
+        if (!body) return;
+
+        const data = [
+            { sno: 1, name: 'State', input: 'select', options: '', validation: 'required', tooltip: '' },
+            { sno: 2, name: 'City', input: 'select', options: '', validation: 'required', tooltip: '' },
+            { sno: 3, name: 'Locality', input: 'text', options: '', validation: '', tooltip: '' },
+            { sno: 4, name: 'Address', input: 'text', options: '', validation: 'required', tooltip: '' },
+            { sno: 5, name: 'Longitude', input: 'text', options: '', validation: '', tooltip: '' },
+            { sno: 6, name: 'Latitude', input: 'text', options: '', validation: '', tooltip: '' },
+            { sno: 7, name: 'Super Area', input: 'number', options: '', validation: 'required', tooltip: 'Enter Area in Sq. ft' },
+            { sno: 8, name: 'Build Up Area', input: 'number', options: '', validation: 'project_buildup_area', tooltip: 'Enter Area in Sq. ft' },
+            { sno: 9, name: 'Minimum Price', input: 'number', options: '', validation: 'required', tooltip: 'Minimum price' },
+            { sno: 10, name: 'ProjectFor', input: 'text1', options: '', validation: '', tooltip: '' }
+        ];
+
+        body.innerHTML = data.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td><span class="pill" style="background:#f1f5f9; color:#475569; border:1px solid #e2e8f0; font-size:11px;">${item.input}</span></td>
+                <td>${item.options}</td>
+                <td><span class="pill" style="background:rgba(var(--primary-rgb), 0.1); color:var(--primary); font-size:11px;">${item.validation}</span></td>
+                <td style="color:var(--text-muted); font-size:12px;">${item.tooltip}</td>
+                <td>
+                    <div style="display:flex; gap:8px;">
+                        <button class="action-btn" style="background:var(--primary); color:white; border:none; width:28px; height:28px;">
+                            <i data-lucide="eye" style="width:14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+
+
+    function initCreateProjectFormLogic() {
+        window.currentProjectStep = 1;
+        const totalSteps = 4;
+        const stepperItems = document.querySelectorAll('#project-stepper .stepper-item');
+        const nextBtn = document.getElementById('btn-project-next');
+        const prevBtn = document.getElementById('btn-project-prev');
+        const finishBtn = document.getElementById('btn-project-finish');
+
+        window.updateProjectStep = function (step) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const content = document.getElementById(`project-step-${i}-content`);
+                if (content) content.style.display = 'none';
+            }
+
+            // Show current step
+            const currentContent = document.getElementById(`project-step-${step}-content`);
+            if (currentContent) currentContent.style.display = 'block';
+
+            // Update Stepper
+            stepperItems.forEach((item, idx) => {
+                const stepIdx = idx + 1;
+                item.classList.remove('active', 'completed');
+                if (stepIdx < step) item.classList.add('completed');
+                if (stepIdx === step) item.classList.add('active');
+            });
+
+            // Update footer buttons visibility
+            if (prevBtn) prevBtn.style.display = 'block';
+            if (nextBtn) {
+                nextBtn.style.display = (step === totalSteps) ? 'none' : 'block';
+                const span = nextBtn.querySelector('span');
+                if (span) span.textContent = 'Next';
+            }
+            if (finishBtn) {
+                finishBtn.style.display = (step === totalSteps) ? 'block' : 'none';
+            }
+
+            lucide.createIcons();
+        };
+
+        window.resetCreateProjectForm = function () {
+            window.currentProjectStep = 1;
+            window.updateProjectStep(1);
+        };
+
+        // Add More Unit Details logic
+        const addUnitBtn = document.getElementById('btn-add-unit');
+        const unitsContainer = document.getElementById('project-units-container');
+        if (addUnitBtn && unitsContainer) {
+            addUnitBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const newRow = document.createElement('div');
+                newRow.className = 'form-row-horizontal unit-row';
+                newRow.style.marginTop = '12px';
+                newRow.innerHTML = `
+                    <label></label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: center;">
+                        <input type="text" class="form-control-premium" style="background-color: #F1F5F9; border-color: #CBD5E1;" placeholder="Unit">
+                        <input type="text" class="form-control-premium" style="background-color: #F1F5F9; border-color: #CBD5E1;" placeholder="Price">
+                        <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; width: 100%; min-width: 80px; font-size: 13px; border-radius: 6px;">Remove</button>
+                    </div>
+                `;
+                unitsContainer.appendChild(newRow);
+                newRow.querySelector('.btn-remove').addEventListener('click', () => newRow.remove());
+            });
+        }
+
+        // Add More Photo logic
+        const addPhotoBtn = document.getElementById('btn-add-photo');
+        const photoContainer = document.getElementById('photo-upload-container');
+        if (addPhotoBtn && photoContainer) {
+            addPhotoBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const newRow = document.createElement('div');
+                newRow.className = 'form-row-horizontal photo-row';
+                newRow.style.marginTop = '12px';
+                newRow.innerHTML = `
+                    <label></label>
+                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;">
+                        <select class="form-control-premium" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+                            <option>Project Photo</option>
+                            <option>Amenity Photo</option>
+                            <option>Location Photo</option>
+                        </select>
+                        <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; min-width: 80px; font-size: 13px; border-radius: 6px; padding: 0 16px;">Remove</button>
+                    </div>
+                `;
+                photoContainer.appendChild(newRow);
+                newRow.querySelector('.btn-remove').addEventListener('click', () => newRow.remove());
+            });
+        }
+
+        // Initialize state
+        window.updateProjectStep(1);
+    }
+
     // Kick off initial view
     initDashboard();
+    initCreateProjectFormLogic();
 });

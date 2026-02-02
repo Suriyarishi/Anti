@@ -595,3 +595,61 @@ tbody tr:hover {
     letter-spacing: 0.05em;
     margin-bottom: 24px;
 }
+
+/* Amenities Grid */
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.amenity-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    text-align: center;
+}
+
+.amenity-card:hover {
+    border-color: var(--primary);
+    background: rgba(var(--primary-rgb), 0.02);
+}
+
+.amenity-card input[type="checkbox"] {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.amenity-icon {
+    width: 48px;
+    height: 48px;
+    color: #FF5E5E;
+    /* Matching the red from screenshot */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amenity-icon i {
+    width: 32px;
+    height: 32px;
+}
+
+.amenity-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-main);
+}

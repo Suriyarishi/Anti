@@ -53,11 +53,11 @@
                             <span class="submenu-dot"></span>
                             <span>Project Attribute Category</span>
                         </a>
-                        <a href="#" class="submenu-item">
+                        <a href="#" class="submenu-item" data-view="project-attr">
                             <span class="submenu-dot"></span>
                             <span>Project Attributes</span>
                         </a>
-                        <a href="#" class="submenu-item">
+                        <a href="#" class="submenu-item" data-view="project-list">
                             <span class="submenu-dot"></span>
                             <span>Project</span>
                         </a>
@@ -444,276 +444,336 @@
                                 <div class="stepper-circle">1</div>
                                 <div class="stepper-label">
                                     <span class="step-num">Step 1</span>
-                                    <span class="step-title">Basics Info</span>
+                                    <span class="step-title">User & Project Info</span>
                                 </div>
                             </div>
                             <div class="stepper-item">
                                 <div class="stepper-circle">2</div>
                                 <div class="stepper-label">
                                     <span class="step-num">Step 2</span>
-                                    <span class="step-title">Attributes</span>
+                                    <span class="step-title">Project Attributes</span>
                                 </div>
                             </div>
                             <div class="stepper-item">
                                 <div class="stepper-circle">3</div>
                                 <div class="stepper-label">
                                     <span class="step-num">Step 3</span>
-                                    <span class="step-title">Amenities</span>
+                                    <span class="step-title">Step 3 Amenities</span>
                                 </div>
                             </div>
                             <div class="stepper-item">
                                 <div class="stepper-circle">4</div>
                                 <div class="stepper-label">
                                     <span class="step-num">Step 4</span>
-                                    <span class="step-title">Media</span>
+                                    <span class="step-title">Step 4 Upload Photos</span>
                                 </div>
                             </div>
                         </div>
 
                         <form id="add-property-form">
-                            <!-- Step 1: Basics Info -->
+                            <!-- Step 1: User & Project Info -->
                             <div id="step-1-content">
                                 <div class="form-card-bento">
-                                    <div class="form-section-header-pill">Property Classification</div>
+                                    <div class="form-section-header-pill">User Info</div>
                                     <div class="form-row-horizontal">
-                                        <label>User Type <span style="color:red">*</span></label>
-                                        <select class="form-control-premium">
-                                            <option value="">Select User Type</option>
-                                            <option>Individual</option>
-                                            <option>Agent</option>
-                                            <option>Builder</option>
-                                        </select>
+                                        <label>Builder Email <span style="color:red">*</span></label>
+                                        <input type="email" class="form-control-premium"
+                                            placeholder="Enter builder email" required>
                                     </div>
+
+                                    <div class="form-section-header-pill" style="margin-top: 32px;">Project Info</div>
                                     <div class="form-row-horizontal">
-                                        <label>Property For <span style="color:red">*</span></label>
-                                        <div class="radio-pill-group">
-                                            <label class="radio-pill">
-                                                <input type="radio" name="property_for_add" value="Sale" checked>
-                                                <span class="radio-pill-label">Sale</span>
+                                        <label>Project For <span style="color:red">*</span></label>
+                                        <div style="display: flex; gap: 24px;">
+                                            <label
+                                                style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                                <input type="radio" name="project_for" value="Sell" checked
+                                                    style="width: 16px; height: 16px;">
+                                                <span>Sell</span>
                                             </label>
-                                            <label class="radio-pill">
-                                                <input type="radio" name="property_for_add" value="Rent">
-                                                <span class="radio-pill-label">Rent</span>
+                                            <label
+                                                style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                                <input type="radio" name="project_for" value="Rent"
+                                                    style="width: 16px; height: 16px;">
+                                                <span>Rent</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-row-horizontal">
-                                        <label>Category <span style="color:red">*</span></label>
-                                        <select class="form-control-premium">
-                                            <option value="">Select Category</option>
+                                        <label>Project Category <span style="color:red">*</span></label>
+                                        <select class="form-control-premium" required>
+                                            <option value="">Select Project Category</option>
                                             <option>Residential</option>
                                             <option>Commercial</option>
-                                            <option>Agricultural</option>
-                                            <option>Plots / Land</option>
                                             <option>Industrial</option>
+                                            <option>Agricultural</option>
                                         </select>
                                     </div>
                                     <div class="form-row-horizontal">
-                                        <label>Sub Category <span style="color:red">*</span></label>
-                                        <input type="text" class="form-control-premium"
-                                            placeholder="e.g. Apartment, Villa, Office Space">
+                                        <label>Project Name <span style="color:red">*</span></label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter project name"
+                                            required>
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>Description <span style="color:red">*</span></label>
+                                        <div style="width: 100%;">
+                                            <textarea class="form-control-premium" rows="4"
+                                                placeholder="Enter project description" required></textarea>
+                                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">(500
+                                                characters left)</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>Project RERA Number <span style="color:red">*</span></label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter RERA number"
+                                            required>
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>RERA Status <span style="color:red">*</span></label>
+                                        <select class="form-control-premium" required>
+                                            <option value="">Select RERA Status</option>
+                                            <option>Applied</option>
+                                            <option>Received</option>
+                                            <option>Not Applicable</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>Website URL <span style="color:red">*</span></label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter website URL"
+                                            value="#">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Step 2: Assign Attributes -->
+                            <!-- Step 2: Project Attributes -->
                             <div id="step-2-content" style="display: none;">
                                 <div class="form-card-bento">
-                                    <div class="form-section-header-pill">1. Property Features</div>
-                                    <div
-                                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px;">
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Bedrooms</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Bathrooms</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Balconies</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Floor Number</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Total Floors</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Parking</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Furnishing</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Facing</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Store Room</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Lift</span>
-                                        </label>
-                                        <label class="checkbox-pill"
-                                            style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px; border: 1px solid #E2E8F0; border-radius: 10px; transition: all 0.2s;">
-                                            <input type="checkbox"
-                                                style="width: 18px; height: 18px; accent-color: var(--primary);">
-                                            <span style="font-size: 14px; color: #475569;">Power Backup</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="form-section-header-pill">2. Area Details</div>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Built-up Area</label>
-                                            <input type="number" class="form-control-premium" placeholder="Sq. Ft.">
-                                        </div>
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Carpet Area</label>
-                                            <input type="number" class="form-control-premium" placeholder="Sq. Ft.">
-                                        </div>
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Super Area</label>
-                                            <input type="number" class="form-control-premium" placeholder="Sq. Ft.">
-                                        </div>
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Plot Area</label>
-                                            <input type="number" class="form-control-premium" placeholder="Sq. Yds.">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Step 3: Pricing & Transaction -->
-                            <div id="step-3-content" style="display: none;">
-                                <div class="form-card-bento">
-                                    <div class="form-section-header-pill">1. Transaction Details</div>
+                                    <div class="form-section-header-pill">Location</div>
                                     <div class="form-row-horizontal">
-                                        <label>Transaction Type</label>
-                                        <div class="radio-pill-group">
-                                            <label class="radio-pill">
-                                                <input type="radio" name="trans_type" value="New" checked>
-                                                <span class="radio-pill-label">New Property</span>
-                                            </label>
-                                            <label class="radio-pill">
-                                                <input type="radio" name="trans_type" value="Resale">
-                                                <span class="radio-pill-label">Resale</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-row-horizontal">
-                                        <label>Ownership</label>
-                                        <select class="form-control-premium">
-                                            <option>Freehold</option>
-                                            <option>Leasehold</option>
-                                            <option>Power of Attorney</option>
-                                            <option>Co-operative Society</option>
+                                        <label>State <span style="color:red">*</span></label>
+                                        <select class="form-control-premium" required>
+                                            <option value="">Select State</option>
+                                            <option>Madhya Pradesh</option>
+                                            <option>Maharashtra</option>
+                                            <option>Gujarat</option>
                                         </select>
                                     </div>
                                     <div class="form-row-horizontal">
-                                        <label>Available From</label>
-                                        <input type="date" class="form-control-premium">
+                                        <label>City <span style="color:red">*</span></label>
+                                        <select class="form-control-premium" required>
+                                            <option value="">Select City</option>
+                                            <option>Indore</option>
+                                            <option>Mumbai</option>
+                                            <option>Ahmedabad</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>Locality</label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter locality">
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>Address <span style="color:red">*</span></label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter full address"
+                                            required>
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>Longitude</label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter longitude">
+                                    </div>
+                                    <div class="form-row-horizontal">
+                                        <label>Latitude</label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter latitude">
                                     </div>
 
-                                    <div class="form-section-header-pill" style="margin-top: 32px;">2. Price Details
+                                    <div class="form-section-header-pill" style="margin-top: 32px;">Area</div>
+                                    <div class="form-row-horizontal">
+                                        <label>Super Area</label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter super area">
                                     </div>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Expected Price</label>
-                                            <div style="position: relative;">
-                                                <span
-                                                    style="position: absolute; left: 12px; top: 12px; color: #94A3B8; font-size: 14px;">₹</span>
-                                                <input type="number" class="form-control-premium"
-                                                    style="padding-left: 30px;">
+                                    <div class="form-row-horizontal">
+                                        <label>Build Up Area</label>
+                                        <input type="text" class="form-control-premium"
+                                            placeholder="Enter build up area">
+                                    </div>
+
+                                    <div class="form-section-header-pill" style="margin-top: 32px;">Price</div>
+                                    <div class="form-row-horizontal">
+                                        <label>Price Range</label>
+                                        <input type="text" class="form-control-premium" placeholder="Enter price range">
+                                    </div>
+
+                                    <div class="form-section-header-pill" style="margin-top: 32px;">Unit Details</div>
+                                    <div id="unit-details-container">
+                                        <div class="form-row-horizontal unit-detail-row">
+                                            <label>Unit & Price</label>
+                                            <div style="display: flex; gap: 12px; align-items: center; width: 100%;">
+                                                <input type="text" class="form-control-premium"
+                                                    placeholder="Unit in sqft" style="flex: 1;">
+                                                <input type="text" class="form-control-premium"
+                                                    placeholder="Price in INR" style="flex: 1;">
+                                                <button type="button" class="btn btn-secondary btn-add-more-unit"
+                                                    style="background: white; border: 1px solid var(--border); white-space: nowrap;">Add
+                                                    More</button>
                                             </div>
-                                        </div>
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Monthly Rent</label>
-                                            <div style="position: relative;">
-                                                <span
-                                                    style="position: absolute; left: 12px; top: 12px; color: #94A3B8; font-size: 14px;">₹</span>
-                                                <input type="number" class="form-control-premium"
-                                                    style="padding-left: 30px;">
-                                            </div>
-                                        </div>
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Maintenance</label>
-                                            <input type="number" class="form-control-premium"
-                                                placeholder="Amount / Month">
-                                        </div>
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Security Deposit</label>
-                                            <input type="number" class="form-control-premium">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Step 4: Location & Contact -->
+                            <!-- Step 3: Amenities -->
+                            <div id="step-3-content" style="display: none;">
+                                <div class="form-card-bento">
+                                    <div class="form-section-header-pill">Amenities</div>
+                                    <div class="amenities-grid"
+                                        style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 20px 0;">
+                                        <!-- Car Parking -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">Car Parking</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=parking&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="Car Parking">
+                                            </label>
+                                        </div>
+                                        <!-- Kids Playground -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">Kids
+                                                        Playground</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=play&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="Kids Playground">
+                                            </label>
+                                        </div>
+                                        <!-- Club House -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">Club House</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=club&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="Club House">
+                                            </label>
+                                        </div>
+                                        <!-- Restaurant -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">Restaurant</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=food&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="Restaurant">
+                                            </label>
+                                        </div>
+                                        <!-- Fitness Gym -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">Fitness Gym</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=gym&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="Fitness Gym">
+                                            </label>
+                                        </div>
+                                        <!-- School -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">School</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=school&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="School">
+                                            </label>
+                                        </div>
+                                        <!-- Hospital -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">Hospital</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=hospital&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="Hospital">
+                                            </label>
+                                        </div>
+                                        <!-- Swimming Pool -->
+                                        <div class="amenity-item" style="text-align: center;">
+                                            <label class="checkbox-pill"
+                                                style="display: block; border: none; padding: 0;">
+                                                <div
+                                                    style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                                    <input type="checkbox" style="width: 16px; height: 16px;">
+                                                    <span style="font-size: 13px; font-weight: 500;">Swimming
+                                                        Pool</span>
+                                                </div>
+                                                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=pool&backgroundColor=f8fafc"
+                                                    style="width: 100%; height: 120px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; padding: 12px;"
+                                                    alt="Swimming Pool">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Media -->
                             <div id="step-4-content" style="display: none;">
                                 <div class="form-card-bento">
-                                    <div class="form-section-header-pill">1. Location Details</div>
-                                    <div class="form-row-horizontal">
-                                        <label>Address <span style="color:red">*</span></label>
-                                        <textarea class="form-control-premium" rows="2"
-                                            placeholder="Full house/plot address"></textarea>
-                                    </div>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>Locality</label>
-                                            <input type="text" class="form-control-premium"
-                                                placeholder="e.g. Bandra West">
+                                    <div class="form-section-header-pill">1. Upload Photos</div>
+                                    <div style="border: 2px dashed var(--border); border-radius: 12px; padding: 48px; text-align: center; cursor: pointer; transition: all 0.2s;"
+                                        onmouseover="this.style.borderColor='var(--primary)'; this.style.background='rgba(var(--primary-rgb), 0.02)'"
+                                        onmouseout="this.style.borderColor='var(--border)'; this.style.background='transparent'">
+                                        <div
+                                            style="width: 64px; height: 64px; background: rgba(var(--primary-rgb), 0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                                            <i data-lucide="upload-cloud" style="width: 32px; height: 32px;"></i>
                                         </div>
-                                        <div class="form-row-horizontal" style="grid-template-columns: 140px 1fr;">
-                                            <label>City</label>
-                                            <input type="text" class="form-control-premium" placeholder="e.g. Mumbai">
-                                        </div>
+                                        <h4
+                                            style="font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">
+                                            Click to upload or drag and drop</h4>
+                                        <p style="font-size: 13px; color: var(--text-muted);">PNG, JPG or WEBP (max. 5MB
+                                            per file)</p>
+                                        <input type="file" multiple style="display: none;" id="project-media-upload">
+                                        <button type="button" class="btn btn-primary" style="margin-top: 24px;"
+                                            onclick="document.getElementById('project-media-upload').click()">Browse
+                                            Files</button>
                                     </div>
 
-                                    <div class="form-section-header-pill" style="margin-top: 32px;">2. Contact
-                                        Information</div>
-                                    <div class="form-row-horizontal">
-                                        <label>Contact Person <span style="color:red">*</span></label>
-                                        <input type="text" class="form-control-premium" placeholder="Enter name">
+                                    <div class="form-section-header-pill" style="margin-top: 32px;">2. Gallery Preview
                                     </div>
-                                    <div class="form-row-horizontal">
-                                        <label>Phone Number <span style="color:red">*</span></label>
-                                        <div style="display: flex; gap: 8px;">
-                                            <select class="form-control-premium"
-                                                style="width: 80px; padding: 12px 8px;">
-                                                <option>+91</option>
-                                                <option>+1</option>
-                                                <option>+44</option>
-                                            </select>
-                                            <input type="tel" class="form-control-premium" placeholder="Phone number">
+                                    <div id="media-preview-grid"
+                                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px; margin-top: 16px;">
+                                        <!-- Preview items will be added here via JS -->
+                                        <div
+                                            style="aspect-ratio: 1; border-radius: 12px; background: #F8FAFC; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 12px;">
+                                            No files selected
                                         </div>
                                     </div>
                                 </div>
@@ -1161,8 +1221,702 @@
                         </div>
                     </div>
                 </div>
-            </div> <!-- End Page Container -->
-        </main>
+
+                <!-- Project Attributes List View -->
+                <div id="project-attr-list-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Project Attributes List</h3>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i data-lucide="plus"></i>
+                                <span>Create</span>
+                            </button>
+                        </div>
+
+                        <div class="table-controls"
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);">
+                            <div
+                                style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                                <span>Show</span>
+                                <select
+                                    style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                </select>
+                                <span>entries</span>
+                            </div>
+                            <div class="search-bar" style="width: 240px;">
+                                <i data-lucide="search" style="width: 14px;"></i>
+                                <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="sortable-table">
+                                <thead>
+                                    <tr>
+                                        <th>S.no. <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></th>
+                                        <th>Name <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></th>
+                                        <th>Input Type <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></th>
+                                        <th>Attribute Options <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></th>
+                                        <th>Validation Type <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></th>
+                                        <th>Tool Tips <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></th>
+                                        <th>Action <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="project-attributes-table-body">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            style="padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                            <span id="project-attr-stats" style="font-size: 13px; color: var(--text-muted);">Showing 1
+                                to 10 of 13 entries</span>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">2</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Project Attributes View -->
+                <div id="create-project-attr-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Create Project Attributes</h3>
+                            </div>
+                        </div>
+                        <div style="padding: 32px;">
+                            <form id="create-project-attr-form">
+                                <div class="form-row-horizontal">
+                                    <label>Attribute Category <span style="color:red">*</span></label>
+                                    <select class="form-control-premium" required>
+                                        <option value="">Select Attribute Category</option>
+                                        <option>Location</option>
+                                        <option>Area</option>
+                                        <option>Transaction Type</option>
+                                        <option>Price Details</option>
+                                    </select>
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>Attribute Name <span style="color:red">*</span></label>
+                                    <input type="text" class="form-control-premium" placeholder="Enter attribute name"
+                                        required>
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>Attribute Type <span style="color:red">*</span></label>
+                                    <select class="form-control-premium" required>
+                                        <option value="">Select Attribute Type</option>
+                                        <option>text</option>
+                                        <option>number</option>
+                                        <option>select</option>
+                                        <option>radio</option>
+                                        <option>checkbox</option>
+                                    </select>
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>Attribute Values</label>
+                                    <input type="text" class="form-control-premium"
+                                        placeholder="Enter values (comma separated)">
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>Validation Type <span style="color:red">*</span></label>
+                                    <select class="form-control-premium" required>
+                                        <option value="">is Required?</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>Tool Text/Placeholder <span style="color:red">*</span></label>
+                                    <input type="text" class="form-control-premium" placeholder="Enter placeholder text"
+                                        required>
+                                </div>
+
+                                <div
+                                    style="display: flex; gap: 12px; justify-content: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+                                    <button type="button" class="btn btn-secondary btn-cancel-project-attr-details"
+                                        style="background: var(--primary); color: white; min-width: 100px;">Cancel</button>
+                                    <button type="submit" class="btn"
+                                        style="background: #20C997; color: white; min-width: 100px;">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project List View -->
+                <div id="project-list-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Property List</h3>
+                            </div>
+                            <button class="btn btn-primary" id="btn-create-project">
+                                <span>Create</span>
+                            </button>
+                        </div>
+                        <div class="table-controls"
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);">
+                            <div
+                                style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                                <span>Show</span>
+                                <select
+                                    style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                </select>
+                                <span>entries</span>
+                            </div>
+                            <div class="search-bar" style="width: 240px;">
+                                <i data-lucide="search" style="width: 14px;"></i>
+                                <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px;">S.no.</th>
+                                        <th>Posted By</th>
+                                        <th>Project Name</th>
+                                        <th>Posted For</th>
+                                        <th>Property Type</th>
+                                        <th>URL</th>
+                                        <th>Action</th>
+                                        <th>Verified</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="project-list-table-body">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                            <span id="project-showing-entries"
+                                style="font-size: 13px; color: var(--text-muted);">Showing 1 to 8 of 8 entries
+                                (filtered from 9 total entries)</span>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Project View (Add Project Form) -->
+                <div id="create-project-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title" id="project-form-title">Add Project</h3>
+                                <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Add property here
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="padding: 32px;">
+                            <div class="stepper-container" id="project-stepper">
+                                <div class="stepper-item active" data-step="1">
+                                    <div class="stepper-circle">1</div>
+                                    <div class="stepper-label">
+                                        <span class="step-num">Step 1</span>
+                                        <span class="step-title">User & Project Info</span>
+                                    </div>
+                                </div>
+                                <div class="stepper-item" data-step="2">
+                                    <div class="stepper-circle">2</div>
+                                    <div class="stepper-label">
+                                        <span class="step-num">Step 2</span>
+                                        <span class="step-title">Project Attributes</span>
+                                    </div>
+                                </div>
+                                <div class="stepper-item" data-step="3">
+                                    <div class="stepper-circle">3</div>
+                                    <div class="stepper-label">
+                                        <span class="step-num">Step 3</span>
+                                        <span class="step-title">Step 3 Amenities</span>
+                                    </div>
+                                </div>
+                                <div class="stepper-item" data-step="4">
+                                    <div class="stepper-circle">4</div>
+                                    <div class="stepper-label">
+                                        <span class="step-num">Step 4</span>
+                                        <span class="step-title">Step 4 Upload Photos</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="create-project-form">
+                                <div style="max-width: 800px; margin: 0 auto;">
+                                    <!-- Step 1: User & Project Info -->
+                                    <div id="project-step-1-content">
+                                        <div class="form-card-bento">
+                                            <div class="form-section-header-pill">USER INFO</div>
+                                            <div class="form-row-horizontal">
+                                                <label>Builder Email <span style="color:red">*</span></label>
+                                                <input type="email" class="form-control-premium"
+                                                    placeholder="Enter builder email" required>
+                                            </div>
+
+                                            <div class="form-section-header-pill" style="margin-top: 32px;">PROJECT INFO
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Project For <span style="color:red">*</span></label>
+                                                <div style="display: flex; gap: 24px;">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                                        <input type="radio" name="project_for" value="Sell" checked
+                                                            style="width: 16px; height: 16px;">
+                                                        <span>Sell</span>
+                                                    </label>
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                                        <input type="radio" name="project_for" value="Rent"
+                                                            style="width: 16px; height: 16px;">
+                                                        <span>Rent</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Project Category <span style="color:red">*</span></label>
+                                                <select class="form-control-premium" required>
+                                                    <option value="">Select Project Category</option>
+                                                    <option>Residential</option>
+                                                    <option>Commercial</option>
+                                                    <option>Industrial</option>
+                                                    <option>Agricultural</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Project Name <span style="color:red">*</span></label>
+                                                <input type="text" class="form-control-premium"
+                                                    placeholder="Enter project name" required>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Description <span style="color:red">*</span></label>
+                                                <div style="width: 100%;">
+                                                    <textarea class="form-control-premium" rows="4"
+                                                        placeholder="Enter project description" required></textarea>
+                                                    <p
+                                                        style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+                                                        (500
+                                                        characters left)</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Project RERA Number <span style="color:red">*</span></label>
+                                                <input type="text" class="form-control-premium"
+                                                    placeholder="Enter RERA number" required>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>RERA Status <span style="color:red">*</span></label>
+                                                <select class="form-control-premium" required>
+                                                    <option value="">Select RERA Status</option>
+                                                    <option>Applied</option>
+                                                    <option>Received</option>
+                                                    <option>Not Applicable</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Website URL <span style="color:red">*</span></label>
+                                                <input type="text" class="form-control-premium"
+                                                    placeholder="Enter website URL" value="#">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 2: Project Attributes -->
+                                    <div id="project-step-2-content" style="display: none;">
+                                        <div style="padding: 20px 0;">
+                                            <h4
+                                                style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px; letter-spacing: 0.5px;">
+                                                LOCATION</h4>
+                                            <div style="border-bottom: 1px solid #E2E8F0; margin-bottom: 24px;"></div>
+
+                                            <div class="form-row-horizontal">
+                                                <label>State <span style="color:red">*</span></label>
+                                                <select class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;" required>
+                                                    <option value="">Select State</option>
+                                                    <option>Goa</option>
+                                                    <option>Madhya Pradesh</option>
+                                                    <option>Maharashtra</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>City <span style="color:red">*</span></label>
+                                                <select class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;" required>
+                                                    <option value="">Select City</option>
+                                                    <option>Hut Bay</option>
+                                                    <option>Indore</option>
+                                                    <option>Mumbai</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Locality</label>
+                                                <input type="text" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                    placeholder="test">
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Address <span style="color:red">*</span></label>
+                                                <input type="text" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                    placeholder="7 Roja Street Parasakthi Nagar Villapuram Avanivap"
+                                                    required>
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Longitude</label>
+                                                <input type="text" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                    placeholder="test">
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Latitude</label>
+                                                <input type="text" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                    placeholder="tes">
+                                            </div>
+
+                                            <h4
+                                                style="font-size: 14px; font-weight: 700; color: #475569; margin-top: 32px; margin-bottom: 12px; letter-spacing: 0.5px;">
+                                                AREA</h4>
+                                            <div style="border-bottom: 1px solid #E2E8F0; margin-bottom: 24px;"></div>
+
+                                            <div class="form-row-horizontal">
+                                                <label>Super Area</label>
+                                                <input type="text" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                    placeholder="55">
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Build Up Area</label>
+                                                <input type="text" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                    placeholder="45">
+                                            </div>
+                                            <div class="form-row-horizontal">
+                                                <label>Possession Date</label>
+                                                <input type="date" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;">
+                                            </div>
+
+                                            <h4
+                                                style="font-size: 14px; font-weight: 700; color: #475569; margin-top: 32px; margin-bottom: 12px; letter-spacing: 0.5px;">
+                                                PRICE</h4>
+                                            <div style="border-bottom: 1px solid #E2E8F0; margin-bottom: 24px;"></div>
+
+                                            <div class="form-row-horizontal">
+                                                <label>Price Range</label>
+                                                <input type="text" class="form-control-premium"
+                                                    style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                    placeholder="0000">
+                                            </div>
+
+                                            <h4
+                                                style="font-size: 14px; font-weight: 700; color: #475569; margin-top: 32px; margin-bottom: 12px; letter-spacing: 0.5px;">
+                                                UNIT DETAILS</h4>
+                                            <div style="border-bottom: 1px solid #E2E8F0; margin-bottom: 24px;"></div>
+
+                                            <div id="project-units-container">
+                                                <div class="form-row-horizontal unit-row">
+                                                    <label>Unit (sqft) & Price (INR)</label>
+                                                    <div
+                                                        style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: center;">
+                                                        <input type="text" class="form-control-premium"
+                                                            style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                            placeholder="55">
+                                                        <input type="text" class="form-control-premium"
+                                                            style="background-color: #F1F5F9; border-color: #CBD5E1;"
+                                                            placeholder="1500">
+                                                        <button type="button" class="btn btn-add-row" id="btn-add-unit"
+                                                            style="background: white; border: 1px solid var(--border); color: #475569; height: 42px; padding: 0 48px; font-size: 13px;">Add
+                                                            More</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 3: Amenities -->
+                                    <div id="project-step-3-content" style="display: none;">
+                                        <div style="padding: 20px 0;">
+                                            <h4
+                                                style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px; letter-spacing: 0.5px;">
+                                                AMENITIES</h4>
+                                            <div style="border-bottom: 1px solid #E2E8F0; margin-bottom: 24px;"></div>
+
+                                            <div class="amenities-grid"
+                                                style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; padding: 20px 0;">
+                                                <!-- Step 3 Icons: Car Parking to Library -->
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Car Parking</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=car&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Car Parking">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Kids Playground</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=swing&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Kids Playground">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Club House</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=building&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Club House">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Restaurant</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=food&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Restaurant">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Fitness Gym</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=gym&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Fitness Gym">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>School</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=school&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="School">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Hospital</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=hospital&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Hospital">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Swimming Pool</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=pool&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Swimming Pool">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Maintenance Staff</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=staff&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Maintenance Staff">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Fire Safety</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=fire&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Fire Safety">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Basketball Court</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=basketball&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Basketball Court">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Yoga</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=yoga&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Yoga">
+                                                    </div>
+                                                </div>
+
+                                                <div class="amenity-item">
+                                                    <label
+                                                        style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 12px; cursor: pointer;">
+                                                        <input type="checkbox" style="width: 16px; height: 16px;">
+                                                        <span>Library</span>
+                                                    </label>
+                                                    <div
+                                                        style="aspect-ratio: 4/3; background: #F8FAFC; border-radius: 12px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                                        <img src="https://api.dicebear.com/7.x/shapes/svg?seed=library&backgroundColor=transparent"
+                                                            style="width: 80%; height: 80%; object-fit: contain;"
+                                                            alt="Library">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 4: Upload Photos -->
+                                    <div id="project-step-4-content" style="display: none;">
+                                        <div style="padding: 20px 0;">
+                                            <h4
+                                                style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px; letter-spacing: 0.5px;">
+                                                UPLOAD PHOTOS</h4>
+                                            <div style="border-bottom: 1px solid #E2E8F0; margin-bottom: 24px;"></div>
+
+                                            <div id="photo-upload-container">
+                                                <div class="form-row-horizontal photo-row">
+                                                    <label>Select Photo Category</label>
+                                                    <div
+                                                        style="display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;">
+                                                        <select class="form-control-premium"
+                                                            style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+                                                            <option>Project Photo</option>
+                                                            <option>Amenity Photo</option>
+                                                            <option>Location Photo</option>
+                                                        </select>
+                                                        <button type="button" class="btn btn-add-row" id="btn-add-photo"
+                                                            style="background: white; border: 1px solid var(--border); color: #475569; height: 42px; padding: 0 48px; font-size: 13px;">Add
+                                                            More</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="project-media-preview" class="media-preview-grid"
+                                                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin-top: 24px;">
+                                                <!-- Previews will appear here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Form Footer Buttons -->
+                                <div class="form-footer"
+                                    style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 12px;">
+                                    <button type="button" class="btn btn-secondary" id="btn-project-finish"
+                                        style="background: white; border: 1px solid var(--border); color: #475569; padding: 10px 24px; font-size: 14px; border-radius: 6px;">Finish</button>
+                                    <button type="button" class="btn btn-primary" id="btn-project-next"
+                                        style="background: #2FED9A; border: none; color: white; padding: 10px 24px; font-size: 14px; font-weight: 600; border-radius: 4px;">
+                                        <span>Next</span>
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" id="btn-project-prev"
+                                        style="background: #2D79B3; border: none; color: white; padding: 10px 24px; font-size: 14px; border-radius: 4px;">Previous</button>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div> <!-- End Page Container -->
+    </main>
     </div>
 
     <!-- App Scripts -->
