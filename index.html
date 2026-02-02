@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AntiAdmin - Premium Dashboard</title>
+    <meta name="description" content="A premium, high-performance admin dashboard built for speed and clarity.">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Floating Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="https://api.dicebear.com/7.x/initials/svg?seed=HP&backgroundColor=d3122a" alt="Logo">
+                <span>Hunt Property</span>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="sidebar-section-title">Overview</div>
+                <a href="#" class="nav-item active" data-view="dashboard">
+                    <i data-lucide="layout-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-view="categories">
+                    <i data-lucide="home"></i>
+                    <span>Property Category</span>
+                </a>
+
+                <div class="sidebar-section-title">Property Management</div>
+                <a href="#" class="nav-item" data-view="property-list">
+                    <i data-lucide="database"></i>
+                    <span>Property/ data view</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="briefcase"></i>
+                    <span>Project Management</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="tags"></i>
+                    <span>Attributes Category</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="layers"></i>
+                    <span>Attributes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="sparkles"></i>
+                    <span>Amenities</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="image"></i>
+                    <span>Media & Gallery</span>
+                </a>
+
+                <div class="sidebar-section-title">Users & Leads</div>
+                <a href="#" class="nav-item">
+                    <i data-lucide="users-round"></i>
+                    <span>User Management</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="phone"></i>
+                    <span>Contact Enquiry</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="user-check"></i>
+                    <span>Lead Management</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="graduation-cap"></i>
+                    <span>Career Leads</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="badge-dollar-sign"></i>
+                    <span>Loan Leads</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="handshake"></i>
+                    <span>Channel Partner Leads</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Requirement List</span>
+                </a>
+
+                <div class="sidebar-section-title">Transactions & Services</div>
+                <a href="#" class="nav-item">
+                    <i data-lucide="refresh-cw"></i>
+                    <span>Transaction</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span>Services Management</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span>Sell/Rent Advice</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>Associates</span>
+                </a>
+
+                <div class="sidebar-section-title">Packages</div>
+                <a href="#" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span>Package Management</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="list-checks"></i>
+                    <span>Package Attributes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="award"></i>
+                    <span>Package Master</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="boxes"></i>
+                    <span>Other Packages</span>
+                </a>
+
+                <div class="sidebar-section-title">Marketing & Content</div>
+                <a href="#" class="nav-item">
+                    <i data-lucide="megaphone"></i>
+                    <span>Manage Advertisement</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="bell-ring"></i>
+                    <span>Push Notification</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="info"></i>
+                    <span>Update Notification</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="search-code"></i>
+                    <span>SEO Management</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="newspaper"></i>
+                    <span>News</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="book-open"></i>
+                    <span>Knowledge</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="heart"></i>
+                    <span>Testimonials</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="at-sign"></i>
+                    <span>Subscription</span>
+                </a>
+            </div>
+
+            <div style="padding: 16px;">
+                <a href="#" class="nav-item" style="margin: 0; background: #FFF1F2; color: #E11D48;">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Modern Refined Header -->
+            <header class="header">
+                <div class="header-left">
+                    <nav class="breadcrumbs">
+                        <div class="breadcrumb-item">
+                            <i data-lucide="layout-grid" style="width: 14px;"></i>
+                            <span>Admin</span>
+                        </div>
+                        <span class="breadcrumb-separator">/</span>
+                        <div class="breadcrumb-item">
+                            <span id="breadcrumb-active">Dashboard</span>
+                        </div>
+                    </nav>
+
+                    <div class="search-bar">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Quick Search...">
+                        <span class="search-shortcut">⌘K</span>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="action-icon-btn">
+                            <i data-lucide="plus" style="width: 20px;"></i>
+                        </button>
+                        <button class="action-icon-btn">
+                            <i data-lucide="bell" style="width: 20px;"></i>
+                            <span class="dot-indicator"></span>
+                        </button>
+                        <button class="action-icon-btn">
+                            <i data-lucide="settings" style="width: 20px;"></i>
+                        </button>
+                    </div>
+
+                    <div style="width: 1px; height: 32px; background: var(--border); margin: 0 4px;"></div>
+
+                    <div class="user-profile">
+                        <div style="text-align: right;">
+                            <div class="user-name">Hunt Property</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Super Admin</div>
+                        </div>
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Avatar"
+                            class="user-avatar">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Container -->
+            <div class="page-container">
+                <!-- Dashboard View -->
+                <div id="dashboard-view">
+                    <!-- Bento KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon"><i data-lucide="mail"></i></div>
+                                <span class="kpi-label">Contacts</span>
+                            </div>
+                            <span class="kpi-value">128</span>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon"><i data-lucide="badge-dollar-sign"></i></div>
+                                <span class="kpi-label">Loans</span>
+                            </div>
+                            <span class="kpi-value">303</span>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon"><i data-lucide="award"></i></div>
+                                <span class="kpi-label">Leads</span>
+                            </div>
+                            <span class="kpi-value">72</span>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon"><i data-lucide="user-plus"></i></div>
+                                <span class="kpi-label">Subscribers</span>
+                            </div>
+                            <span class="kpi-value">03</span>
+                        </div>
+                    </div>
+
+                    <!-- Bento Charts Section -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3 class="chart-title">Inquiry Analytics</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="leadsEnquiryChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3 class="chart-title">Property Density by State</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="propertyStateChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3 class="chart-title">Project Growth by State</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="projectStateChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3 class="chart-title">Builder Performance Index</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="builderChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Premium Activity Table -->
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3 class="chart-title">Recent Real Estate Activity</h3>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn"
+                                    style="background: #F8FAFC; border: 1px solid var(--border);">Filter</button>
+                                <button class="btn"
+                                    style="background: #F8FAFC; border: 1px solid var(--border);">Export</button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Client / Type</th>
+                                        <th>State</th>
+                                        <th>Builder</th>
+                                        <th>Status</th>
+                                        <th>Submission Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activity-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property/Data View (Property List) -->
+                <div id="property-list-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Property/ data view</h3>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Comprehensive
+                                    real estate database overview</p>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i data-lucide="plus"></i>
+                                <span>Create</span>
+                            </button>
+                        </div>
+
+                        <div class="table-controls"
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                            <div
+                                style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                                <span>Show</span>
+                                <select
+                                    style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                </select>
+                                <span>entries</span>
+                            </div>
+                            <div class="search-bar" style="width: 240px;">
+                                <i data-lucide="search" style="width: 14px;"></i>
+                                <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px;">S.no.</th>
+                                        <th>Posted By</th>
+                                        <th>Title</th>
+                                        <th>Posted For</th>
+                                        <th>Property Type</th>
+                                        <th>Location</th>
+                                        <th>Action</th>
+                                        <th>Verified</th>
+                                        <th>Premium</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="property-list-table-body">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                            <span style="font-size: 13px; color: var(--text-muted);">Showing 1 to 10 of 987 entries
+                                (filtered from 988 total entries)</span>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">2</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">3</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">4</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">5</button>
+                                <span style="padding: 0 10px; color: var(--text-muted);">...</span>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">99</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Property Multi-Step Form -->
+                <div id="add-property-view" style="display: none;">
+                    <div class="table-card" style="padding: 24px 40px;">
+                        <div class="table-header"
+                            style="border-bottom: 1px solid #F3F4F6; padding: 0 0 16px 0; margin-bottom: 24px;">
+                            <div>
+                                <h3 class="chart-title">Add Property</h3>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Add property here
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Progress Stepper -->
+                        <div class="stepper-container">
+                            <div class="stepper-item active">
+                                <div class="stepper-circle">1</div>
+                                <div class="stepper-label">
+                                    <span class="step-num">Step 1</span>
+                                    <span class="step-title">User & Property Info</span>
+                                </div>
+                            </div>
+                            <div class="stepper-item">
+                                <div class="stepper-circle">2</div>
+                                <div class="stepper-label">
+                                    <span class="step-num">Step 2</span>
+                                    <span class="step-title">Property Attributes</span>
+                                </div>
+                            </div>
+                            <div class="stepper-item">
+                                <div class="stepper-circle">3</div>
+                                <div class="stepper-label">
+                                    <span class="step-num">Step 3</span>
+                                    <span class="step-title">Step 3 Amenities</span>
+                                </div>
+                            </div>
+                            <div class="stepper-item">
+                                <div class="stepper-circle">3</div>
+                                <div class="stepper-label">
+                                    <span class="step-num">Step 4</span>
+                                    <span class="step-title">Step 3 Upload Photos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="add-property-form">
+                            <!-- Step 1 Content -->
+                            <div id="step-1-content">
+                                <div class="form-section-header">User Info</div>
+                                <div class="form-row-horizontal">
+                                    <label>User Type <span class="required">*</span></label>
+                                    <select class="form-select" style="width: 100%; max-width: 600px;">
+                                        <option>Select User Type</option>
+                                        <option>Individual</option>
+                                        <option>Agent</option>
+                                        <option>Builder</option>
+                                    </select>
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>User Email <span class="required">*</span></label>
+                                    <input type="email" class="form-control" placeholder="Enter email address"
+                                        style="width: 100%; max-width: 600px;">
+                                </div>
+
+                                <div class="form-section-header" style="margin-top: 48px;">Property Info</div>
+                                <div class="form-row-horizontal">
+                                    <label>Property For <span class="required">*</span></label>
+                                    <div style="display: flex; gap: 24px; align-items: center;">
+                                        <label
+                                            style="display: flex; align-items: center; gap: 8px; font-weight: normal; text-align: left; margin: 0; cursor: pointer;">
+                                            <input type="radio" name="property_for" value="Sell"
+                                                style="width: 16px; height: 16px; accent-color: var(--primary);"> Sell
+                                        </label>
+                                        <label
+                                            style="display: flex; align-items: center; gap: 8px; font-weight: normal; text-align: left; margin: 0; cursor: pointer;">
+                                            <input type="radio" name="property_for" value="Rent"
+                                                style="width: 16px; height: 16px; accent-color: var(--primary);"> Rent
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>Property Category <span class="required">*</span></label>
+                                    <select class="form-select" style="width: 100%; max-width: 600px;">
+                                        <option>Select Property Category</option>
+                                        <option>Residential</option>
+                                        <option>Commercial</option>
+                                        <option>Agricultural</option>
+                                    </select>
+                                </div>
+                                <div class="form-row-horizontal">
+                                    <label>Property Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Property title"
+                                        style="width: 100%; max-width: 600px;">
+                                </div>
+                                <div class="form-row-horizontal" style="align-items: flex-start;">
+                                    <label style="margin-top: 12px;">Description <span class="required">*</span></label>
+                                    <div style="width: 100%; max-width: 600px;">
+                                        <textarea class="form-control" rows="6" placeholder="Enter property description"
+                                            style="width: 100%; resize: vertical;"></textarea>
+                                        <div style="font-size: 11px; color: #9CA3AF; margin-top: 4px;">(500 characters
+                                            left)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Buttons -->
+                            <div
+                                style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid #F3F4F6;">
+                                <button type="button" class="btn btn-secondary"
+                                    style="background: #fff; border: 1px solid #D1D5DB; color: #374151;">Finish</button>
+                                <button type="button" class="btn btn-primary"
+                                    style="background: #2CBD99; border: none;">Next</button>
+                                <button type="button" class="btn btn-secondary"
+                                    style="background: #5E96C3; border: none; color: #fff;">Previous</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Property Category View (Hidden by default) -->
+                <div id="categories-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Property Category List</h3>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Detailed overview
+                                    of all property classifications</p>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i data-lucide="plus"></i>
+                                <span>Create Category</span>
+                            </button>
+                        </div>
+
+                        <!-- Table Controls -->
+                        <div
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                            <div
+                                style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                                <span>Show</span>
+                                <select
+                                    style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                </select>
+                                <span>entries</span>
+                            </div>
+                            <div class="search-bar" style="width: 240px;">
+                                <i data-lucide="search" style="width: 14px;"></i>
+                                <input type="text" placeholder="Search categories..."
+                                    style="height: 36px; font-size: 12px;">
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 80px;">S.No.</th>
+                                        <th>Property For</th>
+                                        <th>Property Category</th>
+                                        <th>Property Sub Category</th>
+                                        <th style="text-align: right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categories-table-body"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Footer / Pagination -->
+                        <div
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                            <span style="font-size: 13px; color: var(--text-muted);">Showing 1 to 10 of 54
+                                entries</span>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">2</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">3</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Create Property Category View (Hidden by default) -->
+                <div id="create-category-view" style="display: none;">
+                    <div class="form-card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+                        <div class="form-card" style="margin-bottom: 24px;">
+                            <div class="form-header-premium">
+                                <div>
+                                    <h3 class="chart-title">Create Property Category</h3>
+                                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Define core
+                                        property details and assign functional attributes.</p>
+                                </div>
+                                <div class="section-icon"><i data-lucide="plus-circle"></i></div>
+                            </div>
+
+                            <form id="create-category-form">
+                                <!-- Core Info Bento Row -->
+                                <div class="form-grid"
+                                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                                    <div class="input-group">
+                                        <label
+                                            style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
+                                            For</label>
+                                        <select class="form-select"
+                                            style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                                            <option>Select Type</option>
+                                            <option>Rent</option>
+                                            <option>Sale</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <label
+                                            style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
+                                            Category</label>
+                                        <select class="form-select"
+                                            style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                                            <option>Select Category</option>
+                                            <option>Residential</option>
+                                            <option>Commercial</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <label
+                                            style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
+                                            Sub Category*</label>
+                                        <input type="text" placeholder="e.g. Luxury Penthouse"
+                                            style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                                    </div>
+                                </div>
+                        </div>
+
+                        <!-- Attribute Assignment Cards -->
+                        <div class="attribute-sections" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
+
+                            <!-- 1. Property Features -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="layers"></i></div> 1. Property
+                                        Features
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="features">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Any Construction Done</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Attached Balcony</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Attached Bathroom</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Available For</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Balconies</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Bathrooms</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Bedrooms</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Boundary Wall Made</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Building Name</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Common Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">DEMO</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Facing</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Finishing Status</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Floor Number</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Floors Allowed</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Furnishing Details</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">How old is the PG</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Occupancy</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Open Sides</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Pantry</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Personal Washroom</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Servant Room</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Shared Office Space</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Store Room</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Tenants You Prefer</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Total Floors</span></label>
+                                </div>
+                            </div>
+
+                            <!-- 2. Area -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="maximize"></i></div> 2. Area
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="area">Select All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Built Up Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Carpet Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Covered Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Plot Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Plot Breadth</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Plot Length</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Super Area</span></label>
+                                </div>
+                            </div>
+
+                            <!-- 3. Transaction Type -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="refresh-cw"></i></div> 3. Transaction
+                                        Type
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="trans">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Age Of Construction</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Available From</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Car Parking</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Lift</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Possession Status</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Transaction Type</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Type Of Ownership</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Unit Number</span></label>
+                                </div>
+                            </div>
+
+                            <!-- 4. Price Details -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="banknote"></i></div> 4. Price Details
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="price">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Booking Amount</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Brokerage</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Electricity</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Expected Price</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Laundry</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Maintenance Charges</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Monthly Rent</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Security Amount</span></label>
+                                </div>
+                            </div>
+
+                            <!-- 5. Location -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="map-pin"></i></div> 5. Location
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="loc">Select All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">Address</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">City</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">DEMO</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">Landmark</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">Locality</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">State</span></label>
+                                </div>
+                            </div>
+
+                            <!-- 6. Contact Details -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="phone"></i></div> 6. Cantact Details
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="contact">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
+                                            class="toggle-label">demo</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
+                                            class="toggle-label">Property For</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
+                                            class="toggle-label">Property Name</span></label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Sticky Footer Actions -->
+                        <div class="sticky-footer-actions">
+                            <button type="button" class="btn btn-cancel"
+                                style="background: #F3F4F6; color: #6B7280; border: 1px solid #E5E7EB;">Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="padding: 12px 32px; font-size: 15px;">Create Property Category</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- App Scripts -->
+    <script src="js/charts.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
