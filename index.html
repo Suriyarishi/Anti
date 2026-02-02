@@ -713,337 +713,343 @@
                         </form>
                     </div>
                 </div>
-                </form>
-            </div>
-    </div>
 
-    <!-- Property Category View (Hidden by default) -->
-    <div id="categories-view" style="display: none;">
-        <div class="table-card">
-            <div class="table-header">
-                <div>
-                    <h3 class="chart-title">Property Category List</h3>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Detailed overview
-                        of all property classifications</p>
-                </div>
-                <button class="btn btn-primary">
-                    <i data-lucide="plus"></i>
-                    <span>Create Category</span>
-                </button>
-            </div>
-
-            <!-- Table Controls -->
-            <div
-                style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
-                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
-                    <span>Show</span>
-                    <select
-                        style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                    </select>
-                    <span>entries</span>
-                </div>
-                <div class="search-bar" style="width: 240px;">
-                    <i data-lucide="search" style="width: 14px;"></i>
-                    <input type="text" placeholder="Search categories..." style="height: 36px; font-size: 12px;">
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 80px;">S.No.</th>
-                            <th>Property For</th>
-                            <th>Property Category</th>
-                            <th>Property Sub Category</th>
-                            <th style="text-align: right;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="categories-table-body"></tbody>
-                </table>
-            </div>
-
-            <!-- Footer / Pagination -->
-            <div
-                style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
-                <span style="font-size: 13px; color: var(--text-muted);">Showing 1 to 10 of 54
-                    entries</span>
-                <div style="display: flex; gap: 4px;">
-                    <button class="btn"
-                        style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
-                    <button class="btn"
-                        style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
-                    <button class="btn"
-                        style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">2</button>
-                    <button class="btn"
-                        style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">3</button>
-                    <button class="btn" style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Create Property Category View (Hidden by default) -->
-    <div id="create-category-view" style="display: none;">
-        <div class="form-card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
-            <div class="form-card" style="margin-bottom: 24px;">
-                <div class="form-header-premium">
-                    <div>
-                        <h3 class="chart-title">Create Property Category</h3>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Define core
-                            property details and assign functional attributes.</p>
-                    </div>
-                    <div class="section-icon"><i data-lucide="plus-circle"></i></div>
-                </div>
-
-                <form id="create-category-form">
-                    <!-- Core Info Bento Row -->
-                    <div class="form-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-                        <div class="input-group">
-                            <label
-                                style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
-                                For</label>
-                            <select class="form-select"
-                                style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
-                                <option>Select Type</option>
-                                <option>Rent</option>
-                                <option>Sale</option>
-                            </select>
+                <!-- Property Category View (Hidden by default) -->
+                <div id="categories-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Property Category List</h3>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Detailed overview
+                                    of all property classifications</p>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i data-lucide="plus"></i>
+                                <span>Create Category</span>
+                            </button>
                         </div>
-                        <div class="input-group">
-                            <label
-                                style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
-                                Category</label>
-                            <select class="form-select"
-                                style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
-                                <option>Select Category</option>
-                                <option>Residential</option>
-                                <option>Commercial</option>
-                            </select>
+
+                        <!-- Table Controls -->
+                        <div
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                            <div
+                                style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                                <span>Show</span>
+                                <select
+                                    style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                </select>
+                                <span>entries</span>
+                            </div>
+                            <div class="search-bar" style="width: 240px;">
+                                <i data-lucide="search" style="width: 14px;"></i>
+                                <input type="text" placeholder="Search categories..."
+                                    style="height: 36px; font-size: 12px;">
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label
-                                style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
-                                Sub Category*</label>
-                            <input type="text" placeholder="e.g. Luxury Penthouse"
-                                style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 80px;">S.No.</th>
+                                        <th>Property For</th>
+                                        <th>Property Category</th>
+                                        <th>Property Sub Category</th>
+                                        <th style="text-align: right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categories-table-body"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Footer / Pagination -->
+                        <div
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                            <span style="font-size: 13px; color: var(--text-muted);">Showing 1 to 10 of 54
+                                entries</span>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">2</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: white; border: 1px solid var(--border);">3</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
+                            </div>
                         </div>
                     </div>
-            </div>
-
-            <!-- Attribute Assignment Cards -->
-            <div class="attribute-sections" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
-
-                <!-- 1. Property Features -->
-                <div class="form-card">
-                    <div class="form-header-premium">
-                        <h5>
-                            <div class="section-icon"><i data-lucide="layers"></i></div> 1. Property
-                            Features
-                        </h5>
-                        <button type="button" class="btn-select-all" data-section="features">Select
-                            All</button>
-                    </div>
-                    <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Any Construction Done</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Attached Balcony</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Attached Bathroom</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Available For</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Balconies</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Bathrooms</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Bedrooms</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Boundary Wall Made</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Building Name</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Common Area</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">DEMO</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Facing</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Finishing Status</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Floor Number</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Floors Allowed</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Furnishing Details</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">How old is the PG</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Occupancy</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Open Sides</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Pantry</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Personal Washroom</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Servant Room</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Shared Office Space</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Store Room</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Tenants You Prefer</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="features-cb"><span
-                                class="toggle-label">Total Floors</span></label>
-                    </div>
                 </div>
+                <!-- Create Property Category View (Hidden by default) -->
+                <div id="create-category-view" style="display: none;">
+                    <div class="form-card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+                        <div class="form-card" style="margin-bottom: 24px;">
+                            <div class="form-header-premium">
+                                <div>
+                                    <h3 class="chart-title">Create Property Category</h3>
+                                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Define core
+                                        property details and assign functional attributes.</p>
+                                </div>
+                                <div class="section-icon"><i data-lucide="plus-circle"></i></div>
+                            </div>
 
-                <!-- 2. Area -->
-                <div class="form-card">
-                    <div class="form-header-premium">
-                        <h5>
-                            <div class="section-icon"><i data-lucide="maximize"></i></div> 2. Area
-                        </h5>
-                        <button type="button" class="btn-select-all" data-section="area">Select All</button>
-                    </div>
-                    <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-                        <label class="toggle-group"><input type="checkbox" class="area-cb"><span
-                                class="toggle-label">Built Up Area</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="area-cb"><span
-                                class="toggle-label">Carpet Area</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="area-cb"><span
-                                class="toggle-label">Covered Area</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="area-cb"><span
-                                class="toggle-label">Plot Area</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="area-cb"><span
-                                class="toggle-label">Plot Breadth</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="area-cb"><span
-                                class="toggle-label">Plot Length</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="area-cb"><span
-                                class="toggle-label">Super Area</span></label>
-                    </div>
-                </div>
+                            <form id="create-category-form">
+                                <!-- Core Info Bento Row -->
+                                <div class="form-grid"
+                                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                                    <div class="input-group">
+                                        <label
+                                            style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
+                                            For</label>
+                                        <select class="form-select"
+                                            style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                                            <option>Select Type</option>
+                                            <option>Rent</option>
+                                            <option>Sale</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <label
+                                            style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
+                                            Category</label>
+                                        <select class="form-select"
+                                            style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                                            <option>Select Category</option>
+                                            <option>Residential</option>
+                                            <option>Commercial</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <label
+                                            style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Property
+                                            Sub Category*</label>
+                                        <input type="text" placeholder="e.g. Luxury Penthouse"
+                                            style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                                    </div>
+                                </div>
+                        </div>
 
-                <!-- 3. Transaction Type -->
-                <div class="form-card">
-                    <div class="form-header-premium">
-                        <h5>
-                            <div class="section-icon"><i data-lucide="refresh-cw"></i></div> 3. Transaction
-                            Type
-                        </h5>
-                        <button type="button" class="btn-select-all" data-section="trans">Select
-                            All</button>
-                    </div>
-                    <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Age Of Construction</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Available From</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Car Parking</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Lift</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Possession Status</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Transaction Type</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Type Of Ownership</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
-                                class="toggle-label">Unit Number</span></label>
-                    </div>
-                </div>
+                        <!-- Attribute Assignment Cards -->
+                        <div class="attribute-sections" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
 
-                <!-- 4. Price Details -->
-                <div class="form-card">
-                    <div class="form-header-premium">
-                        <h5>
-                            <div class="section-icon"><i data-lucide="banknote"></i></div> 4. Price Details
-                        </h5>
-                        <button type="button" class="btn-select-all" data-section="price">Select
-                            All</button>
-                    </div>
-                    <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Booking Amount</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Brokerage</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Electricity</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Expected Price</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Laundry</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Maintenance Charges</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Monthly Rent</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="price-cb"><span
-                                class="toggle-label">Security Amount</span></label>
-                    </div>
-                </div>
+                            <!-- 1. Property Features -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="layers"></i></div> 1. Property
+                                        Features
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="features">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Any Construction Done</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Attached Balcony</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Attached Bathroom</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Available For</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Balconies</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Bathrooms</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Bedrooms</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Boundary Wall Made</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Building Name</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Common Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">DEMO</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Facing</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Finishing Status</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Floor Number</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Floors Allowed</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Furnishing Details</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">How old is the PG</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Occupancy</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Open Sides</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Pantry</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Personal Washroom</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Servant Room</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Shared Office Space</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Store Room</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Tenants You Prefer</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="features-cb"><span
+                                            class="toggle-label">Total Floors</span></label>
+                                </div>
+                            </div>
 
-                <!-- 5. Location -->
-                <div class="form-card">
-                    <div class="form-header-premium">
-                        <h5>
-                            <div class="section-icon"><i data-lucide="map-pin"></i></div> 5. Location
-                        </h5>
-                        <button type="button" class="btn-select-all" data-section="loc">Select All</button>
-                    </div>
-                    <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-                        <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
-                                class="toggle-label">Address</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
-                                class="toggle-label">City</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
-                                class="toggle-label">DEMO</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
-                                class="toggle-label">Landmark</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
-                                class="toggle-label">Locality</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
-                                class="toggle-label">State</span></label>
-                    </div>
-                </div>
+                            <!-- 2. Area -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="maximize"></i></div> 2. Area
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="area">Select All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Built Up Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Carpet Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Covered Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Plot Area</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Plot Breadth</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Plot Length</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="area-cb"><span
+                                            class="toggle-label">Super Area</span></label>
+                                </div>
+                            </div>
 
-                <!-- 6. Contact Details -->
-                <div class="form-card">
-                    <div class="form-header-premium">
-                        <h5>
-                            <div class="section-icon"><i data-lucide="phone"></i></div> 6. Cantact Details
-                        </h5>
-                        <button type="button" class="btn-select-all" data-section="contact">Select
-                            All</button>
-                    </div>
-                    <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-                        <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
-                                class="toggle-label">demo</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
-                                class="toggle-label">Property For</span></label>
-                        <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
-                                class="toggle-label">Property Name</span></label>
-                    </div>
-                </div>
+                            <!-- 3. Transaction Type -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="refresh-cw"></i></div> 3. Transaction
+                                        Type
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="trans">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Age Of Construction</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Available From</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Car Parking</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Lift</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Possession Status</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Transaction Type</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Type Of Ownership</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="trans-cb"><span
+                                            class="toggle-label">Unit Number</span></label>
+                                </div>
+                            </div>
 
-            </div>
+                            <!-- 4. Price Details -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="banknote"></i></div> 4. Price Details
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="price">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Booking Amount</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Brokerage</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Electricity</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Expected Price</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Laundry</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Maintenance Charges</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Monthly Rent</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="price-cb"><span
+                                            class="toggle-label">Security Amount</span></label>
+                                </div>
+                            </div>
 
-            <!-- Sticky Footer Actions -->
-            <div class="sticky-footer-actions">
-                <button type="button" class="btn btn-cancel"
-                    style="background: #F3F4F6; color: #6B7280; border: 1px solid #E5E7EB;">Cancel</button>
-                <button type="submit" class="btn btn-primary" style="padding: 12px 32px; font-size: 15px;">Create
-                    Property Category</button>
-            </div>
-            </form>
-        </div>
-    </div>
-    </div>
-    </main>
+                            <!-- 5. Location -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="map-pin"></i></div> 5. Location
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="loc">Select All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">Address</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">City</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">DEMO</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">Landmark</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">Locality</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="loc-cb"><span
+                                            class="toggle-label">State</span></label>
+                                </div>
+                            </div>
+
+                            <!-- 6. Contact Details -->
+                            <div class="form-card">
+                                <div class="form-header-premium">
+                                    <h5>
+                                        <div class="section-icon"><i data-lucide="phone"></i></div> 6. Cantact Details
+                                    </h5>
+                                    <button type="button" class="btn-select-all" data-section="contact">Select
+                                        All</button>
+                                </div>
+                                <div class="checkbox-grid"
+                                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                    <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
+                                            class="toggle-label">demo</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
+                                            class="toggle-label">Property For</span></label>
+                                    <label class="toggle-group"><input type="checkbox" class="contact-cb"><span
+                                            class="toggle-label">Property Name</span></label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Sticky Footer Actions -->
+                        <div class="sticky-footer-actions">
+                            <button type="button" class="btn btn-cancel"
+                                style="background: #F3F4F6; color: #6B7280; border: 1px solid #E5E7EB;">Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="padding: 12px 32px; font-size: 15px;">Create
+                                Property Category</button>
+                        </div>
+                        </form>
+                    </div>
+        </main>
     </div>
 
     <!-- App Scripts -->
