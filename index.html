@@ -42,10 +42,31 @@
                     <i data-lucide="database"></i>
                     <span>Property/ data view</span>
                 </a>
-                <a href="#" class="nav-item">
-                    <i data-lucide="briefcase"></i>
-                    <span>Project Management</span>
-                </a>
+                <div class="nav-group">
+                    <a href="#" class="nav-item nav-has-submenu">
+                        <i data-lucide="briefcase"></i>
+                        <span>Project Management</span>
+                        <i data-lucide="chevron-down" class="submenu-arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="submenu-item" data-view="project-attr-cat">
+                            <span class="submenu-dot"></span>
+                            <span>Project Attribute Category</span>
+                        </a>
+                        <a href="#" class="submenu-item">
+                            <span class="submenu-dot"></span>
+                            <span>Project Attributes</span>
+                        </a>
+                        <a href="#" class="submenu-item">
+                            <span class="submenu-dot"></span>
+                            <span>Project</span>
+                        </a>
+                        <a href="#" class="submenu-item">
+                            <span class="submenu-dot"></span>
+                            <span>Builder Project</span>
+                        </a>
+                    </div>
+                </div>
                 <a href="#" class="nav-item">
                     <i data-lucide="tags"></i>
                     <span>Attributes Category</span>
@@ -1049,6 +1070,98 @@
                         </div>
                         </form>
                     </div>
+                </div>
+
+                <!-- Project Attributes Category List View -->
+                <div id="project-attr-cat-list-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Project Attributes Category List</h3>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i data-lucide="plus"></i>
+                                <span>Create</span>
+                            </button>
+                        </div>
+
+                        <div class="table-controls"
+                            style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);">
+                            <div
+                                style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                                <span>Show</span>
+                                <select
+                                    style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                </select>
+                                <span>entries</span>
+                            </div>
+                            <div class="search-bar" style="width: 240px;">
+                                <i data-lucide="search" style="width: 14px;"></i>
+                                <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 80px;">S.no.</th>
+                                        <th>Attribute Category Name</th>
+                                        <th style="text-align: right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="project-attr-cat-table-body">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            style="padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                            <span id="project-attr-cat-stats" style="font-size: 13px; color: var(--text-muted);">Showing
+                                1 to 4 of 4 entries</span>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
+                                <button class="btn"
+                                    style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Project Attributes Category View -->
+                <div id="create-project-attr-cat-view" style="display: none;">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div>
+                                <h3 class="chart-title">Create Project Attributes Category</h3>
+                            </div>
+                        </div>
+                        <div style="padding: 32px;">
+                            <form id="create-project-attr-cat-form">
+                                <div class="form-row-horizontal">
+                                    <label>Attribute Category Name <span style="color:red">*</span></label>
+                                    <input type="text" class="form-control-premium" placeholder="Enter category name"
+                                        required>
+                                </div>
+                                <div
+                                    style="display: flex; gap: 12px; justify-content: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+                                    <button type="button" class="btn btn-secondary btn-cancel-project-attr"
+                                        style="background: var(--primary); color: white;">Cancel</button>
+                                    <button type="submit" class="btn"
+                                        style="background: #20C997; color: white;">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Page Container -->
         </main>
     </div>
 

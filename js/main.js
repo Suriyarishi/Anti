@@ -12,9 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'categories': document.getElementById('categories-view'),
         'create-category': document.getElementById('create-category-view'),
         'property-list': document.getElementById('property-list-view'),
-        'add-property': document.getElementById('add-property-view')
+        'add-property': document.getElementById('add-property-view'),
+        'project-attr-cat': document.getElementById('project-attr-cat-list-view'),
+        'create-project-attr-cat': document.getElementById('create-project-attr-cat-view')
     };
-    const navItems = document.querySelectorAll('.nav-item[data-view]');
+    const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
     let chartInstances = [];
 
@@ -46,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         } else if (viewKey === 'property-list') {
             populatePropertyListTable();
+        } else if (viewKey === 'project-attr-cat') {
+            populateProjectAttrCatTable();
         }
 
         // Animated entry
@@ -70,14 +74,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
+            // If it's a submenu toggle, handle it differently
+            if (item.classList.contains('nav-has-submenu')) {
+                e.preventDefault();
+                const group = item.closest('.nav-group');
+                if (group) {
+                    group.classList.toggle('open');
+                }
+                return;
+            }
+
             e.preventDefault();
             const viewKey = item.getAttribute('data-view');
+            if (!viewKey) return;
 
             navItems.forEach(i => i.classList.remove('active'));
             item.classList.add('active');
 
             if (breadcrumbActive) {
-                breadcrumbActive.textContent = item.querySelector('span').textContent;
+                const textSpan = item.querySelector('span:not(.submenu-dot)');
+                breadcrumbActive.textContent = textSpan ? textSpan.textContent : item.querySelector('span').textContent;
             }
 
             switchView(viewKey);
@@ -94,6 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentView === 'property-list') {
                 switchView('add-property');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Add Property';
+            } else if (currentView === 'project-attr-cat') {
+                switchView('create-project-attr-cat');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes Category';
             } else {
                 switchView('create-category');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
@@ -104,6 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('btn-cancel')) {
             switchView('categories');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Property Category';
+        }
+
+        // Project Attr Cancel
+        if (e.target.classList.contains('btn-cancel-project-attr')) {
+            switchView('project-attr-cat');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attribute Category';
         }
 
         // Select All logic
@@ -234,6 +259,16 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Property Category created successfully!');
             switchView('categories');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Property Category';
+        });
+    }
+
+    const createProjectAttrForm = document.getElementById('create-project-attr-cat-form');
+    if (createProjectAttrForm) {
+        createProjectAttrForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Project Attribute Category created successfully!');
+            switchView('project-attr-cat');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attribute Category';
         });
     }
 
@@ -439,6 +474,37 @@ document.addEventListener('DOMContentLoaded', () => {
             </td>
         </tr>
     `).join('');
+
+        lucide.createIcons();
+    }
+
+    const projectAttrCatData = [
+        { sno: 1, name: 'Locatiion' },
+        { sno: 2, name: 'Area' },
+        { sno: 3, name: 'Features' },
+        { sno: 4, name: 'Price Details' }
+    ];
+
+    function populateProjectAttrCatTable() {
+        const tbody = document.getElementById('project-attr-cat-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = projectAttrCatData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="text-align: center;"><span style="font-weight: 600; color: #64748b;">${item.name}</span></td>
+                <td style="text-align: right;">
+                    <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                        <button class="action-btn" style="background: #22c55e; color: white;">
+                            <i data-lucide="eye" style="width: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white;">
+                            <i data-lucide="x" style="width: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
 
         lucide.createIcons();
     }
