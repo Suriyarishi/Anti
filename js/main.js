@@ -110,6 +110,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Mobile Sidebar Logic
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (mobileToggle && sidebarOverlay && sidebar) {
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close on nav click (mobile)
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    }
+
     // Handle Buttons from views
     document.addEventListener('click', (e) => {
         // Create button (dynamic check for both List views)
@@ -423,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <td><span style="color: var(--text-muted)">${item.builder}</span></td>
             <td><span class="status-pill status-${item.status}">${item.status}</span></td>
             <td><span style="font-size: 12px; color: var(--text-muted)">${item.date}</span></td>
-            <td style="text-align: right;">
+            <td>
                 <button style="color: var(--text-muted); padding: 4px;"><i data-lucide="more-horizontal" style="width: 18px;"></i></button>
             </td>
         </tr>
@@ -463,8 +493,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <td><span style="font-weight: 500">${item.for}</span></td>
             <td><span style="font-weight: 600">${item.category}</span></td>
             <td><span style="color: var(--text-muted)">${item.sub}</span></td>
-            <td style="text-align: right;">
-                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+            <td>
+                <div style="display: flex; gap: 8px;">
                     <button class="action-btn btn-edit" title="Edit">
                         <i data-lucide="pencil" style="width: 14px;"></i>
                     </button>
@@ -512,14 +542,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tbody.innerHTML = propertyData.map(item => `
         <tr>
-            <td style="font-weight: 500; color: var(--text-muted); text-align: center;">${item.sno}</td>
-            <td style="text-align: center; color: var(--text-muted);">${item.postedBy}</td>
-            <td style="text-align: center;"><span style="color: #64748b; font-weight: 500;">${item.title || ''}</span></td>
-            <td style="text-align: center; color: var(--text-muted);">${item.for}</td>
-            <td style="text-align: center; color: var(--text-muted);">${item.type}</td>
-            <td style="text-align: center; color: var(--text-muted);">${item.location}</td>
+            <td style="font-weight: 500; color: var(--text-muted);">${item.sno}</td>
+            <td style="color: var(--text-muted);">${item.postedBy}</td>
+            <td><span style="color: #64748b; font-weight: 500;">${item.title || ''}</span></td>
+            <td style="color: var(--text-muted);">${item.for}</td>
+            <td style="color: var(--text-muted);">${item.type}</td>
+            <td style="color: var(--text-muted);">${item.location}</td>
             <td>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                <div style="display: flex; align-items: center; gap: 4px;">
                     <button class="action-icon-btn" style="background: #2FED9A; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
                         <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
                     </button>
@@ -562,14 +592,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tbody.innerHTML = projectData.map(item => `
         <tr>
-            <td style="font-weight: 500; color: var(--text-muted); text-align: center;">${item.sno}</td>
-            <td style="text-align: center; color: var(--text-muted);">${item.postedBy}</td>
-            <td style="text-align: center;"><span style="color: #64748b; font-weight: 500;">${item.name}</span></td>
-            <td style="text-align: center; color: var(--text-muted);">${item.for}</td>
-            <td style="text-align: center; color: var(--text-muted);">${item.type}</td>
-            <td style="text-align: center; color: var(--text-muted);">${item.url}</td>
+            <td style="font-weight: 500; color: var(--text-muted);">${item.sno}</td>
+            <td style="color: var(--text-muted);">${item.postedBy}</td>
+            <td><span style="color: #64748b; font-weight: 500;">${item.name}</span></td>
+            <td style="color: var(--text-muted);">${item.for}</td>
+            <td style="color: var(--text-muted);">${item.type}</td>
+            <td style="color: var(--text-muted);">${item.url}</td>
             <td>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                <div style="display: flex; align-items: center; gap: 4px;">
                     <button class="action-icon-btn" style="background: #2FED9A; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
                         <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
                     </button>
@@ -604,9 +634,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.innerHTML = projectAttrCatData.map(item => `
             <tr>
                 <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="text-align: center;"><span style="font-weight: 600; color: #64748b;">${item.name}</span></td>
-                <td style="text-align: right;">
-                    <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                <td><span style="font-weight: 600; color: #64748b;">${item.name}</span></td>
+                <td>
+                    <div style="display: flex; gap: 8px;">
                         <button class="action-btn" style="background: #22c55e; color: white;">
                             <i data-lucide="eye" style="width: 14px;"></i>
                         </button>

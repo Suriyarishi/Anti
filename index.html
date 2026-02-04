@@ -17,7 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body style="margin: 0;">
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
     <div class="app-container">
         <!-- Floating Sidebar -->
         <aside class="sidebar">
@@ -198,6 +199,9 @@
             <!-- Modern Refined Header -->
             <header class="header">
                 <div class="header-left">
+                    <button class="mobile-toggle" id="mobile-toggle">
+                        <i data-lucide="menu"></i>
+                    </button>
                     <nav class="breadcrumbs">
                         <div class="breadcrumb-item">
                             <i data-lucide="layout-grid" style="width: 14px;"></i>
@@ -311,6 +315,22 @@
                             </div>
                             <div class="chart-container">
                                 <canvas id="builderChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3 class="chart-title">Project Type Distribution</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="projectTypeChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3 class="chart-title">Client Registration Source</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="clientRegChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -839,7 +859,7 @@
                                         <th>Property For</th>
                                         <th>Property Category</th>
                                         <th>Property Sub Category</th>
-                                        <th style="text-align: right;">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="categories-table-body"></tbody>
@@ -1170,7 +1190,7 @@
                                     <tr>
                                         <th style="width: 80px;">S.no.</th>
                                         <th>Attribute Category Name</th>
-                                        <th style="text-align: right;">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="project-attr-cat-table-body">
