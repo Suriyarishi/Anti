@@ -12,13 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
         'categories': document.getElementById('categories-view'),
         'create-category': document.getElementById('create-category-view'),
         'property-list': document.getElementById('property-list-view'),
-        'add-property': document.getElementById('add-property-view'),
         'project-attr-cat': document.getElementById('project-attr-cat-list-view'),
         'create-project-attr-cat': document.getElementById('create-project-attr-cat-view'),
         'project-attr': document.getElementById('project-attr-list-view'),
         'create-project-attr': document.getElementById('create-project-attr-view'),
-        'project-list': document.getElementById('project-list-view'),
-        'create-project': document.getElementById('create-project-view')
+        'builder-project-list': document.getElementById('builder-project-list-view'),
+        'create-project': document.getElementById('create-project-view'),
+        'attributes-category-list': document.getElementById('attributes-category-list-view'),
+        'create-attributes-category': document.getElementById('create-attributes-category-view'),
+        'attributes-list': document.getElementById('attributes-list-view'),
+        'create-attribute': document.getElementById('create-attribute-view'),
+        'users-list': document.getElementById('users-list-view'),
+        'agent-list': document.getElementById('agent-list-view'),
+        'builder-list': document.getElementById('builder-list-view'),
+        'create-user': document.getElementById('create-user-view')
     };
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -58,8 +65,22 @@ document.addEventListener('DOMContentLoaded', () => {
             populateProjectAttributesTable();
         } else if (viewKey === 'project-list') {
             populateProjectListTable();
+        } else if (viewKey === 'builder-project-list') {
+            populateBuilderProjectTable();
         } else if (viewKey === 'create-project') {
             if (window.resetCreateProjectForm) window.resetCreateProjectForm();
+        } else if (viewKey === 'attributes-category-list') {
+            populateAttributesCategoryListTable();
+        } else if (viewKey === 'attributes-list') {
+            populateAttributesListTable();
+        } else if (viewKey === 'users-list') {
+            populateUsersTable();
+        } else if (viewKey === 'agent-list') {
+            populateAgentTable();
+        } else if (viewKey === 'builder-list') {
+            populateBuilderTable();
+        } else if (viewKey === 'create-user') {
+            lucide.createIcons();
         }
 
         // Animated entry
@@ -144,12 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
         // Create button (dynamic check for both List views)
         const createBtn = e.target.closest('.btn-primary');
-        if (createBtn && createBtn.textContent.trim().includes('Create')) {
+        if (createBtn && (createBtn.textContent.trim().includes('Create') || createBtn.textContent.trim().includes('Add'))) {
             const currentView = Object.keys(views).find(key => views[key].style.display === 'block');
 
             if (currentView === 'property-list') {
-                switchView('add-property');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Add Property';
+                // Do nothing or implement generic Create logic if needed
+                // For now, keeping it as requested: just delete the module.
             } else if (currentView === 'project-list') {
                 switchView('create-project');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Add Project';
@@ -159,10 +180,30 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (currentView === 'project-attr') {
                 switchView('create-project-attr');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes';
+            } else if (currentView === 'attributes-category-list') {
+                switchView('create-attributes-category');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attributes Category';
+            } else if (currentView === 'attributes-list') {
+                switchView('create-attribute');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attribute';
+            } else if (currentView === 'users-list') {
+                switchView('create-user');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create User';
             } else {
                 switchView('create-category');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
             }
+        }
+
+        // Create Button Specific ID handler (if needed explicitly)
+        if (e.target.closest('#btn-create-attr-cat')) {
+            switchView('create-attributes-category');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attributes Category';
+        }
+
+        if (e.target.closest('#btn-create-attr')) {
+            switchView('create-attribute');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attribute';
         }
 
         // Cancel button in Form
@@ -171,10 +212,30 @@ document.addEventListener('DOMContentLoaded', () => {
             if (breadcrumbActive) breadcrumbActive.textContent = 'Property Category';
         }
 
-        // Project Form Cancel (from Step 1)
-        if (e.target.id === 'btn-project-prev' && window.currentProjectStep === 1) {
-            switchView('project-list');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Management';
+        // Attributes Category Cancel
+        if (e.target.classList.contains('btn-cancel-attr-cat')) {
+            switchView('attributes-category-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Attributes Category';
+        }
+
+        // Attribute Cancel
+        if (e.target.classList.contains('btn-cancel-attr')) {
+            switchView('attributes-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Attributes';
+        }
+
+        // Create User Cancel
+        if (e.target.closest('#btn-create-user-cancel')) {
+            switchView('users-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Users List';
+        }
+
+        // Project Form Cancel
+        if (e.target.id === 'btn-project-cancel') {
+            if (confirm('Are you sure you want to cancel? All progress will be lost.')) {
+                switchView('project-list');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Project Management';
+            }
         }
 
         // Project Attr Cancel
@@ -197,145 +258,10 @@ document.addEventListener('DOMContentLoaded', () => {
             checkboxes.forEach(cb => cb.checked = !allChecked);
         }
 
-        // Add Project Form Navigation (Refactored for reliability)
-        if (e.target.closest('#create-project-view')) {
-            const btn = e.target.closest('.btn');
-            if (btn) {
-                const btnId = btn.id;
+        // Project Form Navigation (Refactored for reliability)
+        // Project Form Navigation - Handled by specific listeners in initCreateProjectFormLogic
+        // Delegated logic removed to prevent double-binding and conflicts
 
-                if (btnId === 'btn-project-next') {
-                    if (window.currentProjectStep < 4) {
-                        window.currentProjectStep++;
-                        if (typeof window.updateProjectStep === 'function') {
-                            window.updateProjectStep(window.currentProjectStep);
-                        }
-                    }
-                } else if (btnId === 'btn-project-prev') {
-                    if (window.currentProjectStep > 1) {
-                        window.currentProjectStep--;
-                        if (typeof window.updateProjectStep === 'function') {
-                            window.updateProjectStep(window.currentProjectStep);
-                        }
-                    } else {
-                        switchView('project-list');
-                    }
-                } else if (btnId === 'btn-project-finish') {
-                    alert('Project created successfully!');
-                    switchView('project-list');
-                }
-            }
-        }
-
-        // Add Property Form Navigation
-        if (e.target.closest('#add-property-view')) {
-            const btn = e.target.closest('.btn');
-            if (btn) {
-                const btnId = btn.id;
-                const btnText = btn.textContent.trim();
-                const stepperItems = document.querySelectorAll('#add-property-view .stepper-item');
-
-                // Initialize current step if not defined
-                if (window.currentAddPropStep === undefined) window.currentAddPropStep = 1;
-
-                const navigate = (direction) => {
-                    const currentStepEl = document.getElementById(`step-${window.currentAddPropStep}-content`);
-                    let nextStep = window.currentAddPropStep + direction;
-
-                    if (nextStep < 1 || nextStep > 4) return;
-
-                    const nextStepEl = document.getElementById(`step-${nextStep}-content`);
-                    const nextBtn = document.getElementById('btn-add-prop-next');
-                    const prevBtn = document.getElementById('btn-add-prop-prev');
-
-                    // Animated Transition
-                    currentStepEl.style.transition = 'all 0.3s ease';
-                    currentStepEl.style.opacity = '0';
-                    currentStepEl.style.transform = direction > 0 ? 'translateX(-20px)' : 'translateX(20px)';
-
-                    setTimeout(() => {
-                        currentStepEl.style.display = 'none';
-                        nextStepEl.style.display = 'block';
-                        nextStepEl.style.opacity = '0';
-                        nextStepEl.style.transform = direction > 0 ? 'translateX(20px)' : 'translateX(-20px)';
-
-                        // Force reflow
-                        nextStepEl.offsetHeight;
-
-                        nextStepEl.style.transition = 'all 0.3s ease';
-                        nextStepEl.style.opacity = '1';
-                        nextStepEl.style.transform = 'translateX(0)';
-
-                        // Update Stepper
-                        stepperItems.forEach((item, idx) => {
-                            const stepIdx = idx + 1;
-                            item.classList.remove('active', 'completed');
-                            if (stepIdx < nextStep) item.classList.add('completed');
-                            if (stepIdx === nextStep) item.classList.add('active');
-                        });
-
-                        // Update Button Text
-                        if (nextStep === 4) {
-                            nextBtn.querySelector('span').textContent = 'Submit';
-                        } else {
-                            nextBtn.querySelector('span').textContent = 'Continue';
-                        }
-
-                        if (nextStep === 1) {
-                            prevBtn.textContent = 'Cancel';
-                        } else {
-                            prevBtn.textContent = 'Back';
-                        }
-
-                        window.currentAddPropStep = nextStep;
-                    }, 300);
-                };
-
-                if (btnId === 'btn-add-prop-next') {
-                    if (window.currentAddPropStep === 4) {
-                        // Submit - go back to list
-                        switchView('property-list');
-                        if (breadcrumbActive) breadcrumbActive.textContent = 'Property/ data view';
-                        // Reset for next time (handled in switchView or here)
-                        setTimeout(() => resetAddPropertyForm(), 500);
-                    } else {
-                        navigate(1);
-                    }
-                } else if (btnId === 'btn-add-prop-prev') {
-                    if (window.currentAddPropStep === 1) {
-                        // Cancel - go back to list
-                        switchView('property-list');
-                        if (breadcrumbActive) breadcrumbActive.textContent = 'Property/ data view';
-                        setTimeout(() => resetAddPropertyForm(), 500);
-                    } else {
-                        navigate(-1);
-                    }
-                }
-            }
-        }
-
-        function resetAddPropertyForm() {
-            window.currentAddPropStep = 1;
-            const stepperItems = document.querySelectorAll('#add-property-view .stepper-item');
-            const nextBtn = document.getElementById('btn-add-prop-next');
-            const prevBtn = document.getElementById('btn-add-prop-prev');
-
-            for (let i = 1; i <= 4; i++) {
-                const el = document.getElementById(`step-${i}-content`);
-                if (el) {
-                    el.style.display = i === 1 ? 'block' : 'none';
-                    el.style.opacity = '1';
-                    el.style.transform = 'none';
-                }
-            }
-
-            stepperItems.forEach((item, idx) => {
-                item.classList.remove('active', 'completed');
-                if (idx === 0) item.classList.add('active');
-            });
-
-            if (nextBtn) nextBtn.querySelector('span').textContent = 'Continue';
-            if (prevBtn) prevBtn.textContent = 'Cancel';
-        }
     });
 
     // Form Submissions
@@ -366,6 +292,16 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Project Attributes created successfully!');
             switchView('project-attr');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attributes';
+        });
+    }
+
+    const createUserForm = document.getElementById('create-user-form');
+    if (createUserForm) {
+        createUserForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('User created successfully!');
+            switchView('users-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Users List';
         });
     }
 
@@ -620,6 +556,122 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
+    const builderProjectData = [
+        { sno: 1, postedBy: 'Builder', project: 'Fusion Homes', builder: 'Fusion Buildtech', type: 'Residential', status: 'pending' },
+        { sno: 2, postedBy: 'Builder', project: 'Fusion Homes', builder: 'Fusion Buildtech', type: 'Residential', status: 'pending' },
+        { sno: 3, postedBy: 'Builder', project: 'Ajnara', builder: 'Ajnara', type: 'Residential', status: 'pending' },
+        { sno: 4, postedBy: 'Builder', project: 'Property101', builder: 'Ajnara', type: 'Residential', status: 'pending' },
+        { sno: 5, postedBy: 'Builder', project: 'Property101', builder: 'Ajnara', type: 'Residential', status: 'pending' },
+        { sno: 6, postedBy: 'Builder', project: 'Property132', builder: 'Ajnara', type: 'Residential', status: 'pending' },
+        { sno: 7, postedBy: 'Builder', project: 'Ajnara Green', builder: 'Ajnara', type: 'Residential', status: 'pending' },
+        { sno: 8, postedBy: 'Builder', project: 'CHD City', builder: 'CHD Green', type: 'Residential', status: 'pending' },
+        { sno: 9, postedBy: 'Builder', project: 'naveen project', builder: 'asdfasf', type: 'Residential', status: 'pending' },
+        { sno: 10, postedBy: 'Builder', project: 'sadada', builder: 'kjjdsgfhdsgfs', type: 'Commercial', status: 'pending' }
+    ];
+
+    function populateBuilderProjectTable() {
+        const tbody = document.getElementById('builder-project-list-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = builderProjectData.map(item => `
+        <tr>
+            <td style="font-weight: 500; color: var(--text-muted); text-align: center;">${item.sno}</td>
+            <td style="color: var(--text-muted); text-align: center;">${item.postedBy}</td>
+            <td style="color: var(--text-muted); text-align: center;">${item.project}</td>
+            <td style="color: var(--text-muted); text-align: center;">${item.builder}</td>
+            <td style="color: var(--text-muted); text-align: center;">${item.type}</td>
+            <td style="text-align: center;">
+                <button style="background: #F59E0B; color: white; border: none; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;">
+                    <i data-lucide="thumbs-up" style="width: 14px; height: 14px;"></i>
+                </button>
+            </td>
+            <td>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <button class="action-icon-btn" style="background: #2FED9A; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                    </button>
+                    <button class="action-icon-btn" style="background: #FF5E5E; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+
+        lucide.createIcons();
+    }
+
+    const attributesCategoryData = [
+        { sno: 1, name: 'Property Features' },
+        { sno: 2, name: 'Area' },
+        { sno: 3, name: 'Transaction Type' },
+        { sno: 4, name: 'Price Details' },
+        { sno: 5, name: 'Location' },
+        { sno: 6, name: 'Contact Details' }
+    ];
+
+    function populateAttributesCategoryListTable() {
+        const tbody = document.getElementById('attributes-category-list-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = attributesCategoryData.map(item => `
+        <tr>
+            <td style="font-weight: 500; color: var(--text-muted);">${item.sno}</td>
+            <td style="color: #64748b; font-weight: 600; text-align: center;">${item.name}</td>
+            <td>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <button class="action-icon-btn" style="background: #2FED9A; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                    </button>
+                    <button class="action-icon-btn" style="background: #FF5E5E; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const attributesData = [
+        { sno: 1, name: 'Building Name', input: 'text', options: '', validation: '', tooltip: '' },
+        { sno: 2, name: 'Bedrooms', input: 'select', options: '1,2,3,4,5,6,7,8,9,10,10+', validation: 'required', tooltip: '' },
+        { sno: 3, name: 'Bathrooms', input: 'select', options: '1,2,3,4,5,6,7,8,9,10,10+', validation: '', tooltip: '' },
+        { sno: 4, name: 'Balconies', input: 'select', options: '1,2,3,4,5,6,7,8,9,10,10+', validation: '', tooltip: '' },
+        { sno: 5, name: 'Finishing Status', input: 'select', options: 'Furnished,Unfurnished,Semi-furnished', validation: '', tooltip: '' },
+        { sno: 6, name: 'Shared Office Space', input: 'radio', options: 'yes,no', validation: '', tooltip: '' },
+        { sno: 7, name: 'Personal Washroom', input: 'radio', options: 'yes,no', validation: '', tooltip: '' },
+        { sno: 8, name: 'Pantry', input: 'radio', options: 'yes,no', validation: '', tooltip: '' },
+        { sno: 9, name: 'Floor Number', input: 'number', options: '', validation: '', tooltip: '' },
+        { sno: 10, name: 'Total Floors', input: 'number', options: '', validation: 'floor_number', tooltip: '' }
+    ];
+
+    function populateAttributesListTable() {
+        const tbody = document.getElementById('attributes-list-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = attributesData.map(item => `
+        <tr>
+            <td style="font-weight: 500; color: var(--text-muted);">${item.sno}</td>
+            <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+            <td style="text-align: center;"><span class="pill" style="background:#f1f5f9; color:#475569; border:1px solid #e2e8f0; font-size:11px;">${item.input}</span></td>
+            <td style="color:var(--text-muted); font-size:12px; text-align: center;">${item.options}</td>
+            <td style="text-align: center;"><span class="pill" style="background:${item.validation ? 'rgba(var(--primary-rgb), 0.1)' : 'transparent'}; color:var(--primary); font-size:11px;">${item.validation}</span></td>
+            <td style="color:var(--text-muted); font-size:12px; text-align: center;">${item.tooltip}</td>
+            <td>
+                <div style="display:flex; align-items: center; justify-content: center;">
+                    <button class="action-btn" style="background:#20C997; color:white; border:none; width:28px; height:28px;">
+                        <i data-lucide="eye" style="width:14px;"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
     const projectAttrCatData = [
         { sno: 1, name: 'Locatiion' },
         { sno: 2, name: 'Area' },
@@ -689,6 +741,131 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
+    // User Management Data & Logic
+    const usersData = [
+        { sno: 1, type: 'Owner', name: 'Parveen Verma', email: 'vermaparveen17@gmail.com', mobile: '9871035534', joinedDate: '2026-01-22 02:12:57' },
+        { sno: 2, type: 'Owner', name: 'Priyanka Gupta', email: 'priyanka.s.jain@gmail.com', mobile: '9300062905', joinedDate: '2026-01-14 10:33:20' },
+        { sno: 3, type: 'Owner', name: 'Vinay', email: 'hellohunthunger@gmail.com', mobile: '9818499369', joinedDate: '2025-12-23 21:19:40' },
+        { sno: 4, type: 'Owner', name: 'Junaid Ahmed', email: 'junaidshine1@gmail.com', mobile: '9122482627', joinedDate: '2025-11-19 22:12:34' },
+        { sno: 5, type: 'Owner', name: 'RISHI KESAVAN S K', email: 'klnmca6@gmail.com', mobile: '9003486509', joinedDate: '2025-11-15 19:35:54' },
+        { sno: 6, type: 'Owner', name: 'Ziya', email: 'khanziaullahssc82@gmail.com', mobile: '9967586763', joinedDate: '2025-08-22 21:34:51' },
+        { sno: 7, type: 'Owner', name: 'Sai Kumar', email: 'saikumarsagar143@gmail.com', mobile: '7989313969', joinedDate: '2025-08-18 21:05:12' },
+        { sno: 8, type: 'Owner', name: 'Swathi komal', email: 'dmswathikomal@gmail.com', mobile: '7411564898', joinedDate: '2025-08-07 14:28:51' },
+        { sno: 9, type: 'Owner', name: 'Aryan', email: 'aryanvaghasiya313@gmail.com', mobile: '9265045850', joinedDate: '2025-07-18 23:45:00' },
+        { sno: 10, type: 'Owner', name: 'Mithun AR', email: 'heatmaac2@gmail.com', mobile: '9361676767', joinedDate: '2025-07-12 13:58:42' }
+    ];
+
+    function populateUsersTable() {
+        const tbody = document.getElementById('users-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = usersData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="color: var(--text-muted);">${item.type}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: var(--text-muted);">${item.email}</td>
+                <td style="color: var(--text-muted);">${item.mobile}</td>
+                <td style="color: var(--text-muted);">${item.joinedDate}</td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white;">
+                             <i data-lucide="eye" style="width: 14px;"></i>
+                        </button>
+                         <button class="action-btn" style="background: #ef4444; color: white;">
+                             <i data-lucide="x" style="width: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    const agentData = [
+        { sno: 1, type: 'Agent', name: 'Agent', email: 'agent@huntproperty.com', mobile: '7415212847' },
+        { sno: 2, type: 'Agent', name: 'Anoop Bansal', email: 'anoopbansal72@gmail.com', mobile: '7905768355' },
+        { sno: 3, type: 'Agent', name: 'Vishal Londhe', email: 'vishal.londhe143@gmail.com', mobile: '8149990503' },
+        { sno: 4, type: 'Agent', name: 'suryansh', email: 'suryanshmadanwat@gmail.com', mobile: '7500414004' },
+        { sno: 5, type: 'Agent', name: 'shyam', email: 'myhuntdesk@gmail.com', mobile: '9910321139' },
+        { sno: 6, type: 'Agent', name: 'Chandresh Shukla', email: 'chandresh723@gmail.com', mobile: '9594018430' },
+        { sno: 7, type: 'Agent', name: 'Bharath', email: 'bspropertymanagement1@gmail.com', mobile: '8374078196' },
+        { sno: 8, type: 'Agent', name: 'Saurabh', email: 'khandelwal.khandelwal1@gmail.com', mobile: '8078671721' },
+        { sno: 9, type: 'Agent', name: 'Sarvendra Singh', email: 'sarvendrasingh818@gmail.com', mobile: '7460909972' },
+        { sno: 10, type: 'Agent', name: 'ANAND PANDEY', email: 'ap2pandey@gmail.com', mobile: '9718347147' }
+    ];
+
+    function populateAgentTable() {
+        const tbody = document.getElementById('agent-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = agentData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="color: var(--text-muted);">${item.type}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: var(--text-muted);">${item.email}</td>
+                <td style="color: var(--text-muted);">${item.mobile}</td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                         <button class="action-btn" style="background: #22c55e; color: white;">
+                             <i data-lucide="eye" style="width: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #f97316; color: white;">
+                             <i data-lucide="pencil" style="width: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white;">
+                             <i data-lucide="x" style="width: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    const builderData = [
+        { sno: 1, type: 'Builder', name: 'HuntTest', email: 'HuntTest@yopmail.com', mobile: '9716039015' },
+        { sno: 2, type: 'Builder', name: 'divyanka', email: 'prachi.huntproperty@gmail.com', mobile: '9953760166' },
+        { sno: 3, type: 'Builder', name: 'Builder', email: 'builder@huntproperty.com', mobile: '9910861444' },
+        { sno: 4, type: 'Builder', name: 'prameet singh', email: 'prameetshine23@gmail.com', mobile: '7519082538' },
+        { sno: 5, type: 'Builder', name: 'Britt Bonner', email: 'brittbonner@yahoo.com', mobile: '7704805145' },
+        { sno: 6, type: 'Builder', name: 'Rajesh Kumar', email: 'rm123@yopmail.com', mobile: '8427844014' },
+        { sno: 7, type: 'Builder', name: 'Shaili', email: 'shailivns@gmail.com', mobile: '8299362923' },
+        { sno: 8, type: 'Builder', name: 'prameet singh', email: 'prameetshine22@gmail.com', mobile: '8340711456' },
+        { sno: 9, type: 'Builder', name: 'Pradeep Kr Paras', email: 'lov.paras@gmail.com', mobile: '7004827294' },
+        { sno: 10, type: 'Builder', name: 'Shivam', email: 'shivam0madnawat@gmail.com', mobile: '8077821494' }
+    ];
+
+    function populateBuilderTable() {
+        const tbody = document.getElementById('builder-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = builderData.map(item => `
+            <tr>
+                 <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="color: var(--text-muted);">${item.type}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: var(--text-muted);">${item.email}</td>
+                 <td style="color: var(--text-muted);">${item.mobile}</td>
+                 <td>
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                         <button class="action-btn" style="background: #22c55e; color: white;">
+                             <i data-lucide="eye" style="width: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #f97316; color: white;">
+                             <i data-lucide="pencil" style="width: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white;">
+                             <i data-lucide="x" style="width: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
 
 
     function initCreateProjectFormLogic() {
@@ -697,9 +874,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const stepperItems = document.querySelectorAll('#project-stepper .stepper-item');
         const nextBtn = document.getElementById('btn-project-next');
         const prevBtn = document.getElementById('btn-project-prev');
-        const finishBtn = document.getElementById('btn-project-finish');
+        const submitBtn = document.getElementById('btn-project-submit');
+        const cancelBtn = document.getElementById('btn-project-cancel');
 
         window.updateProjectStep = function (step) {
+            console.log('Updating project step to:', step);
             // Hide all steps
             for (let i = 1; i <= totalSteps; i++) {
                 const content = document.getElementById(`project-step-${i}-content`);
@@ -719,18 +898,60 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Update footer buttons visibility
-            if (prevBtn) prevBtn.style.display = 'block';
+            if (prevBtn) prevBtn.style.display = (step === 1) ? 'none' : 'block';
+            if (cancelBtn) cancelBtn.style.display = (step === 1) ? 'block' : 'none';
+
             if (nextBtn) {
-                nextBtn.style.display = (step === totalSteps) ? 'none' : 'block';
-                const span = nextBtn.querySelector('span');
-                if (span) span.textContent = 'Next';
+                nextBtn.style.display = (step === totalSteps) ? 'none' : 'flex';
             }
-            if (finishBtn) {
-                finishBtn.style.display = (step === totalSteps) ? 'block' : 'none';
+            if (submitBtn) {
+                submitBtn.style.display = (step === totalSteps) ? 'flex' : 'none';
             }
 
-            lucide.createIcons();
+            // Re-init icons for dynamic content
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         };
+
+        // Navigation Event Listeners
+        if (nextBtn) {
+            console.log('Next button found, adding listener');
+            nextBtn.addEventListener('click', () => {
+                console.log('Next button clicked. Current step:', window.currentProjectStep);
+                if (window.currentProjectStep < totalSteps) {
+                    window.currentProjectStep++;
+                    window.updateProjectStep(window.currentProjectStep);
+                } else {
+                    console.log('Already at max step');
+                }
+            });
+        } else {
+            console.error('Next button NOT found in DOM');
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (window.currentProjectStep > 1) {
+                    window.currentProjectStep--;
+                    window.updateProjectStep(window.currentProjectStep);
+                }
+            });
+        }
+
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                window.resetCreateProjectForm();
+                // Optional: Navigate back to dashboard or project list if needed
+            });
+        }
+
+        if (submitBtn) {
+            submitBtn.addEventListener('click', () => {
+                alert('Project Submitted Successfully!');
+                window.resetCreateProjectForm();
+            });
+        }
 
         window.resetCreateProjectForm = function () {
             window.currentProjectStep = 1;
@@ -749,9 +970,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 newRow.innerHTML = `
                     <label></label>
                     <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: center;">
-                        <input type="text" class="form-control-premium" style="background-color: #F1F5F9; border-color: #CBD5E1;" placeholder="Unit">
-                        <input type="text" class="form-control-premium" style="background-color: #F1F5F9; border-color: #CBD5E1;" placeholder="Price">
-                        <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; width: 100%; min-width: 80px; font-size: 13px; border-radius: 6px;">Remove</button>
+                        <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Unit in sqft">
+                        <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Price in INR">
+                        <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; width: 100%; min-width: 100px; font-size: 13px; font-weight: 500; border-radius: 8px;">Remove</button>
                     </div>
                 `;
                 unitsContainer.appendChild(newRow);
@@ -759,29 +980,69 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Add More Photo logic
-        const addPhotoBtn = document.getElementById('btn-add-photo');
-        const photoContainer = document.getElementById('photo-upload-container');
-        if (addPhotoBtn && photoContainer) {
-            addPhotoBtn.addEventListener('click', (e) => {
+        // Drag & Drop Photo Upload Logic
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('project-photos-input');
+        const mediaPreview = document.getElementById('project-media-preview');
+
+        if (dropZone && fileInput && mediaPreview) {
+            dropZone.addEventListener('click', () => fileInput.click());
+
+            dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
-                const newRow = document.createElement('div');
-                newRow.className = 'form-row-horizontal photo-row';
-                newRow.style.marginTop = '12px';
-                newRow.innerHTML = `
-                    <label></label>
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;">
-                        <select class="form-control-premium" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
-                            <option>Project Photo</option>
-                            <option>Amenity Photo</option>
-                            <option>Location Photo</option>
-                        </select>
-                        <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; min-width: 80px; font-size: 13px; border-radius: 6px; padding: 0 16px;">Remove</button>
-                    </div>
-                `;
-                photoContainer.appendChild(newRow);
-                newRow.querySelector('.btn-remove').addEventListener('click', () => newRow.remove());
+                dropZone.style.borderColor = 'var(--primary)';
+                dropZone.style.background = 'rgba(var(--primary-rgb), 0.05)';
             });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.style.borderColor = '#CBD5E1';
+                    dropZone.style.background = '#F8FAFC';
+                });
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                handleFiles(e.dataTransfer.files);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    mediaPreview.innerHTML = '';
+                    mediaPreview.style.display = 'grid';
+                    mediaPreview.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100px, 1fr))';
+                    mediaPreview.style.gap = '16px';
+                    mediaPreview.style.padding = '16px';
+                    mediaPreview.style.justifyContent = 'start';
+                    mediaPreview.style.alignItems = 'start';
+
+                    Array.from(files).forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const div = document.createElement('div');
+                            div.className = 'preview-item';
+                            div.style.position = 'relative';
+                            div.style.aspectRatio = '1';
+                            div.style.borderRadius = '8px';
+                            div.style.overflow = 'hidden';
+                            div.style.border = '1px solid #E2E8F0';
+
+                            div.innerHTML = `
+                                <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <button type="button" style="position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 10px;">×</button>
+                            `;
+
+                            div.querySelector('button').onclick = () => div.remove();
+                            mediaPreview.appendChild(div);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+            }
         }
 
         // Initialize state
@@ -789,6 +1050,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Kick off initial view
-    initDashboard();
-    initCreateProjectFormLogic();
+    try {
+        initDashboard();
+    } catch (error) {
+        console.error('Error initializing dashboard:', error);
+    }
+
+    try {
+        initCreateProjectFormLogic();
+    } catch (error) {
+        console.error('Error initializing project form:', error);
+    }
 });
