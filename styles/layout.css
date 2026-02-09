@@ -61,10 +61,10 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 1.471;
+    gap: 12px;
 }
 
 .nav-item i {
-    margin-right: 10px;
     width: 14px;
     height: 14px;
 }

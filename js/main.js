@@ -26,7 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
         'agent-list': document.getElementById('agent-list-view'),
         'builder-list': document.getElementById('builder-list-view'),
         'create-user': document.getElementById('create-user-view'),
-        'testimonials-list': document.getElementById('testimonials-list-view')
+        'testimonials-list': document.getElementById('testimonials-list-view'),
+        'associates-list': document.getElementById('associates-list-view'),
+        'create-testimonial': document.getElementById('create-testimonial-view'),
+        'create-associate': document.getElementById('create-associate-view'),
+        'news-list': document.getElementById('news-list-view'),
+        'create-news': document.getElementById('create-news-view'),
+        'create-news': document.getElementById('create-news-view'),
+        'subscribers-list': document.getElementById('subscribers-list-view'),
+        'contact-enquiry-list': document.getElementById('contact-enquiry-list-view'),
+        'lead-management-list': document.getElementById('lead-management-list-view'),
+        'add-newsletter': document.getElementById('add-newsletter-view')
     };
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -38,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function switchView(viewKey) {
+        console.log('Switching to view:', viewKey);
+
         // Hide all views first
         Object.values(views).forEach(v => {
             if (v) v.style.display = 'none';
@@ -45,11 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const targetView = views[viewKey];
         if (!targetView) {
-            console.warn('View not found:', viewKey);
+            console.warn('View not found in switchView:', viewKey);
             return;
         }
 
         targetView.style.display = 'block';
+        window.currentView = viewKey; // Track current view globally
 
         if (viewKey === 'dashboard') {
             cleanupCharts();
@@ -84,7 +97,44 @@ document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         } else if (viewKey === 'testimonials-list') {
             populateTestimonialsTable();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Testimonials';
+        } else if (viewKey === 'associates-list') {
+            populateAssociatesTable();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Associates';
+        } else if (viewKey === 'create-testimonial') {
+            lucide.createIcons();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Testimonial';
+        } else if (viewKey === 'create-associate') {
+            lucide.createIcons();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Associate';
+        } else if (viewKey === 'news-list') {
+            populateNewsTable();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'News';
+        } else if (viewKey === 'create-news') {
+            lucide.createIcons();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Add News';
+        } else if (viewKey === 'subscribers-list') {
+            populateSubscribersTable();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Subscription List';
+        } else if (viewKey === 'contact-enquiry-list') {
+            populateContactEnquiryTable();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Contact Enquiry';
+        } else if (viewKey === 'lead-management-list') {
+            populateLeadManagementTable();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Lead Management';
+        } else if (viewKey === 'add-newsletter') {
+            populateNewslettersTable();
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Add Newsletter';
         }
+
+        // Update sidebar active state
+        navItems.forEach(item => {
+            if (item.getAttribute('data-view') === viewKey) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
 
         // Animated entry
         targetView.querySelectorAll('.kpi-card, .chart-card, .table-card').forEach((el, i) => {
@@ -167,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle Buttons from views
     document.addEventListener('click', (e) => {
         // Create button (dynamic check for both List views)
-        const createBtn = e.target.closest('.btn-primary');
+        const createBtn = e.target.closest('.btn-primary, .btn-premium');
         if (createBtn && (createBtn.textContent.trim().includes('Create') || createBtn.textContent.trim().includes('Add'))) {
             const currentView = Object.keys(views).find(key => views[key].style.display === 'block');
 
@@ -192,6 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (currentView === 'users-list') {
                 switchView('create-user');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Create User';
+            } else if (currentView === 'testimonials-list') {
+                switchView('create-testimonial');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Testimonial';
+            } else if (currentView === 'associates-list') {
+                switchView('create-associate');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Associate';
+            } else if (currentView === 'news-list') {
+                switchView('create-news');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Add News';
             } else {
                 switchView('create-category');
                 if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
@@ -231,6 +290,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.closest('#btn-create-user-cancel')) {
             switchView('users-list');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Users List';
+        }
+
+        // News Cancel
+        if (e.target.id === 'btn-create-news-cancel') {
+            switchView('news-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'News';
+        }
+
+        // Testimonial Cancel
+        if (e.target.id === 'btn-create-testimonial-cancel') {
+            switchView('testimonials-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Testimonials List';
+        }
+
+        // Associate Cancel
+        if (e.target.id === 'btn-create-associate-cancel') {
+            switchView('associates-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Associates List';
         }
 
         // Project Form Cancel
@@ -870,11 +947,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const testimonialsData = [
-        { name: 'John Doe', message: 'Great service! Highly recommended.' },
-        { name: 'Jane Smith', message: 'Very professional team.' },
-        { name: 'Mike Johnson', message: 'Helped me find my dream home.' },
-        { name: 'Sarah Wilson', message: 'Smooth transaction process.' },
-        { name: 'David Brown', message: 'Excellent support throughout.' }
+        { sno: 1, name: 'John Doe', email: 'john@example.com', phone: '9876543210', message: 'Great service! Highly recommended.', location: 'New York', image: 'profile1.jpg', status: 'active' },
+        { sno: 2, name: 'Jane Smith', email: 'jane@example.com', phone: '9876543211', message: 'Very professional team.', location: 'London', image: 'profile2.jpg', status: 'active' },
+        { sno: 3, name: 'Mike Johnson', email: 'mike@example.com', phone: '9876543212', message: 'Helped me find my dream home.', location: 'Sydney', image: 'profile3.jpg', status: 'inactive' },
+        { sno: 4, name: 'Sarah Wilson', email: 'sarah@example.com', phone: '9876543213', message: 'Smooth transaction process.', location: 'Tokyo', image: 'profile4.jpg', status: 'active' },
+        { sno: 5, name: 'David Brown', email: 'david@example.com', phone: '9876543214', message: 'Excellent support throughout.', location: 'Paris', image: 'profile5.jpg', status: 'inactive' }
     ];
 
     function populateTestimonialsTable() {
@@ -885,31 +962,36 @@ document.addEventListener('DOMContentLoaded', () => {
             <tr>
                 <td style="font-weight: 500; color: var(--text-muted)">${index + 1}</td>
                 <td style="font-weight: 600; color: #64748b;">${item.name}</td>
-                <td style="color: var(--text-muted);"></td>
-                <td style="color: var(--text-muted);"></td>
+                <td style="color: var(--text-muted);">${item.email}</td>
+                <td style="color: var(--text-muted);">${item.phone}</td>
                 <td style="color: var(--text-muted);" title="${item.message}">
-                    <div style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <div style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         ${item.message}
                     </div>
                 </td>
-                <td style="color: var(--text-muted);"></td>
+                <td style="color: var(--text-muted);">${item.location}</td>
                 <td>
-                    <button class="action-btn" title="View Image" style="background:#f1f5f9; color:#475569;">
+                    <button class="action-btn" title="View Image" style="background:none; border:none; color: #3b82f6; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 13px;">
                          <i data-lucide="image" style="width: 14px;"></i>
+                         view image
                     </button>
                 </td>
                 <td>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="action-btn" style="background: #22c55e; color: white;" title="Approve">
-                             <i data-lucide="check" style="width: 14px;"></i>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
+                             <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
                         </button>
-                        <button class="action-btn" style="background: #ef4444; color: white;" title="Reject">
-                             <i data-lucide="x" style="width: 14px;"></i>
+                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="status-btn" style="background-color: #3b82f6; color: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
+                            ${item.status === 'active' ? 'Active' : 'Deactive'}
                         </button>
                     </div>
                 </td>
             </tr>
         `).join('');
+
         lucide.createIcons();
     }
 
@@ -960,6 +1042,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 lucide.createIcons();
             }
         };
+
 
         // Navigation Event Listeners
         if (nextBtn) {
@@ -1015,13 +1098,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 newRow.className = 'form-row-horizontal unit-row';
                 newRow.style.marginTop = '12px';
                 newRow.innerHTML = `
-                    <label></label>
+                <label></label>
                     <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: center;">
                         <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Unit in sqft">
-                        <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Price in INR">
-                        <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; width: 100%; min-width: 100px; font-size: 13px; font-weight: 500; border-radius: 8px;">Remove</button>
-                    </div>
-                `;
+                            <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Price in INR">
+                                <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; width: 100%; min-width: 100px; font-size: 13px; font-weight: 500; border-radius: 8px;">Remove</button>
+                            </div>
+                            `;
                 unitsContainer.appendChild(newRow);
                 newRow.querySelector('.btn-remove').addEventListener('click', () => newRow.remove());
             });
@@ -1079,9 +1162,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             div.style.border = '1px solid #E2E8F0';
 
                             div.innerHTML = `
-                                <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
                                 <button type="button" style="position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 10px;">×</button>
-                            `;
+                                `;
 
                             div.querySelector('button').onclick = () => div.remove();
                             mediaPreview.appendChild(div);
@@ -1096,6 +1179,102 @@ document.addEventListener('DOMContentLoaded', () => {
         window.updateProjectStep(1);
     }
 
+    const associatesData = [
+        { sno: 1, name: 'Premium Partners', link: 'https://premium.com', image: 'associate1.jpg', status: 'active' },
+        { sno: 2, name: 'Global Real Estate', link: 'https://globalre.com', image: 'associate2.jpg', status: 'active' },
+        { sno: 3, name: 'Home Solutions', link: 'https://homesol.com', image: 'associate3.jpg', status: 'deactive' },
+        { sno: 4, name: 'Elite Builders', link: 'https://elite.com', image: 'associate4.jpg', status: 'active' },
+        { sno: 5, name: 'City Living', link: 'https://cityliving.com', image: 'associate5.jpg', status: 'deactive' }
+    ];
+
+    function populateAssociatesTable() {
+        const tbody = document.getElementById('associates-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = associatesData.map((item, index) => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${index + 1}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: #3b82f6; text-decoration: none;">${item.link}</td>
+                <td>
+                    <button class="action-btn" title="View Image" style="background:none; border:none; color: #3b82f6; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 13px;">
+                         <i data-lucide="image" style="width: 14px;"></i>
+                         view image
+                    </button>
+                </td>
+                <td>
+                     <button class="status-btn" style="background-color: #3b82f6; color: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
+                        ${item.status === 'active' ? 'Active' : 'Deactive'}
+                    </button>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
+                             <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const newsData = [
+        { sno: 1, title: 'Buyers to move court against UP-RERA "ongoing projects" clause', description: 'NOIDA: A day after chief minister Yogi Adityanath launched the RERA website to help all promoters, builders and agents to get registered and for buyers to lodge complaints, buyers groups have announce', date: '2017-07-27' },
+        { sno: 2, title: 'Haryana RERA portal may be operational in 2-3 months: Dilbag Singh Sihag', description: 'Editor | October 5, 2017 @ 02:05 PM Delhi/NCR: Haryana Real Estate Regulatory Authority\'s portal may get operational over the next 2-3 months, said Dilbag Singh Sihag, Executive Director, Haryana RERA', date: '2017-10-05' },
+        { sno: 3, title: '50% drop in housing launches in NCR this Diwali: Report', description: 'Editor | October 5, 2017 @ 11:47 AM Delhi/NCR: A triple whammy from demonetisation, RERA implementation and GST has hit launch of new residential projects in the real-estate hubs of NCR, and the tr', date: '2017-10-05' },
+        { sno: 4, title: 'Foreign funds invest $10 billion in realty in 2 years!', description: 'Editor | October 4, 2017 @ 10:42 AM Delhi/NCR With over $10 billion investments in the last two years, which is more than half of the total investments since 2013, the Indian real estate sector ha', date: '2017-10-04' },
+        { sno: 5, title: 'Builders assure delivery of 20,000 flats in three months in Noida', description: 'Updated: Oct 05, 2017 22:14 IST | Vinod Rajput | Hindustan Times Builders on Thursday assured a committee of three ministers, appointed by the Uttar Pradesh state cabinet, that they will be delivering', date: '2017-10-05' },
+        { sno: 6, title: 'UP to fund Jewar airport, YEIDA to be nodal agency', description: 'Vandana Keelor| TNN | Aug 2, 2017, 12:33 AM IST Greater Noida: The Yamuna Expressway Industrial Development Authority (YEIDA) will be the nodal agency to set up the international airport in Jewar, Gre', date: '2017-08-02' },
+        { sno: 7, title: 'Circle rates not to be hiked in Noida this year', description: 'TNN| Updated: Jul 17, 2017, 10:16 AM IST NOIDA: The district administration has decided against increasing the circle rates of property under the three authorities. The decision reflects the groun', date: '2017-07-17' },
+        { sno: 8, title: 'Builders give flat buyers one delivery deadline and Rera a later one', description: 'Nauzer Bharucha| TNN | Sep 14, 2017, 03:20 IST MUMBAI: Builders are pushing back the date of delivery of flats by several months and even years as a result of the new real estate law in the', date: '2017-09-14' },
+        { sno: 9, title: 'Real estate to get real: How Modi is setting India\'s Housing in order', description: 'ET Online| Date : 30th Nov 2017 It is clear that Prime Minister Narendra Modi wants homes to be more affordable for the masses. The real estate sector has been under his hard gaze as is evident from', date: '2017-11-30' },
+        { sno: 10, title: 'Maharashtra to lift construction curbs in eco-sensitive Gorai-Manori belt', description: 'Source: Express News Service | Mumbai | Published: December 2, 2017 6:21 am Image Courtesy: Gorai Pagoda (Express photo) Curbs on construction activity in the eco-sensitive Gorai-Manori belt in Mumbai', date: '2017-12-02' }
+    ];
+
+    function populateNewsTable() {
+        const tbody = document.getElementById('news-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = newsData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.title}</td>
+                <td style="color: var(--text-muted); font-size: 13px;">
+                    <div style="max-width: 400px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 1.5;">
+                        ${item.description}
+                    </div>
+                </td>
+                <td style="color: var(--text-muted); white-space: nowrap;">${item.date}</td>
+                <td>
+                    <button class="action-btn" title="View Image" style="background:none; border:none; color: #3b82f6; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 13px;">
+                         <i data-lucide="image" style="width: 14px;"></i>
+                         view image
+                    </button>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
+                             <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="status-btn" style="background-color: #3b82f6; color: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                            Active
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
     // Kick off initial view
     try {
         initDashboard();
@@ -1108,4 +1287,343 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
         console.error('Error initializing project form:', error);
     }
+
+    // Form Submission Logic
+    const testimonialForm = document.getElementById('create-testimonial-form');
+    if (testimonialForm) {
+        testimonialForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Testimonial submitted successfully!');
+            switchView('testimonials-list');
+            testimonialForm.reset();
+            const preview = document.getElementById('testimonial-image-preview');
+            if (preview) {
+                preview.style.display = 'none';
+                preview.querySelector('img').src = '';
+            }
+        });
+    }
+
+    // Image Preview Logic
+    const testimonialImageInput = document.getElementById('testimonial-image-input');
+    const testimonialImagePreview = document.getElementById('testimonial-image-preview');
+
+    if (testimonialImageInput && testimonialImagePreview) {
+        testimonialImageInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = testimonialImagePreview.querySelector('img');
+                    img.src = e.target.result;
+                    testimonialImagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                testimonialImagePreview.style.display = 'none';
+                testimonialImagePreview.querySelector('img').src = '';
+            }
+        });
+    }
+
+    const associateForm = document.getElementById('create-associate-form');
+    if (associateForm) {
+        associateForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Associate submitted successfully!');
+            switchView('associates-list');
+            associateForm.reset();
+        });
+    }
+
+    const newsForm = document.getElementById('create-news-form');
+    if (newsForm) {
+        newsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Capture rich text content
+            const editor = document.getElementById('news-description-editor');
+            const description = editor ? editor.innerHTML : '';
+
+            console.log('Creating news with description:', description);
+
+            alert('News created successfully!');
+            switchView('news-list');
+            newsForm.reset();
+
+            // Reset editor content
+            if (editor) editor.innerHTML = '<p>Start typing your news content here...</p>';
+
+            const preview = document.getElementById('news-image-preview');
+            if (preview) preview.style.display = 'none';
+        });
+
+        // Initialize Rich Text Editor Toolbar logic
+        const editor = document.getElementById('news-description-editor');
+        if (editor) {
+            // Simple execCommand based toolbar
+            document.querySelectorAll('.wp-toolbar-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const title = btn.getAttribute('title');
+
+                    if (title === 'Bold') document.execCommand('bold', false, null);
+                    else if (title === 'Italic') document.execCommand('italic', false, null);
+                    else if (title === 'Bullet List') document.execCommand('insertUnorderedList', false, null);
+                    else if (title === 'Numbered List') document.execCommand('insertOrderedList', false, null);
+                    else if (title === 'Align Left') document.execCommand('justifyLeft', false, null);
+                    else if (title === 'Align Center') document.execCommand('justifyCenter', false, null);
+                    else if (title === 'Align Right') document.execCommand('justifyRight', false, null);
+                    else if (title === 'Insert Link') {
+                        const url = prompt('Enter the link URL:');
+                        if (url) document.execCommand('createLink', false, url);
+                    }
+                    else if (title === 'Insert Image') {
+                        const url = prompt('Enter the image URL:');
+                        if (url) document.execCommand('insertImage', false, url);
+                    }
+
+                    editor.focus();
+                });
+            });
+
+            // Handle Font types (Heading/Paragraph)
+            const fontSelect = document.querySelector('.wp-toolbar-select');
+            if (fontSelect) {
+                fontSelect.addEventListener('change', () => {
+                    const value = fontSelect.value;
+                    if (value === 'Paragraph') document.execCommand('formatBlock', false, 'p');
+                    else if (value === 'Heading 1') document.execCommand('formatBlock', false, 'h1');
+                    else if (value === 'Heading 2') document.execCommand('formatBlock', false, 'h2');
+                    else if (value === 'Heading 3') document.execCommand('formatBlock', false, 'h3');
+                    editor.focus();
+                });
+            }
+
+            // Word Count logic
+            editor.addEventListener('input', () => {
+                const text = editor.innerText.trim();
+                const words = text ? text.split(/\s+/).length : 0;
+                const statusSpan = document.querySelector('.wp-editor-status span:last-child');
+                if (statusSpan) statusSpan.textContent = `Word Count: ${words}`;
+            });
+        }
+    }
+
+    const newsImageInput = document.getElementById('news-image-input');
+    const newsImagePreview = document.getElementById('news-image-preview');
+    if (newsImageInput && newsImagePreview) {
+        newsImageInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    newsImagePreview.querySelector('img').src = e.target.result;
+                    newsImagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                newsImagePreview.style.display = 'none';
+            }
+        });
+    }
+
+    const subscribersData = [
+        { sno: 1, name: 'Suriya Rishi', email: 'suriya.rishi@anti.com', date: '2017-05-31 17:13:27' },
+        { sno: 2, name: 'Devesh Kumar', email: 'devesh.k@gmail.com', date: '2017-05-31 17:10:54' },
+        { sno: 3, name: 'Anjali Sharma', email: 'anjali.s@outlook.com', date: '2017-05-31 16:41:01' },
+        { sno: 4, name: 'Rahul Varma', email: 'rahul.v@example.com', date: '2017-06-05 10:20:15' },
+        { sno: 5, name: 'Priya Patel', email: 'priya.p@gmail.com', date: '2017-06-12 14:45:30' },
+        { sno: 6, name: 'Amit Singh', email: 'amit.s88@yahoo.com', date: '2017-06-20 09:12:44' },
+        { sno: 7, name: 'Sonia Gupta', email: 'sonia.g@outlook.com', date: '2017-07-01 16:33:12' },
+        { sno: 8, name: 'Vikram Mehta', email: 'vikram.m@company.in', date: '2017-07-10 11:05:55' },
+        { sno: 9, name: 'Anjali Desai', email: 'anjali_d@live.com', date: '2017-07-15 13:50:22' },
+        { sno: 10, name: 'Rajesh Khanna', email: 'rajesh.k@protonmail.com', date: '2017-07-22 18:22:11' },
+        { sno: 11, name: 'Sneha Rao', email: 'sneha.rao@gmail.com', date: '2017-08-05 10:15:22' },
+        { sno: 12, name: 'Karan Malhotra', email: 'karan.m@yahoo.com', date: '2017-08-12 11:30:45' },
+        { sno: 13, name: 'Pooja Hegde', email: 'pooja.h@outlook.com', date: '2017-08-18 14:20:10' },
+        { sno: 14, name: 'Arjun Kapoor', email: 'arjun.k@example.com', date: '2017-09-02 09:10:55' },
+        { sno: 15, name: 'Neha Kakkar', email: 'neha.k@gmail.com', date: '2017-09-10 16:45:33' },
+        { sno: 16, name: 'Siddharth Roy', email: 'sid.roy@company.com', date: '2017-09-15 13:22:11' },
+        { sno: 17, name: 'Esha Gupta', email: 'esha.g@live.com', date: '2017-10-01 11:05:44' },
+        { sno: 18, name: 'Varun Dhawan', email: 'varun.d@yahoo.com', date: '2017-10-08 15:40:22' },
+        { sno: 19, name: 'Alia Bhatt', email: 'alia.b@outlook.com', date: '2017-10-15 10:12:33' },
+        { sno: 20, name: 'Ranbir Kapoor', email: 'ranbir.k@gmail.com', date: '2017-10-22 17:55:44' },
+        { sno: 21, name: 'Deepika P', email: 'deepika.p@example.com', date: '2017-11-05 12:30:11' },
+        { sno: 22, name: 'Ranveer S', email: 'ranveer.s@yahoo.com', date: '2017-11-12 09:44:22' },
+        { sno: 23, name: 'Katrina K', email: 'katrina.k@outlook.com', date: '2017-11-20 14:20:55' },
+        { sno: 24, name: 'Vicky K', email: 'vicky.k@gmail.com', date: '2017-12-01 10:05:33' },
+        { sno: 25, name: 'Ayushmann K', email: 'ayush.k@example.com', date: '2017-12-10 16:40:44' }
+    ];
+
+    function populateSubscribersTable() {
+        const tbody = document.getElementById('subscribers-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = subscribersData.map(item => `
+            <tr>
+                <td><input type="checkbox" class="subscriber-checkbox"></td>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name || '---'}</td>
+                <td style="color: var(--text-muted);">${item.email}</td>
+                <td style="color: var(--text-muted);">${item.date}</td>
+            </tr>
+        `).join('');
+
+        // Handle Select All
+        const selectAll = document.getElementById('select-all-subscribers');
+        if (selectAll) {
+            selectAll.addEventListener('change', (e) => {
+                document.querySelectorAll('.subscriber-checkbox').forEach(cb => {
+                    cb.checked = e.target.checked;
+                });
+            });
+        }
+    }
+
+    // Add NewsLetter Button logic - Switch to separate view
+    const addNewsletterBtn = document.getElementById('btn-add-newsletter');
+    if (addNewsletterBtn) {
+        addNewsletterBtn.addEventListener('click', () => {
+            switchView('add-newsletter');
+        });
+    }
+
+    // View Subscribers Button Logic
+    const viewSubscribersBtn = document.getElementById('btn-view-subscribers');
+    if (viewSubscribersBtn) {
+        viewSubscribersBtn.addEventListener('click', () => {
+            switchView('subscribers-list');
+        });
+    }
+
+    // Send Newsletter Form logic
+    const sendNewsletterForm = document.getElementById('add-newsletter-form');
+    if (sendNewsletterForm) {
+        sendNewsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Newsletter saved successfully!');
+            sendNewsletterForm.reset();
+        });
+    }
+
+    const contactEnquiryData = [
+        { sno: 1, name: 'Suriya Rishi', email: 'suriya.rishi@anti.com', phone: '9876543210', subject: 'Project Enquiry', message: 'Interested in the new downtown project.', date: '2017-05-31 17:13:27' },
+        { sno: 2, name: 'Rahul Varma', email: 'rahul.v@example.com', phone: '9123456780', subject: 'Pricing Details', message: 'Can you send the pricing for 3BHK?', date: '2017-06-05 10:20:15' },
+        { sno: 3, name: 'Priya Patel', email: 'priya.p@gmail.com', phone: '8899776655', subject: 'Site Visit', message: 'I would like to schedule a site visit.', date: '2017-06-12 14:45:30' },
+        { sno: 4, name: 'Amit Singh', email: 'amit.s88@yahoo.com', phone: '7766554433', subject: 'Loan Options', message: 'What are the available loan options?', date: '2017-06-20 09:12:44' },
+        { sno: 5, name: 'Sonia Gupta', email: 'sonia.g@outlook.com', phone: '9988776655', subject: 'General Enquiry', message: 'Looking for investment opportunities.', date: '2017-07-01 16:33:12' }
+    ];
+
+    function populateContactEnquiryTable() {
+        const tbody = document.getElementById('contact-enquiry-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = contactEnquiryData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: var(--text-muted);">${item.email}</td>
+                <td style="color: var(--text-muted);">${item.phone}</td>
+                <td style="color: var(--text-muted); font-weight: 500;">${item.subject}</td>
+                <td style="color: var(--text-muted); font-size: 13px;">
+                    <div style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        ${item.message}
+                    </div>
+                </td>
+                <td style="color: var(--text-muted); white-space: nowrap;">${item.date}</td>
+                <td>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
+                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const leadManagementData = [
+        { sno: 1, name: 'Suriya Rishi', type: 'Buyer', phone: '9876543210', date: '2017-05-31', status: 'New' },
+        { sno: 2, name: 'Rahul Varma', type: 'Seller', phone: '9123456780', date: '2017-06-05', status: 'In Progress' },
+        { sno: 3, name: 'Priya Patel', type: 'Investor', phone: '8899776655', date: '2017-06-12', status: 'Converted' },
+        { sno: 4, name: 'Amit Singh', type: 'Buyer', phone: '7766554433', date: '2017-06-20', status: 'Closed' },
+        { sno: 5, name: 'Sonia Gupta', type: 'Renter', phone: '9988776655', date: '2017-07-01', status: 'New' }
+    ];
+
+    function populateLeadManagementTable() {
+        const tbody = document.getElementById('lead-management-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = leadManagementData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: var(--text-muted);">${item.type}</td>
+                <td style="color: var(--text-muted);">${item.phone}</td>
+                <td style="color: var(--text-muted);">${item.date}</td>
+                <td>
+                    <span class="status-btn" style="background-color: ${getStatusColor(item.status)}; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;">
+                        ${item.status}
+                    </span>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
+                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    function getStatusColor(status) {
+        switch (status) {
+            case 'New': return '#3b82f6'; // Blue
+            case 'In Progress': return '#f59e0b'; // Amber
+            case 'Converted': return '#10b981'; // Green
+            case 'Closed': return '#ef4444'; // Red
+            default: return '#64748b'; // Slate
+        }
+    }
+
+    const newslettersData = [
+        { sno: 1, title: 'Real Estate Trends 2024', createdDate: '2024-01-15 10:30:00' },
+        { sno: 2, title: 'New Project Launch - Sky Gardens', createdDate: '2024-02-01 14:15:00' },
+        { sno: 3, title: 'Investment Opportunities in Downtown', createdDate: '2024-02-10 09:45:00' }
+    ];
+
+    function populateNewslettersTable() {
+        const tbody = document.getElementById('newsletters-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = newslettersData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.title}</td>
+                <td style="color: var(--text-muted);">${item.createdDate}</td>
+                <td>
+                    <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    // Export switchView globally
+    window.switchView = switchView;
 });

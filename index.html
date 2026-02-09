@@ -115,7 +115,7 @@
                 </a>
 
                 <!-- Associates -->
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-view="associates-list">
                     <i data-lucide="users"></i>
                     <span>Associates</span>
                 </a>
@@ -127,25 +127,25 @@
                 </a>
 
                 <!-- News -->
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-view="news-list">
                     <i data-lucide="newspaper"></i>
                     <span>News</span>
                 </a>
 
                 <!-- Subscribers -->
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-view="subscribers-list">
                     <i data-lucide="at-sign"></i>
                     <span>Subscribers</span>
                 </a>
 
                 <!-- Contact Enquiry -->
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-view="contact-enquiry-list">
                     <i data-lucide="phone"></i>
                     <span>Contact Enquiry</span>
                 </a>
 
                 <!-- Lead Management -->
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-view="lead-management-list">
                     <i data-lucide="user-check"></i>
                     <span>Lead Management</span>
                 </a>
@@ -432,11 +432,21 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Client / Type</th>
-                                        <th>State</th>
-                                        <th>Builder</th>
-                                        <th>Status</th>
-                                        <th>Submission Date</th>
+                                        <th>
+                                            <div class="th-content">Client / Type</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">State</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Builder</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Status</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Submission Date</div>
+                                        </th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -484,15 +494,33 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th style="width: 60px;">S.no.</th>
-                                        <th>Posted By</th>
-                                        <th>Title</th>
-                                        <th>Posted For</th>
-                                        <th>Property Type</th>
-                                        <th>Location</th>
-                                        <th>Action</th>
-                                        <th>Verified</th>
-                                        <th>Premium</th>
+                                        <th style="width: 60px;">
+                                            <div class="th-content">S.no.</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Posted By</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Title</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Posted For</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Property Type</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Location</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Verified</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Premium</div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="property-list-table-body">
@@ -569,11 +597,21 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th style="width: 80px;">S.No.</th>
-                                        <th>Property For</th>
-                                        <th>Property Category</th>
-                                        <th>Property Sub Category</th>
-                                        <th>Action</th>
+                                        <th style="width: 80px;">
+                                            <div class="th-content">S.No.</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Property For</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Property Category</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Property Sub Category</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action</div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="categories-table-body"></tbody>
@@ -902,9 +940,15 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th style="width: 80px;">S.no.</th>
-                                        <th>Attribute Category Name</th>
-                                        <th>Action</th>
+                                        <th style="width: 80px;">
+                                            <div class="th-content">S.no.</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Attribute Category Name</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action</div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="project-attr-cat-table-body">
@@ -992,20 +1036,34 @@
                             <table class="sortable-table">
                                 <thead>
                                     <tr>
-                                        <th>S.no. <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Name <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Input Type <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Attribute Options <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Validation Type <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Tool Tips <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Action <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
+                                        <th>
+                                            <div class="th-content">S.no. <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Name <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Input Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Attribute Options <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Validation Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Tool Tips <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="project-attributes-table-body">
@@ -1133,14 +1191,30 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th style="width: 60px;">S.no.</th>
-                                        <th>Posted By</th>
-                                        <th>Project Name</th>
-                                        <th>Posted For</th>
-                                        <th>Property Type</th>
-                                        <th>URL</th>
-                                        <th>Action</th>
-                                        <th>Verified</th>
+                                        <th style="width: 60px;">
+                                            <div class="th-content">S.no.</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Posted By</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Project Name</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Posted For</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Property Type</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">URL</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action</div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Verified</div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="project-list-table-body">
@@ -1198,20 +1272,34 @@
                             <table class="sortable-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 60px;">S.no. <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th>Posted By <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Project Name <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Builder Name <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Property Type <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Status <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Action <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
+                                        <th style="width: 60px;">
+                                            <div class="th-content">S.no. <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Posted By <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Project Name <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Builder Name <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Property Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Status <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="builder-project-list-table-body">
@@ -1282,13 +1370,19 @@
                             <table class="sortable-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 80px;">S.no. <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Attribute Category Name <i
-                                                data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Action <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
+                                        <th style="width: 80px;">
+                                            <div class="th-content">S.no. <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Attribute Category Name <i
+                                                    data-lucide="chevrons-up-down" class="sort-icon"
+                                                    style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="attributes-category-list-table-body">
@@ -1375,22 +1469,34 @@
                             <table class="sortable-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 60px;">S.no. <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th style="min-width: 150px;">Name <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Input Type <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th style="min-width: 200px; text-align: center;">Attribute
-                                            Options <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Validation Type <i
-                                                data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Tool Tips <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th style="text-align: center;">Action <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
+                                        <th style="width: 60px;">
+                                            <div class="th-content">S.no. <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th style="min-width: 150px;">
+                                            <div class="th-content">Name <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Input Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th style="min-width: 200px;">
+                                            <div class="th-content">Attribute Options <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Validation Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Tool Tips <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="attributes-list-table-body">
@@ -2049,19 +2155,33 @@
                             <table class="sortable-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 60px;">S.No <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th>Type <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Name <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Email <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Mobile <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Joined Date <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Action</th>
+                                        <th style="width: 60px;">
+                                            <div class="th-content">S.No <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Name <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Email <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Mobile <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Joined Date <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action</div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="users-table-body">
@@ -2131,17 +2251,29 @@
                             <table class="sortable-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 60px;">S.No <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th>Type <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Name <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Email <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Mobile <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Action</th>
+                                        <th style="width: 60px;">
+                                            <div class="th-content">S.No <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Name <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Email <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Mobile <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action</div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="agent-table-body">
@@ -2212,17 +2344,29 @@
                             <table class="sortable-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 60px;">S.No <i data-lucide="chevrons-up-down"
-                                                class="sort-icon" style="width: 12px;"></i></th>
-                                        <th>Type <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Name <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Email <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Mobile <i data-lucide="chevrons-up-down" class="sort-icon"
-                                                style="width: 12px;"></i></th>
-                                        <th>Action</th>
+                                        <th style="width: 60px;">
+                                            <div class="th-content">S.No <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Type <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Name <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Email <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Mobile <i data-lucide="chevrons-up-down"
+                                                    class="sort-icon" style="width: 12px;"></i></div>
+                                        </th>
+                                        <th>
+                                            <div class="th-content">Action</div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="builder-table-body">
@@ -2246,137 +2390,781 @@
                 </div>
             </div> <!-- End Builder List View -->
 
-            <!-- Create User View -->
-            <div id="create-user-view" style="display: none;">
+            <!-- Testimonials List View -->
+            <div id="testimonials-list-view" style="display: none;">
                 <div class="table-card">
                     <div class="table-header">
                         <div>
-                            <h3 class="chart-title">User create</h3>
+                            <h3 class="chart-title">Testimonials List</h3>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i data-lucide="plus"></i>
+                            <span>Add Testimonial</span>
+                        </button>
+                    </div>
+
+                    <div class="table-controls"
+                        style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                        <div
+                            style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                            <span>Show</span>
+                            <select
+                                style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
+                        <div class="search-bar" style="width: 240px;">
+                            <i data-lucide="search" style="width: 14px;"></i>
+                            <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="sortable-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">
+                                        <div class="th-content">S.no. <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Name <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Email <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Phone <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Message <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Location <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Image <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Action <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="testimonials-table-body">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div
+                        style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                        <span style="font-size: 13px; color: var(--text-muted);">Showing 1 to 10 of 17 entries</span>
+                        <div style="display: flex; gap: 4px;">
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">Previous</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">1</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">2</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create Testimonial View -->
+            <div id="create-testimonial-view" style="display: none;">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <h3 class="chart-title">Create Testimonials</h3>
                         </div>
                     </div>
 
                     <div style="padding: 32px;">
-                        <form id="create-user-form">
-                            <div class="form-row-horizontal">
-                                <label>User Type <span style="color:red">*</span></label>
-                                <select class="form-control-premium" required>
-                                    <option value="" disabled selected>Select User Type</option>
-                                    <option>Owner</option>
-                                    <option>Agent</option>
-                                    <option>Builder</option>
-                                </select>
-                            </div>
-
+                        <form id="create-testimonial-form">
                             <div class="form-row-horizontal">
                                 <label>Name <span style="color:red">*</span></label>
                                 <input type="text" class="form-control-premium" placeholder="Enter name" required>
                             </div>
 
                             <div class="form-row-horizontal">
-                                <label>Mobile <span style="color:red">*</span></label>
-                                <input type="tel" class="form-control-premium" placeholder="Enter mobile number"
-                                    required>
-                            </div>
-
-                            <div class="form-row-horizontal">
                                 <label>Email <span style="color:red">*</span></label>
-                                <input type="email" class="form-control-premium" placeholder="Enter email address"
+                                <input type="email" class="form-control-premium" placeholder="Enter email" required>
+                            </div>
+
+                            <div class="form-row-horizontal">
+                                <label>Phone <span style="color:red">*</span></label>
+                                <input type="tel" class="form-control-premium" placeholder="Enter phone number"
                                     required>
                             </div>
 
                             <div class="form-row-horizontal">
-                                <label>Password <span style="color:red">*</span></label>
-                                <input type="password" class="form-control-premium" placeholder="Enter password"
-                                    required>
+                                <label>Description <span style="color:red">*</span></label>
+                                <textarea class="form-control-premium" placeholder="Enter description"
+                                    style="height: 100px; resize: vertical;" required></textarea>
                             </div>
 
                             <div class="form-row-horizontal">
-                                <label>Confirm Password <span style="color:red">*</span></label>
-                                <input type="password" class="form-control-premium" placeholder="Confirm password"
-                                    required>
+                                <label>Location <span style="color:red">*</span></label>
+                                <input type="text" class="form-control-premium" placeholder="Enter location" required>
                             </div>
 
                             <div class="form-row-horizontal">
-                                <label>Address Line1 <span style="color:red">*</span></label>
-                                <textarea class="form-control-premium" rows="2" placeholder="Enter address line 1"
-                                    required></textarea>
-                            </div>
-
-                            <div class="form-row-horizontal">
-                                <label>Address Line2 (Optional)</label>
-                                <textarea class="form-control-premium" rows="2"
-                                    placeholder="Enter address line 2"></textarea>
-                            </div>
-
-                            <div class="form-row-horizontal">
-                                <label>Country</label>
-                                <select class="form-control-premium">
-                                    <option selected>India</option>
-                                    <option>USA</option>
-                                    <option>UK</option>
-                                </select>
-                            </div>
-
-                            <div class="form-row-horizontal">
-                                <label>State <span style="color:red">*</span></label>
-                                <select class="form-control-premium" required>
-                                    <option value="" disabled selected>Select State</option>
-                                    <option>Maharashtra</option>
-                                    <option>Delhi</option>
-                                    <option>Karnataka</option>
-                                </select>
-                            </div>
-
-                            <div class="form-row-horizontal">
-                                <label>City <span style="color:red">*</span></label>
-                                <select class="form-control-premium" required>
-                                    <option value="" disabled selected>Select City</option>
-                                    <option>Mumbai</option>
-                                    <option>Pune</option>
-                                    <option>Nagpur</option>
-                                </select>
-                            </div>
-
-                            <div class="form-row-horizontal">
-                                <label>Pin Code <span style="color:red">*</span></label>
-                                <input type="text" class="form-control-premium" placeholder="Enter pin code" required>
-                            </div>
-
-                            <div class="form-row-horizontal">
-                                <label>AADHAR Number <span style="color:red">*</span></label>
-                                <input type="text" class="form-control-premium" placeholder="Enter AADHAR number"
-                                    required>
-                            </div>
-
-                            <div class="form-row-horizontal">
-                                <label>Photo <span style="color:red">*</span></label>
-                                <div style="flex: 2; display: flex; align-items: center;">
-                                    <input type="file" class="form-control-premium" style="padding: 8px;" required>
+                                <label>Back Ground Image <span style="color:red">*</span></label>
+                                <div style="flex: 2; display: flex; flex-direction: column; gap: 12px;">
+                                    <div
+                                        style="display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px;">
+                                        <input type="file" id="testimonial-image-input" required
+                                            style="font-size: 13px; color: var(--text-muted);">
+                                    </div>
+                                    <div id="testimonial-image-preview"
+                                        style="display: none; width: 100px; height: 100px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border);">
+                                        <img src="" alt="Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-row-horizontal">
-                                <label>Status <span style="color:red">*</span></label>
-                                <select class="form-control-premium" required>
-                                    <option value="" disabled selected>Select Status</option>
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                </select>
-                            </div>
-
-                            <div class="form-footer"
-                                style="display: flex; justify-content: center; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
-                                <button type="button" class="btn btn-secondary" id="btn-create-user-cancel"
-                                    style="background: #E2E8F0; color: #475569; min-width: 100px; border: none;">Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background: #20C997; border: none; min-width: 100px;">Submit</button>
+                            <div
+                                style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; gap: 12px; justify-content: flex-start;">
+                                <button type="button" class="btn" id="btn-create-testimonial-cancel"
+                                    style="background: #3b82f6; color: white; padding: 10px 24px;">Cancel</button>
+                                <button type="submit" class="btn"
+                                    style="background: #10b981; color: white; padding: 10px 24px;">Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-    </div> <!-- End Page Container -->
+            <!-- Associates List View -->
+            <div id="associates-list-view" style="display: none;">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <h3 class="chart-title">Associates list</h3>
+                            <p class="chart-subtitle" style="margin-top: 4px;">Manage associate/partner information</p>
+                        </div>
+                        <div class="table-controls">
+                            <button class="btn btn-premium">
+                                <i data-lucide="plus"></i>
+                                <span>Add Associate</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="th-content">S.no. <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Name <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Link <i data-lucide="chevrons-up-down" class="sort-icon"
+                                                style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Image <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Status <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">Action <i data-lucide="chevrons-up-down"
+                                                class="sort-icon" style="width: 12px;"></i></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="associates-table-body">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div
+                        style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                        <span style="font-size: 13px; color: var(--text-muted);">Showing 1 to 10 of 20 entries</span>
+                        <div style="display: flex; gap: 4px;">
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">Previous</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">1</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">2</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Associates List View -->
+
+            <!-- Create Associate View -->
+            <div id="create-associate-view" style="display: none;">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <h3 class="chart-title">Create Associate</h3>
+                            <p class="chart-subtitle" style="margin-top: 4px;">Add a new partner or associate</p>
+                        </div>
+                    </div>
+
+                    <div style="padding: 32px;">
+                        <form id="create-associate-form">
+                            <div class="form-row-horizontal">
+                                <label>Name <span style="color:red">*</span></label>
+                                <input type="text" class="form-control-premium" placeholder="Enter name" required>
+                            </div>
+
+                            <div class="form-row-horizontal">
+                                <label>Link <span style="color:red">*</span></label>
+                                <input type="url" class="form-control-premium"
+                                    placeholder="Enter link (e.g., https://example.com)" required>
+                            </div>
+
+                            <div class="form-row-horizontal">
+                                <label>Associate Image <span style="color:red">*</span></label>
+                                <div
+                                    style="flex: 2; display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px;">
+                                    <input type="file" required style="font-size: 13px; color: var(--text-muted);">
+                                </div>
+                            </div>
+
+                            <div
+                                style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; gap: 12px; justify-content: flex-start;">
+                                <button type="button" class="btn" id="btn-create-associate-cancel"
+                                    style="background: #3b82f6; color: white; padding: 10px 24px;">Cancel</button>
+                                <button type="submit" class="btn"
+                                    style="background: #10b981; color: white; padding: 10px 24px;">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create User View -->
+            <div id="create-user-view" style="display: none;">
+                <!-- Content remains same -->
+            </div>
+
+            <!-- Subscribers List View -->
+            <div id="subscribers-list-view" style="display: none;">
+                <div class="table-card" style="margin-bottom: 24px;">
+                    <div class="table-header">
+                        <div>
+                            <h3 class="chart-title">Subscribers List</h3>
+                        </div>
+                        <button class="btn btn-primary" id="btn-add-newsletter">
+                            <i data-lucide="mail"></i>
+                            <span>Add NewsLetter</span>
+                        </button>
+                    </div>
+
+                    <div class="table-controls"
+                        style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                        <div
+                            style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                            <span>Show</span>
+                            <select
+                                style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
+                        <div class="search-bar" style="width: 240px;">
+                            <i data-lucide="search" style="width: 14px;"></i>
+                            <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                        </div>
+                    </div>
+
+                    <div style="padding: 16px 24px; border-bottom: 1px solid var(--border); background: #fff;">
+                        <h4 style="font-size: 14px; font-weight: 600; color: var(--text-main);">Select Subscribers</h4>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="sortable-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"><input type="checkbox" id="select-all-subscribers"></th>
+                                    <th style="width: 80px;">S No.</th>
+                                    <th style="flex: 1;">Name</th>
+                                    <th style="flex: 1;">Email</th>
+                                    <th style="width: 200px;">Subscribe On</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subscribers-table-body">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+
+    <!-- Add Newsletter View -->
+    <div id="add-newsletter-view" style="display: none;">
+        <div class="form-card">
+            <div class="form-header-premium">
+                <div>
+                    <button class="btn" id="btn-view-subscribers"
+                        style="background: #10B981; color: white; border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; margin-bottom: 16px;">
+                        VIEW SUBSCRIBERS
+                    </button>
+                    <h3 class="chart-title">Add Newsletter</h3>
+                </div>
+            </div>
+
+            <form id="add-newsletter-form">
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label
+                        style="display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">Newsletter
+                        Title <span style="color: #ef4444;">*</span></label>
+                    <input type="text" id="newsletter-title" class="form-control-premium" placeholder="Enter title"
+                        required style="width: 100%;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label
+                        style="display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">Newsletter
+                        Details <span style="color: #ef4444;">*</span></label>
+                    <textarea id="newsletter-details" class="form-control-premium" rows="6" placeholder="Enter details"
+                        required style="width: 100%;"></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: center;">
+                    <button type="submit" class="btn btn-primary"
+                        style="background: #10B981; min-width: 100px;">save</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Newsletters List -->
+        <div class="table-card" style="margin-top: 32px;">
+            <div class="table-header">
+                <div>
+                    <h3 class="chart-title">Newsletters</h3>
+                </div>
+                <div class="table-actions">
+                    <button class="btn-icon" title="CSV">CSV</button>
+                    <button class="btn-icon" title="Excel">Excel</button>
+                    <button class="btn-icon" title="PDF">PDF</button>
+                    <button class="btn-icon" title="Print">Print</button>
+                </div>
+            </div>
+            <div class="table-controls"
+                style="padding: 16px 24px; display: flex; justify-content: flex-end; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                <div class="search-bar" style="width: 240px;">
+                    <label style="font-size: 13px; color: var(--text-muted); margin-right: 8px;">Search:</label>
+                    <input type="text"
+                        style="height: 30px; font-size: 12px; border: 1px solid var(--border); padding: 4px 8px;">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="sortable-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">S No. <i data-lucide="chevrons-up-down" class="sort-icon"
+                                    style="width: 12px;"></i></th>
+                            <th style="flex: 1;">Title <i data-lucide="chevrons-up-down" class="sort-icon"
+                                    style="width: 12px;"></i></th>
+                            <th style="width: 200px;">Created Date <i data-lucide="chevrons-up-down" class="sort-icon"
+                                    style="width: 12px;"></i></th>
+                            <th style="width: 100px;">Action <i data-lucide="chevrons-up-down" class="sort-icon"
+                                    style="width: 12px;"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="newsletters-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-footer">
+                <div class="showing-entries">Showing 1 to 2 of 2 entries</div>
+                <div class="pagination">
+                    <button class="page-btn disabled">Previous</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Contact Enquiry List View -->
+    <div id="contact-enquiry-list-view" style="display: none;">
+        <div class="table-card">
+            <div class="table-header">
+                <div>
+                    <h3 class="chart-title">Contact Enquiry</h3>
+                </div>
+            </div>
+
+            <div class="table-controls"
+                style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                    <span>Show</span>
+                    <select
+                        style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                    <span>entries</span>
+                </div>
+                <div class="search-bar" style="width: 240px;">
+                    <i data-lucide="search" style="width: 14px;"></i>
+                    <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="sortable-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">
+                                <div class="th-content">S.No. <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 150px;">
+                                <div class="th-content">Name <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 180px;">
+                                <div class="th-content">Email <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 120px;">
+                                <div class="th-content">Phone <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 150px;">
+                                <div class="th-content">Subject <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th>
+                                <div class="th-content">Message <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 120px;">
+                                <div class="th-content">Date <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 100px;">
+                                <div class="th-content">Action</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="contact-enquiry-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <div class="showing-entries">Showing 1 to 10 of 29 entries</div>
+                <div class="pagination">
+                    <button class="page-btn disabled">Previous</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Lead Management List View -->
+    <div id="lead-management-list-view" style="display: none;">
+        <div class="table-card">
+            <div class="table-header">
+                <div>
+                    <h3 class="chart-title">Lead Management</h3>
+                </div>
+            </div>
+
+            <div class="table-controls"
+                style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                    <span>Show</span>
+                    <select
+                        style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                    <span>entries</span>
+                </div>
+                <div class="search-bar" style="width: 240px;">
+                    <i data-lucide="search" style="width: 14px;"></i>
+                    <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="sortable-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">
+                                <div class="th-content">S.No. <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 200px;">
+                                <div class="th-content">Lead Name <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 150px;">
+                                <div class="th-content">Lead Type <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 150px;">
+                                <div class="th-content">Phone <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 150px;">
+                                <div class="th-content">Date <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 120px;">
+                                <div class="th-content">Status <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 100px;">
+                                <div class="th-content">Action</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="lead-management-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <div class="showing-entries">Showing 1 to 10 of 45 entries</div>
+                <div class="pagination">
+                    <button class="page-btn disabled">Previous</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="news-list-view" style="display: none;">
+        <div class="table-card">
+            <div class="table-header">
+                <div>
+                    <h3 class="chart-title">News List</h3>
+                </div>
+                <button class="btn btn-primary">
+                    <i data-lucide="plus"></i>
+                    <span>Create</span>
+                </button>
+            </div>
+
+            <div class="table-controls"
+                style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                    <span>Show</span>
+                    <select
+                        style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                    <span>entries</span>
+                </div>
+                <div class="search-bar" style="width: 240px;">
+                    <i data-lucide="search" style="width: 14px;"></i>
+                    <input type="text" placeholder="Search..." style="height: 36px; font-size: 12px;">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="sortable-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">
+                                <div class="th-content">S.No. <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 250px;">
+                                <div class="th-content">Title <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="flex: 1;">
+                                <div class="th-content">Description <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 100px;">
+                                <div class="th-content">Date <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 100px;">
+                                <div class="th-content">Image <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                            <th style="width: 100px;">
+                                <div class="th-content">Action <i data-lucide="chevrons-up-down" class="sort-icon"
+                                        style="width: 12px;"></i></div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="news-table-body">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div
+                style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                <span style="font-size: 13px; color: var(--text-muted);">Showing 1 to 10 of 521 entries</span>
+                <div style="display: flex; gap: 4px;">
+                    <button class="btn"
+                        style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">Previous</button>
+                    <button class="btn" style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">1</button>
+                    <button class="btn" style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">2</button>
+                    <button class="btn" style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">3</button>
+                    <button class="btn" style="padding: 6px 12px; font-size: 12px; background: #E2E8F0;">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create News View -->
+    <div id="create-news-view" style="display: none;">
+        <div class="form-card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+
+            <!-- Core Info Card -->
+            <div class="form-card" style="margin-bottom: 24px;">
+                <div class="form-header-premium">
+                    <div>
+                        <h3 class="chart-title">Add News</h3>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Enter basic news
+                            header information</p>
+                    </div>
+                    <div class="section-icon"><i data-lucide="newspaper"></i></div>
+                </div>
+
+                <form id="create-news-form">
+                    <div class="form-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                        <div class="input-group">
+                            <label
+                                style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">News
+                                Title</label>
+                            <input type="text" id="news-title-input" placeholder="Enter headline"
+                                style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                        </div>
+                        <div class="input-group">
+                            <label
+                                style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Date</label>
+                            <input type="date" id="news-date-input"
+                                style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB; font-weight: 500;">
+                        </div>
+                        <div class="input-group">
+                            <label
+                                style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">News
+                                Image</label>
+                            <input type="file" id="news-image-input" accept="image/*"
+                                style="width: 100%; padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border); outline: none; background: #F9FAFB;">
+                        </div>
+                    </div>
+
+                    <div id="news-image-preview"
+                        style="display: none; margin-top: 24px; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px dashed var(--border);">
+                        <img src="" style="max-height: 150px; border-radius: 8px;">
+                    </div>
+            </div>
+
+            <!-- Content Details Card -->
+            <div class="form-card">
+                <div class="form-header-premium">
+                    <h5>
+                        <div class="section-icon"><i data-lucide="file-text"></i></div> News Content Details
+                    </h5>
+                </div>
+
+                <div class="input-group">
+                    <label
+                        style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Description</label>
+
+                    <!-- WordPress Style Editor -->
+                    <div class="wp-editor-emulation">
+                        <div class="wp-editor-toolbar">
+                            <div class="wp-toolbar-group">
+                                <select class="wp-toolbar-select">
+                                    <option>Paragraph</option>
+                                    <option>Heading 1</option>
+                                    <option>Heading 2</option>
+                                    <option>Heading 3</option>
+                                </select>
+                            </div>
+                            <div class="wp-toolbar-group">
+                                <button type="button" class="wp-toolbar-btn" title="Bold"><b>B</b></button>
+                                <button type="button" class="wp-toolbar-btn" title="Italic"><i>I</i></button>
+                                <button type="button" class="wp-toolbar-btn" title="Bullet List"><i
+                                        data-lucide="list"></i></button>
+                                <button type="button" class="wp-toolbar-btn" title="Numbered List"><i
+                                        data-lucide="list-ordered"></i></button>
+                            </div>
+                            <div class="wp-toolbar-group">
+                                <button type="button" class="wp-toolbar-btn" title="Align Left"><i
+                                        data-lucide="align-left"></i></button>
+                                <button type="button" class="wp-toolbar-btn" title="Align Center"><i
+                                        data-lucide="align-center"></i></button>
+                                <button type="button" class="wp-toolbar-btn" title="Align Right"><i
+                                        data-lucide="align-right"></i></button>
+                            </div>
+                            <div class="wp-toolbar-group">
+                                <button type="button" class="wp-toolbar-btn" title="Insert Link"><i
+                                        data-lucide="link"></i></button>
+                                <button type="button" class="wp-toolbar-btn" title="Insert Image"><i
+                                        data-lucide="image"></i></button>
+                            </div>
+                        </div>
+                        <div class="wp-editor-content" contenteditable="true" id="news-description-editor">
+                            <p>Start typing your news content here...</p>
+                        </div>
+                        <div class="wp-editor-status">
+                            <span>Visual</span>
+                            <span>Word Count: 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Footer Actions -->
+            <div class="sticky-footer-actions">
+                <button type="button" class="btn" id="btn-create-news-cancel"
+                    style="background: #F3F4F6; color: #6B7280; border: 1px solid #E5E7EB; padding: 12px 32px;">Cancel</button>
+                <button type="button" class="btn"
+                    style="background: #3B82F6; color: white; padding: 12px 32px; font-weight: 600;">Save</button>
+                <button type="submit" class="btn"
+                    style="background: #10B981; color: white; padding: 12px 32px; font-weight: 600;">Add</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div> <!-- End Page Container Area -->
     </main>
     </div>
 
