@@ -26,10 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'agent-list': document.getElementById('agent-list-view'),
         'builder-list': document.getElementById('builder-list-view'),
         'create-user': document.getElementById('create-user-view'),
-        'associates-list': document.getElementById('associates-list-view'),
-        'create-associates': document.getElementById('create-associates-view'),
-        'testimonials-list': document.getElementById('testimonials-list-view'),
-        'create-testimonials': document.getElementById('create-testimonials-view')
+        'testimonials-list': document.getElementById('testimonials-list-view')
     };
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -85,14 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             populateBuilderTable();
         } else if (viewKey === 'create-user') {
             lucide.createIcons();
-        } else if (viewKey === 'associates-list') {
-            populateAssociatesTable();
-        } else if (viewKey === 'create-associates') {
-            lucide.createIcons();
         } else if (viewKey === 'testimonials-list') {
             populateTestimonialsTable();
-        } else if (viewKey === 'create-testimonials') {
-            lucide.createIcons();
         }
 
         // Animated entry
@@ -780,7 +771,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="color: var(--text-muted);">${item.mobile}</td>
                 <td style="color: var(--text-muted);">${item.joinedDate}</td>
                 <td>
-                    <div style="display: flex; gap: 8px; justify-content: center;">
+                    <div style="display: flex; gap: 8px;">
                         <button class="action-btn" style="background: #22c55e; color: white;">
                              <i data-lucide="eye" style="width: 14px;"></i>
                         </button>
@@ -819,7 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="color: var(--text-muted);">${item.email}</td>
                 <td style="color: var(--text-muted);">${item.mobile}</td>
                 <td>
-                    <div style="display: flex; gap: 8px; justify-content: center;">
+                    <div style="display: flex; gap: 8px;">
                          <button class="action-btn" style="background: #22c55e; color: white;">
                              <i data-lucide="eye" style="width: 14px;"></i>
                         </button>
@@ -861,7 +852,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="color: var(--text-muted);">${item.email}</td>
                  <td style="color: var(--text-muted);">${item.mobile}</td>
                  <td>
-                    <div style="display: flex; gap: 8px; justify-content: center;">
+                    <div style="display: flex; gap: 8px;">
                          <button class="action-btn" style="background: #22c55e; color: white;">
                              <i data-lucide="eye" style="width: 14px;"></i>
                         </button>
@@ -869,6 +860,50 @@ document.addEventListener('DOMContentLoaded', () => {
                              <i data-lucide="pencil" style="width: 14px;"></i>
                         </button>
                         <button class="action-btn" style="background: #ef4444; color: white;">
+                             <i data-lucide="x" style="width: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    const testimonialsData = [
+        { name: 'John Doe', message: 'Great service! Highly recommended.' },
+        { name: 'Jane Smith', message: 'Very professional team.' },
+        { name: 'Mike Johnson', message: 'Helped me find my dream home.' },
+        { name: 'Sarah Wilson', message: 'Smooth transaction process.' },
+        { name: 'David Brown', message: 'Excellent support throughout.' }
+    ];
+
+    function populateTestimonialsTable() {
+        const tbody = document.getElementById('testimonials-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = testimonialsData.map((item, index) => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${index + 1}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: var(--text-muted);"></td>
+                <td style="color: var(--text-muted);"></td>
+                <td style="color: var(--text-muted);" title="${item.message}">
+                    <div style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        ${item.message}
+                    </div>
+                </td>
+                <td style="color: var(--text-muted);"></td>
+                <td>
+                    <button class="action-btn" title="View Image" style="background:#f1f5f9; color:#475569;">
+                         <i data-lucide="image" style="width: 14px;"></i>
+                    </button>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="action-btn" style="background: #22c55e; color: white;" title="Approve">
+                             <i data-lucide="check" style="width: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white;" title="Reject">
                              <i data-lucide="x" style="width: 14px;"></i>
                         </button>
                     </div>
@@ -1073,128 +1108,4 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
         console.error('Error initializing project form:', error);
     }
-
-    // Associates Module Logic
-    function populateAssociatesTable() {
-        const tbody = document.getElementById('associates-table-body');
-        if (!tbody) return;
-
-        const associatesData = [
-            { id: 1, name: 'John Doe', role: 'Sales Associate', email: 'john@example.com', phone: '9876543210', status: 'Active' },
-            { id: 2, name: 'Jane Smith', role: 'Marketing Associate', email: 'jane@example.com', phone: '9876543211', status: 'Inactive' },
-            { id: 3, name: 'Mike Ross', role: 'Technical Associate', email: 'mike@example.com', phone: '9876543212', status: 'Active' },
-            { id: 4, name: 'Rachel Zane', role: 'Legal Associate', email: 'rachel@example.com', phone: '9876543213', status: 'Active' },
-            { id: 5, name: 'Harvey Specter', role: 'Senior Associate', email: 'harvey@example.com', phone: '9876543214', status: 'Active' }
-        ];
-
-        tbody.innerHTML = associatesData.map((item, index) => `
-            <tr>
-                <td style="text-align: center;">${index + 1}</td>
-                <td style="text-align: left;">${item.name}</td>
-                <td style="text-align: left;">${item.role}</td>
-                <td style="text-align: left;">${item.email}</td>
-                <td style="text-align: left;">${item.phone}</td>
-                <td style="text-align: center;">
-                    <span class="status-badge ${item.status === 'Active' ? 'status-active' : 'status-inactive'}">
-                        ${item.status}
-                    </span>
-                </td>
-                <td style="text-align: center;">
-                    <button class="action-btn view-btn" title="View">
-                        <i data-lucide="eye"></i>
-                    </button>
-                    <button class="action-btn delete-btn" title="Delete">
-                        <i data-lucide="trash-2"></i>
-                    </button>
-                </td>
-            </tr>
-        `).join('');
-        lucide.createIcons();
-    }
-
-    // Testimonials Module Logic
-    function populateTestimonialsTable() {
-        const tbody = document.getElementById('testimonials-table-body');
-        if (!tbody) return;
-
-        const testimonialsData = [
-            { name: 'Amit Sharma', email: 'N/A', phone: 'N/A', message: 'I would like to thank Mr. Tejasvi Kapoor for his valued assistance in bringing this sale to completion. I have been so impressed with his approachability, professionalism and can do attitude which is very refreshing and obviously achieves great results. Hope to work with you again in the future', location: 'New Delhi' },
-            { name: 'Nem Chand Sanghal', email: 'N/A', phone: 'N/A', message: 'We were looking for an apartment in Noida Extension and while searching for the same we came to know about Hunt Property. Our brief was to find for us an apartment with the quality of services he and his team provided. We were in particular impressed with the transparency and firmness while finalizing the deal. At the end - "we made sure to do 100%". We have got witness to the commitment he makes to whoever he meets or deals. "Our best wishes to the company.', location: 'India' },
-            { name: 'Ashok Kumar', email: 'N/A', phone: 'N/A', message: 'Associating with Hunt Property was a hassle free experience for me and my family. I would highly recommend them to all who are looking for a new house. Thanks to Mr. Kapoor and his whole team for all the hard work & support they have given to us completing the negotiation process of my plot in Supertach. I will be glad recommend with Hunt Property for future deals.', location: 'India' },
-            { name: 'Rajinder Sharma', email: 'N/A', phone: 'N/A', message: 'This is the era where property dealers sell the property, close the transaction, take money and forget. But, Hunt Property is an exception. , after buying the property, when I needed them back for re-sale of the same. But, they closely coupled with full responsibility. This is a classic example for Customer Relationship Management. I am impressed with his professional attitude and commitment.', location: 'India' },
-            { name: 'John', email: 'N/A', phone: 'N/A', message: 'This is a reliable program for anyone looking for plot to invest. I had to no regularly, keep in touch', location: 'Taiwan' },
-            { name: 'Harry', email: 'N/A', phone: 'N/A', message: 'My family and me want to thank you for helping us find a great opportunity to make money online. Very happy with how things are going!', location: 'Australia' },
-            { name: 'Guill Marte', email: 'N/A', phone: 'N/A', message: 'I love to have extra money. If I have time I invest by myself, but sometimes you want to have time for your family or friends, especially when you are on holidays. HPP\'s "one of the best investment program with extra returns". Short work, gain!', location: 'Makati, Philippines' },
-            { name: 'Guill Marte', email: 'N/A', phone: 'N/A', message: 'We are so grateful to have been recommended the services of Hunt Property. We were fortunate enough to have Hunt Property team to play a role in setting our first home promptly, professionally and effortlessly.', location: 'Makati, Philippines' },
-            { name: 'Rajesh', email: 'N/A', phone: 'N/A', message: 'Always easy and convenient to approach, pulling real estate jargon that is not tip of the tongue for most, into a manner that we were able to understand and digest. Most super important to us.', location: 'New Delhi' },
-            { name: 'Saurabh Singh', email: 'N/A', phone: 'N/A', message: 'These guys delivered a great outcome for our first home sale.', location: 'India' }
-        ];
-
-        tbody.innerHTML = testimonialsData.map((item, index) => `
-            <tr>
-                <td style="text-align: center;">${index + 1}</td>
-                <td style="text-align: left;">${item.name}</td>
-                <td style="text-align: left;">${item.email}</td>
-                <td style="text-align: left;">${item.phone}</td>
-                <td style="text-align: left;" title="${item.message}">
-                    ${item.message.length > 100 ? item.message.substring(0, 100) + '...' : item.message}
-                </td>
-                <td style="text-align: left;">${item.location}</td>
-                <td style="text-align: center;">
-                    <a href="#" style="color: #3B82F6; text-decoration: none;">view image</a>
-                </td>
-                <td style="text-align: center;">
-                    <div class="action-buttons" style="display: flex; gap: 4px; justify-content: center;">
-                        <button class="action-btn" style="background-color: #22C55E; color: white; border: none; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;" title="Approve">
-                            <i data-lucide="check" style="width: 14px; height: 14px;"></i>
-                        </button>
-                        <button class="action-btn" style="background-color: #EF4444; color: white; border: none; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;" title="Reject">
-                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
-                        </button>
-                        <button class="action-btn" style="background-color: #3B82F6; color: white; border: none; padding: 4px 12px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px;" title="Delete">
-                            delete
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-        lucide.createIcons();
-    }
-
-    // Event Listeners for Associates and Testimonials
-    const createAssociatesBtn = document.querySelector('.create-btn[data-target="create-associates"]');
-    if (createAssociatesBtn) {
-        createAssociatesBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchView('create-associates');
-        });
-    }
-
-    const createTestimonialsBtn = document.querySelector('.create-btn[data-target="create-testimonials"]');
-    if (createTestimonialsBtn) {
-        createTestimonialsBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchView('create-testimonials');
-        });
-    }
-
-    // Handle Form Submissions (Dummy)
-    const associatesForm = document.getElementById('create-associates-form'); // Assuming this ID exists or will be added
-    if (associatesForm) {
-        associatesForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Associate Created Successfully!');
-            switchView('associates-list');
-        });
-    }
-
-    const testimonialsForm = document.getElementById('create-testimonials-form'); // Assuming this ID exists or will be added
-    if (testimonialsForm) {
-        testimonialsForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Testimonial Created Successfully!');
-            switchView('testimonials-list');
-        });
-    }
-
 });
