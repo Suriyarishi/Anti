@@ -61,10 +61,11 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 1.471;
+    gap: 8px;
 }
 
 .nav-item i {
-    margin-right: 10px;
+    margin-right: 0;
     width: 14px;
     height: 14px;
 }
@@ -77,8 +78,9 @@
 
 .nav-item.active {
     background-color: var(--primary);
-    color: white;
+    color: var(--text-main);
     box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.25);
+    font-weight: 500;
 }
 
 .sidebar-section-title {
@@ -155,6 +157,7 @@
     line-height: 1.471;
     transition: all 0.2s;
     position: relative;
+    gap: 8px;
 }
 
 .submenu-item:hover {
@@ -167,7 +170,7 @@
     height: 6px;
     border-radius: 50%;
     background: var(--border);
-    margin-right: 12px;
+    margin-right: 0;
     transition: all 0.2s;
     position: relative;
     z-index: 2;

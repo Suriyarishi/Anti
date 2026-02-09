@@ -1061,4 +1061,118 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
         console.error('Error initializing project form:', error);
     }
+
+    // Associates Module Logic
+    function populateAssociatesTable() {
+        const tbody = document.getElementById('associates-table-body');
+        if (!tbody) return;
+
+        const associatesData = [
+            { id: 1, name: 'John Doe', role: 'Sales Associate', email: 'john@example.com', phone: '9876543210', status: 'Active' },
+            { id: 2, name: 'Jane Smith', role: 'Marketing Associate', email: 'jane@example.com', phone: '9876543211', status: 'Inactive' },
+            { id: 3, name: 'Mike Ross', role: 'Technical Associate', email: 'mike@example.com', phone: '9876543212', status: 'Active' },
+            { id: 4, name: 'Rachel Zane', role: 'Legal Associate', email: 'rachel@example.com', phone: '9876543213', status: 'Active' },
+            { id: 5, name: 'Harvey Specter', role: 'Senior Associate', email: 'harvey@example.com', phone: '9876543214', status: 'Active' }
+        ];
+
+        tbody.innerHTML = associatesData.map((item, index) => `
+            <tr>
+                <td style="text-align: center;">${index + 1}</td>
+                <td style="text-align: left;">${item.name}</td>
+                <td style="text-align: left;">${item.role}</td>
+                <td style="text-align: left;">${item.email}</td>
+                <td style="text-align: left;">${item.phone}</td>
+                <td style="text-align: center;">
+                    <span class="status-badge ${item.status === 'Active' ? 'status-active' : 'status-inactive'}">
+                        ${item.status}
+                    </span>
+                </td>
+                <td style="text-align: center;">
+                    <button class="action-btn view-btn" title="View">
+                        <i data-lucide="eye"></i>
+                    </button>
+                    <button class="action-btn delete-btn" title="Delete">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    // Testimonials Module Logic
+    function populateTestimonialsTable() {
+        const tbody = document.getElementById('testimonials-table-body');
+        if (!tbody) return;
+
+        const testimonialsData = [
+            { id: 1, name: 'Amit Kumar', email: 'amit@example.com', phone: '9876543210', message: 'Great service! Highly recommended.', location: 'Mumbai', image: 'avatar1.jpg' },
+            { id: 2, name: 'Priya Singh', email: 'priya@example.com', phone: '9876543211', message: 'Very professional team.', location: 'Delhi', image: 'avatar2.jpg' },
+            { id: 3, name: 'Rahul Sharma', email: 'rahul@example.com', phone: '9876543212', message: 'Helped me find my dream home.', location: 'Bangalore', image: 'avatar3.jpg' },
+            { id: 4, name: 'Sneha Patel', email: 'sneha@example.com', phone: '9876543213', message: 'Smooth transaction process.', location: 'Ahmedabad', image: 'avatar4.jpg' },
+            { id: 5, name: 'Vikram Malhotra', email: 'vikram@example.com', phone: '9876543214', message: 'Excellent customer support.', location: 'Pune', image: 'avatar5.jpg' }
+        ];
+
+        tbody.innerHTML = testimonialsData.map((item, index) => `
+            <tr>
+                <td style="text-align: center;">${index + 1}</td>
+                <td style="text-align: left;">${item.name}</td>
+                <td style="text-align: left;">${item.email}</td>
+                <td style="text-align: left;">${item.phone}</td>
+                <td style="text-align: left;" title="${item.message}">
+                    ${item.message.length > 30 ? item.message.substring(0, 30) + '...' : item.message}
+                </td>
+                <td style="text-align: left;">${item.location}</td>
+                <td style="text-align: center;">View Image</td>
+                <td style="text-align: center;">
+                    <div class="action-buttons">
+                        <button class="action-btn view-btn" style="background-color: #34D399; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;" title="View">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn delete-btn" style="background-color: #F87171; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;" title="Delete">
+                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    // Event Listeners for Associates and Testimonials
+    const createAssociatesBtn = document.querySelector('.create-btn[data-target="create-associates"]');
+    if (createAssociatesBtn) {
+        createAssociatesBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchView('create-associates');
+        });
+    }
+
+    const createTestimonialsBtn = document.querySelector('.create-btn[data-target="create-testimonials"]');
+    if (createTestimonialsBtn) {
+        createTestimonialsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchView('create-testimonials');
+        });
+    }
+
+    // Handle Form Submissions (Dummy)
+    const associatesForm = document.getElementById('create-associates-form'); // Assuming this ID exists or will be added
+    if (associatesForm) {
+        associatesForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Associate Created Successfully!');
+            switchView('associates-list');
+        });
+    }
+
+    const testimonialsForm = document.getElementById('create-testimonials-form'); // Assuming this ID exists or will be added
+    if (testimonialsForm) {
+        testimonialsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Testimonial Created Successfully!');
+            switchView('testimonials-list');
+        });
+    }
+
 });
