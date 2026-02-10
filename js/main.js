@@ -32,11 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'create-associate': document.getElementById('create-associate-view'),
         'news-list': document.getElementById('news-list-view'),
         'create-news': document.getElementById('create-news-view'),
-        'create-news': document.getElementById('create-news-view'),
         'subscribers-list': document.getElementById('subscribers-list-view'),
+        'add-newsletter-view': document.getElementById('add-newsletter-view'),
         'contact-enquiry-list': document.getElementById('contact-enquiry-list-view'),
-        'lead-management-list': document.getElementById('lead-management-list-view'),
-        'add-newsletter': document.getElementById('add-newsletter-view')
+        'lead-management-list': document.getElementById('lead-management-list-view')
     };
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -122,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (viewKey === 'lead-management-list') {
             populateLeadManagementTable();
             if (breadcrumbActive) breadcrumbActive.textContent = 'Lead Management';
-        } else if (viewKey === 'add-newsletter') {
+        } else if (viewKey === 'add-newsletter-view') {
             populateNewslettersTable();
             if (breadcrumbActive) breadcrumbActive.textContent = 'Add Newsletter';
         }
@@ -1481,15 +1480,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Add NewsLetter Button logic - Switch to separate view
+    // Add NewsLetter Button logic
     const addNewsletterBtn = document.getElementById('btn-add-newsletter');
     if (addNewsletterBtn) {
         addNewsletterBtn.addEventListener('click', () => {
-            switchView('add-newsletter');
+            switchView('add-newsletter-view');
         });
     }
 
-    // View Subscribers Button Logic
+    // View Subscribers Button logic
     const viewSubscribersBtn = document.getElementById('btn-view-subscribers');
     if (viewSubscribersBtn) {
         viewSubscribersBtn.addEventListener('click', () => {
@@ -1497,12 +1496,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Add Newsletter Form logic
+    const addNewsletterForm = document.getElementById('add-newsletter-form');
+    if (addNewsletterForm) {
+        addNewsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Newsletter saved successfully!');
+            addNewsletterForm.reset();
+            populateNewslettersTable(); // Refresh table (mock)
+        });
+    }
+
     // Send Newsletter Form logic
-    const sendNewsletterForm = document.getElementById('add-newsletter-form');
+    const sendNewsletterForm = document.getElementById('send-newsletter-form');
     if (sendNewsletterForm) {
         sendNewsletterForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Newsletter saved successfully!');
+            alert('Newsletter sent successfully!');
             sendNewsletterForm.reset();
         });
     }
@@ -1588,6 +1598,31 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
+    const newslettersData = [
+        { sno: 1, title: 'Weekly Updates', date: '2017-06-01' },
+        { sno: 2, title: 'Monthly Digest', date: '2017-06-05' }
+    ];
+
+    function populateNewslettersTable() {
+        const tbody = document.getElementById('newsletters-history-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = newslettersData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.title}</td>
+                <td style="color: var(--text-muted);">${item.date}</td>
+                <td>
+                    <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
     function getStatusColor(status) {
         switch (status) {
             case 'New': return '#3b82f6'; // Blue
@@ -1596,32 +1631,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'Closed': return '#ef4444'; // Red
             default: return '#64748b'; // Slate
         }
-    }
-
-    const newslettersData = [
-        { sno: 1, title: 'Real Estate Trends 2024', createdDate: '2024-01-15 10:30:00' },
-        { sno: 2, title: 'New Project Launch - Sky Gardens', createdDate: '2024-02-01 14:15:00' },
-        { sno: 3, title: 'Investment Opportunities in Downtown', createdDate: '2024-02-10 09:45:00' }
-    ];
-
-    function populateNewslettersTable() {
-        const tbody = document.getElementById('newsletters-table-body');
-        if (!tbody) return;
-
-        tbody.innerHTML = newslettersData.map(item => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.title}</td>
-                <td style="color: var(--text-muted);">${item.createdDate}</td>
-                <td>
-                    <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
-                    </button>
-                </td>
-            </tr>
-        `).join('');
-
-        lucide.createIcons();
     }
 
     // Export switchView globally
