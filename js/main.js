@@ -1535,23 +1535,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="font-weight: 600; color: #64748b;">${item.name}</td>
                 <td style="color: var(--text-muted);">${item.email}</td>
                 <td style="color: var(--text-muted);">${item.phone}</td>
-                <td style="color: var(--text-muted); font-weight: 500;">${item.subject}</td>
+
                 <td style="color: var(--text-muted); font-size: 13px;">
                     <div style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         ${item.message}
                     </div>
                 </td>
                 <td style="color: var(--text-muted); white-space: nowrap;">${item.date}</td>
-                <td>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
-                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-                        </button>
-                    </div>
-                </td>
             </tr>
         `).join('');
 
