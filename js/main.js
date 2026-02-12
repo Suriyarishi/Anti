@@ -35,8 +35,57 @@ document.addEventListener('DOMContentLoaded', () => {
         'subscribers-list': document.getElementById('subscribers-list-view'),
         'add-newsletter-view': document.getElementById('add-newsletter-view'),
         'contact-enquiry-list': document.getElementById('contact-enquiry-list-view'),
-        'lead-management-list': document.getElementById('lead-management-list-view')
+        'lead-management-list': document.getElementById('lead-management-list-view'),
+        'create-lead': document.getElementById('create-lead-view'),
+        'client-registration': document.getElementById('client-registration-view'),
+        'client-kyc': document.getElementById('client-kyc-view'),
+        'create-client-kyc': document.getElementById('create-client-kyc-view'),
+        'lead-profile': document.getElementById('lead-profile-view'),
+        'career-leads': document.getElementById('career-leads-view'),
+        'loan-leads': document.getElementById('loan-leads-view'),
+        'channel-partner-leads': document.getElementById('channel-partner-leads-view')
     };
+
+    const viewRoutes = {
+        'dashboard': { title: 'Dashboard', init: initDashboard },
+        'categories': { title: 'Property Category', init: populateCategoriesTable, create: 'create-category' },
+        'create-category': { title: 'Create Property Category' },
+        'property-list': { title: 'Property List', init: populatePropertyListTable },
+        'project-attr-cat': { title: 'Project Attribute Category', init: populateProjectAttrCatTable, create: 'create-project-attr-cat' },
+        'create-project-attr-cat': { title: 'Create Project Attributes Category' },
+        'project-attr': { title: 'Project Attributes', init: populateProjectAttributesTable, create: 'create-project-attr' },
+        'create-project-attr': { title: 'Create Project Attribute' },
+        'builder-project-list': { title: 'Builder Project List', init: populateBuilderProjectTable },
+        'create-project': { title: 'Create Project', init: () => { if (window.resetCreateProjectForm) window.resetCreateProjectForm(); } },
+        'attributes-category-list': { title: 'Attributes Category', init: populateAttributesCategoryListTable, create: 'create-attributes-category' },
+        'create-attributes-category': { title: 'Create Attributes Category' },
+        'attributes-list': { title: 'Attributes', init: populateAttributesListTable, create: 'create-attribute' },
+        'create-attribute': { title: 'Create Attribute' },
+        'users-list': { title: 'Users List', init: populateUsersTable, create: 'create-user' },
+        'agent-list': { title: 'Agent List', init: populateAgentTable, create: 'create-user' },
+        'builder-list': { title: 'Builder List', init: populateBuilderTable, create: 'create-user' },
+        'create-user': { title: 'Create User' },
+        'testimonials-list': { title: 'Testimonials List', init: populateTestimonialsTable, create: 'create-testimonial' },
+        'associates-list': { title: 'Associates List', init: populateAssociatesTable, create: 'create-associate' },
+        'create-testimonial': { title: 'Create Testimonial' },
+        'create-associate': { title: 'Create Associate' },
+        'news-list': { title: 'News', init: typeof populateNewsTable === 'function' ? populateNewsTable : null, create: 'create-news' },
+        'create-news': { title: 'Add News' },
+        'subscribers-list': { title: 'Subscribers List' },
+        'add-newsletter-view': { title: 'Add Newsletter' },
+        'contact-enquiry-list': { title: 'Contact Enquiry', init: typeof populateContactEnquiryTable === 'function' ? populateContactEnquiryTable : null },
+        'lead-management-list': { title: 'View Lead List', init: typeof populateLeadManagementTable === 'function' ? populateLeadManagementTable : null, create: 'create-lead' },
+        'create-lead': { title: 'Add Property' },
+        'client-registration': { title: 'Client Registration', init: typeof populateClientRegistrationTable === 'function' ? populateClientRegistrationTable : null },
+        'client-kyc': { title: 'Client KYC List', init: typeof populateClientKycTable === 'function' ? populateClientKycTable : null, create: 'create-client-kyc' },
+        'create-client-kyc': { title: 'Create Client KYC' },
+        'lead-profile': { title: 'User Profile' },
+        'career-leads': { title: 'Career Leads', init: typeof populateCareerLeadsTable === 'function' ? populateCareerLeadsTable : null },
+        'loan-leads': { title: 'Loan Leads', init: typeof populateLoanLeadsTable === 'function' ? populateLoanLeadsTable : null },
+        'channel-partner-leads': { title: 'Channel Partner Leads', init: typeof populateChannelPartnerLeadsTable === 'function' ? populateChannelPartnerLeadsTable : null }
+    };
+
+
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
     let chartInstances = [];
@@ -46,8 +95,50 @@ document.addEventListener('DOMContentLoaded', () => {
         chartInstances = [];
     }
 
+    function goToCreateLeadStep(step) {
+        const step1 = document.getElementById('create-lead-step-1');
+        const step2 = document.getElementById('create-lead-step-2');
+        const nextBtn = document.getElementById('create-lead-next-btn');
+        const prevBtn = document.getElementById('create-lead-prev-btn');
+        const stepperItems = document.querySelectorAll('#create-lead-stepper .stepper-item');
+
+        if (step === 1) {
+            if (step1) step1.style.display = 'block';
+            if (step2) step2.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (prevBtn) prevBtn.style.display = 'none';
+
+            stepperItems.forEach(item => {
+                if (item.getAttribute('data-step') === '1') {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        } else if (step === 2) {
+            if (step1) step1.style.display = 'none';
+            if (step2) step2.style.display = 'block';
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (prevBtn) prevBtn.style.display = 'block';
+
+            stepperItems.forEach(item => {
+                if (item.getAttribute('data-step') === '2') {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+    }
+    window.goToCreateLeadStep = goToCreateLeadStep;
+
     function switchView(viewKey) {
         console.log('Switching to view:', viewKey);
+
+        const route = viewRoutes[viewKey];
+        if (!route) {
+            console.warn('Route config not found:', viewKey);
+        }
 
         // Hide all views first
         Object.values(views).forEach(v => {
@@ -56,74 +147,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const targetView = views[viewKey];
         if (!targetView) {
-            console.warn('View not found in switchView:', viewKey);
+            console.warn('View element not found in switchView:', viewKey);
             return;
         }
 
         targetView.style.display = 'block';
         window.currentView = viewKey; // Track current view globally
 
-        if (viewKey === 'dashboard') {
-            cleanupCharts();
-            initDashboard();
-        } else if (viewKey === 'categories') {
-            populateCategoriesTable();
-        } else if (viewKey === 'create-category') {
-            lucide.createIcons();
-        } else if (viewKey === 'property-list') {
-            populatePropertyListTable();
-        } else if (viewKey === 'project-attr-cat') {
-            populateProjectAttrCatTable();
-        } else if (viewKey === 'project-attr') {
-            populateProjectAttributesTable();
-        } else if (viewKey === 'project-list') {
-            populateProjectListTable();
-        } else if (viewKey === 'builder-project-list') {
-            populateBuilderProjectTable();
-        } else if (viewKey === 'create-project') {
-            if (window.resetCreateProjectForm) window.resetCreateProjectForm();
-        } else if (viewKey === 'attributes-category-list') {
-            populateAttributesCategoryListTable();
-        } else if (viewKey === 'attributes-list') {
-            populateAttributesListTable();
-        } else if (viewKey === 'users-list') {
-            populateUsersTable();
-        } else if (viewKey === 'agent-list') {
-            populateAgentTable();
-        } else if (viewKey === 'builder-list') {
-            populateBuilderTable();
-        } else if (viewKey === 'create-user') {
-            lucide.createIcons();
-        } else if (viewKey === 'testimonials-list') {
-            populateTestimonialsTable();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Testimonials';
-        } else if (viewKey === 'associates-list') {
-            populateAssociatesTable();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Associates';
-        } else if (viewKey === 'create-testimonial') {
-            lucide.createIcons();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Testimonial';
-        } else if (viewKey === 'create-associate') {
-            lucide.createIcons();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Associate';
-        } else if (viewKey === 'news-list') {
-            populateNewsTable();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'News';
-        } else if (viewKey === 'create-news') {
-            lucide.createIcons();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Add News';
-        } else if (viewKey === 'subscribers-list') {
-            populateSubscribersTable();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Subscription List';
-        } else if (viewKey === 'contact-enquiry-list') {
-            populateContactEnquiryTable();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Contact Enquiry';
-        } else if (viewKey === 'lead-management-list') {
-            populateLeadManagementTable();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Lead Management';
-        } else if (viewKey === 'add-newsletter-view') {
-            populateNewslettersTable();
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Add Newsletter';
+        // Update Breadcrumb
+        if (breadcrumbActive && route) {
+            breadcrumbActive.textContent = route.title;
         }
 
         // Update sidebar active state
@@ -135,6 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Initialize view data if needed
+        if (route && route.init) {
+            route.init();
+        }
+
         // Animated entry
         targetView.querySelectorAll('.kpi-card, .chart-card, .table-card').forEach((el, i) => {
             el.style.opacity = "0";
@@ -145,7 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.style.transform = "translateY(0)";
             }, i * 50);
         });
+
+        // Shared initializers
+        lucide.createIcons();
     }
+
 
     function initDashboard() {
         chartInstances.push(drawChart('leadsEnquiryChart', ['Property', 'Leads', 'Enquiry', 'Users'], [988, 303, 128, 303], '#2FED9A'));
@@ -215,132 +257,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle Buttons from views
     document.addEventListener('click', (e) => {
-        // Create button (dynamic check for both List views)
-        const createBtn = e.target.closest('.btn-primary, .btn-premium');
-        if (createBtn && (createBtn.textContent.trim().includes('Create') || createBtn.textContent.trim().includes('Add'))) {
-            const currentView = Object.keys(views).find(key => views[key].style.display === 'block');
+        const target = e.target;
 
-            if (currentView === 'property-list') {
-                // Do nothing or implement generic Create logic if needed
-                // For now, keeping it as requested: just delete the module.
-            } else if (currentView === 'project-list') {
-                switchView('create-project');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Add Project';
-            } else if (currentView === 'project-attr-cat') {
-                switchView('create-project-attr-cat');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes Category';
-            } else if (currentView === 'project-attr') {
-                switchView('create-project-attr');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes';
-            } else if (currentView === 'attributes-category-list') {
-                switchView('create-attributes-category');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attributes Category';
-            } else if (currentView === 'attributes-list') {
-                switchView('create-attribute');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attribute';
-            } else if (currentView === 'users-list') {
-                switchView('create-user');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create User';
-            } else if (currentView === 'testimonials-list') {
-                switchView('create-testimonial');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Testimonial';
-            } else if (currentView === 'associates-list') {
-                switchView('create-associate');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Associate';
-            } else if (currentView === 'news-list') {
-                switchView('create-news');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Add News';
-            } else {
-                switchView('create-category');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
+        // Create button
+        const createBtn = target.closest('.btn-primary, .btn-premium');
+        if (createBtn && (createBtn.textContent.trim().includes('Create') || createBtn.textContent.trim().includes('Add'))) {
+            // Special check: skip if it's already a submit button inside a form we don't want to redirect from
+            if (createBtn.type === 'submit' && createBtn.closest('form')) return;
+
+            const route = viewRoutes[window.currentView];
+            if (route && route.create) {
+                switchView(route.create);
+                return;
             }
         }
 
-        // Create Button Specific ID handler (if needed explicitly)
-        if (e.target.closest('#btn-create-attr-cat')) {
-            switchView('create-attributes-category');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attributes Category';
+        // Action Buttons inside tables (View/Edit)
+        const actionBtn = target.closest('.action-btn');
+        if (actionBtn) {
+            const title = actionBtn.getAttribute('title');
+            if (title === 'View' && window.currentView === 'lead-management-list') {
+                switchView('lead-profile');
+                return;
+            }
         }
 
-        if (e.target.closest('#btn-create-attr')) {
-            switchView('create-attribute');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attribute';
-        }
-
-        // Cancel button in Form
-        if (e.target.classList.contains('btn-cancel')) {
+        // Cancel buttons - Back to list
+        if (target.classList.contains('btn-cancel') || target.closest('.btn-cancel')) {
             switchView('categories');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Property Category';
-        }
-
-        // Attributes Category Cancel
-        if (e.target.classList.contains('btn-cancel-attr-cat')) {
+        } else if (target.classList.contains('btn-cancel-attr-cat')) {
             switchView('attributes-category-list');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Attributes Category';
-        }
-
-        // Attribute Cancel
-        if (e.target.classList.contains('btn-cancel-attr')) {
+        } else if (target.classList.contains('btn-cancel-attr')) {
             switchView('attributes-list');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Attributes';
-        }
-
-        // Create User Cancel
-        if (e.target.closest('#btn-create-user-cancel')) {
+        } else if (target.closest('#btn-create-user-cancel')) {
             switchView('users-list');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Users List';
-        }
-
-        // News Cancel
-        if (e.target.id === 'btn-create-news-cancel') {
+        } else if (target.id === 'btn-create-news-cancel') {
             switchView('news-list');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'News';
-        }
-
-        // Testimonial Cancel
-        if (e.target.id === 'btn-create-testimonial-cancel') {
+        } else if (target.id === 'btn-create-testimonial-cancel') {
             switchView('testimonials-list');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Testimonials List';
-        }
-
-        // Associate Cancel
-        if (e.target.id === 'btn-create-associate-cancel') {
+        } else if (target.id === 'btn-create-associate-cancel') {
             switchView('associates-list');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Associates List';
-        }
-
-        // Project Form Cancel
-        if (e.target.id === 'btn-project-cancel') {
+        } else if (target.id === 'btn-project-cancel') {
             if (confirm('Are you sure you want to cancel? All progress will be lost.')) {
                 switchView('project-list');
-                if (breadcrumbActive) breadcrumbActive.textContent = 'Project Management';
             }
-        }
-
-        // Project Attr Cancel
-        if (e.target.classList.contains('btn-cancel-project-attr')) {
+        } else if (target.classList.contains('btn-cancel-project-attr')) {
             switchView('project-attr-cat');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attribute Category';
+        } else if (target.classList.contains('btn-cancel-project-attr-details')) {
+            switchView('project-attr');
         }
 
-        // Project Attr Details Cancel
-        if (e.target.classList.contains('btn-cancel-project-attr-details')) {
-            switchView('project-attr');
-            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attributes';
+        // Back buttons (explicit)
+        if (target.closest('.btn-back-to-kyc-list')) {
+            switchView('client-kyc');
         }
+
+        // Module Specific Create Buttons (by ID)
+        if (target.closest('#btn-create-attr-cat')) switchView('create-attributes-category');
+        if (target.closest('#btn-create-attr')) switchView('create-attribute');
+        if (target.closest('#btn-create-kyc')) switchView('create-client-kyc');
 
         // Select All logic
-        if (e.target.classList.contains('btn-select-all')) {
-            const section = e.target.getAttribute('data-section');
+        if (target.classList.contains('btn-select-all')) {
+            const section = target.getAttribute('data-section');
             const checkboxes = document.querySelectorAll(`.${section}-cb`);
             const allChecked = Array.from(checkboxes).every(cb => cb.checked);
             checkboxes.forEach(cb => cb.checked = !allChecked);
         }
-
-        // Project Form Navigation (Refactored for reliability)
-        // Project Form Navigation - Handled by specific listeners in initCreateProjectFormLogic
-        // Delegated logic removed to prevent double-binding and conflicts
-
     });
 
     // Form Submissions
@@ -1549,11 +1532,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const leadManagementData = [
-        { sno: 1, name: 'Suriya Rishi', type: 'Buyer', phone: '9876543210', date: '2017-05-31', status: 'New' },
-        { sno: 2, name: 'Rahul Varma', type: 'Seller', phone: '9123456780', date: '2017-06-05', status: 'In Progress' },
-        { sno: 3, name: 'Priya Patel', type: 'Investor', phone: '8899776655', date: '2017-06-12', status: 'Converted' },
-        { sno: 4, name: 'Amit Singh', type: 'Buyer', phone: '7766554433', date: '2017-06-20', status: 'Closed' },
-        { sno: 5, name: 'Sonia Gupta', type: 'Renter', phone: '9988776655', date: '2017-07-01', status: 'New' }
+        { sno: 1, name: 'Sonu Singh', email: 'sonukrsingh204@gmail.com', phone: '9771013204', whoIs: 'Individual', date: '06-Aug-2018', leadFrom: 'Website', verified: 'Verified' },
+        { sno: 2, name: 'HuntTest', email: 'HuntTest@yopmail.com', phone: '9718039015', whoIs: 'Builder', date: '06-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
+        { sno: 3, name: 'Agent', email: 'agent@huntproperty.com', phone: '7415212847', whoIs: 'Agent', date: '03-May-2021', leadFrom: 'Website', verified: 'Not Verified' },
+        { sno: 4, name: 'Harvin', email: 'harvinkaur.dutta@gmail.com', phone: '7827079311', whoIs: 'Owner', date: '07-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
+        { sno: 5, name: 'HuntTest', email: 'HuntTest@yopmail.com', phone: '9718039015', whoIs: 'Builder', date: '07-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
+        { sno: 6, name: 'HuntTest', email: 'HuntTest@yopmail.com', phone: '9718039015', whoIs: 'Builder', date: '07-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
+        { sno: 7, name: 'shashi boodha', email: 'shashi.boodha@codeflowtech.com', phone: '9899746044', whoIs: 'Owner', date: '13-Sep-2018', leadFrom: 'Website', verified: 'Not Verified' },
+        { sno: 8, name: 'shashi boodha', email: 'shashi.boodha@codeflowtech.com', phone: '9899746044', whoIs: 'Owner', date: '13-Sep-2018', leadFrom: 'View Property', verified: 'Verified' },
+        { sno: 9, name: 'Ravi kumar Jaiswal', email: 'ravijaiswal007@gmail.com', phone: '8860083743', whoIs: 'Owner', date: '14-Sep-2018', leadFrom: 'Website', verified: 'Not Verified' },
+        { sno: 10, name: 'Hassan Kalam', email: 'hassankalam@gmail.com', phone: '7838359881', whoIs: 'Individual', date: '14-Sep-2018', leadFrom: 'Website', verified: 'Verified' }
     ];
 
     function populateLeadManagementTable() {
@@ -1563,15 +1551,78 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.innerHTML = leadManagementData.map(item => `
             <tr>
                 <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
-                <td style="color: var(--text-muted);">${item.type}</td>
+                <td style="font-weight: 500; color: #475569;">${item.name}</td>
+                <td style="color: var(--text-muted);">${item.email}</td>
                 <td style="color: var(--text-muted);">${item.phone}</td>
+                <td style="color: var(--text-muted);">${item.whoIs}</td>
                 <td style="color: var(--text-muted);">${item.date}</td>
+                <td style="color: var(--text-muted);">${item.leadFrom}</td>
+                <td style="color: ${item.verified === 'Verified' ? '#10b981' : '#64748b'};">${item.verified}</td>
                 <td>
-                    <span class="status-btn" style="background-color: ${getStatusColor(item.status)}; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;">
-                        ${item.status}
-                    </span>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View" onclick="viewLeadProfile(${item.sno})">
+                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
                 </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    window.viewLeadProfile = function (id) {
+        const lead = leadManagementData.find(l => l.sno === id);
+        if (!lead) return;
+
+        const nameEl = document.getElementById('profile-name');
+        const emailEl = document.getElementById('profile-email');
+        const phoneEl = document.getElementById('profile-phone');
+        const whoisEl = document.getElementById('profile-whois');
+        const leadfromEl = document.getElementById('profile-leadfrom');
+        const verifiedEl = document.getElementById('profile-verified');
+
+        if (nameEl) nameEl.textContent = lead.name;
+        if (emailEl) emailEl.textContent = lead.email;
+        if (phoneEl) phoneEl.textContent = lead.phone;
+        if (whoisEl) whoisEl.textContent = lead.whoIs;
+        if (leadfromEl) leadfromEl.textContent = lead.leadFrom;
+        if (verifiedEl) verifiedEl.textContent = lead.verified;
+
+        switchView('lead-profile');
+    }
+
+
+
+
+
+    const clientRegistrationData = [
+        { sno: 1, postedBy: 'Agent', name: 'Tejasvi Kapoor', email: 'tejasvikapoor@gmail.com', phone: '9899095939', type: 'Residential' },
+        { sno: 2, postedBy: 'Agent', name: 'Vidit G Gupta', email: 'vidit.gupta@huntproperty.com', phone: '9699007767', type: 'Residential' },
+        { sno: 3, postedBy: 'Satyam Kaushik', name: 'satyam', email: 'saty@gmail.com', phone: '9811316160', type: 'Residential' },
+        { sno: 4, postedBy: 'Satyam Kaushik', name: 'kunal', email: 'saty@gmail.com', phone: '9811316160', type: 'Residential' },
+        { sno: 5, postedBy: 'Agent', name: 'SK', email: 'lookingproperty@gmail.com', phone: '9600776688', type: 'Residential' },
+        { sno: 6, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
+        { sno: 7, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
+        { sno: 8, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
+        { sno: 9, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
+        { sno: 10, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' }
+    ];
+
+    function populateClientRegistrationTable() {
+        const tbody = document.getElementById('client-registration-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = clientRegistrationData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="color: var(--text-muted);">${item.postedBy}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
+                <td style="color: var(--text-muted);">${item.email}</td>
+                <td style="color: var(--text-muted);">${item.phone}</td>
+                <td style="color: var(--text-muted);">${item.type}</td>
                 <td>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
@@ -1584,7 +1635,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
             </tr>
         `).join('');
+        lucide.createIcons();
+    }
 
+    const clientKycData = [
+        { sno: 1, bookingBy: 'Satyam Kaushik', builder: 'Agent', project: 'Nitesh', client: 'John Doe', date: '2026-02-10' },
+        { sno: 2, bookingBy: 'Satyam Kaushik', builder: 'Builder', project: 'Prestige', client: 'Jane Smith', date: '2026-02-11' }
+    ];
+
+    function populateClientKycTable() {
+        const tbody = document.getElementById('client-kyc-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = clientKycData.map(item => `
+            <tr>
+                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
+                <td style="color: var(--text-muted);">${item.bookingBy}</td>
+                <td style="color: var(--text-muted);">${item.builder}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.project}</td>
+                <td style="font-weight: 600; color: #64748b;">${item.client}</td>
+                <td style="color: var(--text-muted);">${item.date}</td>
+                <td>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
+                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
+                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
         lucide.createIcons();
     }
 
@@ -1623,6 +1704,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // KYC Form Submission
+    const kycForm = document.getElementById('create-client-kyc-form');
+    if (kycForm) {
+        kycForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Client KYC submitted successfully!');
+            switchView('client-kyc');
+        });
+    }
+
     // Export switchView globally
     window.switchView = switchView;
+
+    // Explicit listener for Career Leads to ensure it works
+    const careerLeadsLink = document.getElementById('nav-career-leads');
+    if (careerLeadsLink) {
+        careerLeadsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Career Leads link clicked manually');
+            switchView('career-leads');
+        });
+    }
 });
