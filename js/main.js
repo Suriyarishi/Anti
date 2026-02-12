@@ -35,7 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
         'packages-list': document.getElementById('packages-list-view'),
         'create-package': document.getElementById('create-package-view'),
         'sell-rent-advice-list': document.getElementById('sell-rent-advice-list-view'),
-        'create-sell-rent-advice': document.getElementById('create-sell-rent-advice-view')
+        'create-sell-rent-advice': document.getElementById('create-sell-rent-advice-view'),
+        'amenities-list': document.getElementById('amenities-list-view'),
+        'create-amenity': document.getElementById('create-amenity-view'),
+        'videos-list': document.getElementById('videos-list-view'),
+        'create-video': document.getElementById('create-video-view'),
+        'newspaper-list': document.getElementById('newspaper-list-view'),
+        'create-newspaper': document.getElementById('create-newspaper-view'),
+        'knowledge-list': document.getElementById('knowledge-list-view'),
+        'create-knowledge': document.getElementById('create-knowledge-view'),
+        'notification-list': document.getElementById('notification-list-view'),
+        'create-notification': document.getElementById('create-notification-view')
     };
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -110,6 +120,26 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (viewKey === 'sell-rent-advice-list') {
             populateSellRentAdviceTable();
         } else if (viewKey === 'create-sell-rent-advice') {
+            lucide.createIcons();
+        } else if (viewKey === 'amenities-list') {
+            populateAmenitiesTable();
+        } else if (viewKey === 'create-amenity') {
+            lucide.createIcons();
+        } else if (viewKey === 'videos-list') {
+            populateVideosTable();
+        } else if (viewKey === 'create-video') {
+            lucide.createIcons();
+        } else if (viewKey === 'newspaper-list') {
+            populateNewspaperTable();
+        } else if (viewKey === 'create-newspaper') {
+            lucide.createIcons();
+        } else if (viewKey === 'knowledge-list') {
+            populateKnowledgeTable();
+        } else if (viewKey === 'create-knowledge') {
+            lucide.createIcons();
+        } else if (viewKey === 'notification-list') {
+            populateNotificationTable();
+        } else if (viewKey === 'create-notification') {
             lucide.createIcons();
         }
 
@@ -362,6 +392,16 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Sell/Rent Advice created successfully!');
             switchView('sell-rent-advice-list');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Sell/Rent Advice';
+        });
+    }
+
+    const createAmenityForm = document.getElementById('create-amenity-form');
+    if (createAmenityForm) {
+        createAmenityForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Amenity created successfully!');
+            switchView('amenities-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Amenities';
         });
     }
 
@@ -1488,6 +1528,257 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
 
         lucide.createIcons();
+    }
+
+    const amenitiesData = [
+        { sno: 1, name: "Car Parking", icon: "car" },
+        { sno: 2, name: "Kid's Playground", icon: "smile" },
+        { sno: 3, name: "Club House", icon: "home" },
+        { sno: 4, name: "Restaurants", icon: "utensils" },
+        { sno: 5, name: "Fitness Gym", icon: "dumbbell" },
+        { sno: 6, name: "School", icon: "graduation-cap" },
+        { sno: 7, name: "Hospital", icon: "hospital" },
+        { sno: 8, name: "Swimming Pool", icon: "waves" },
+        { sno: 9, name: "24 Hour Water Supply", icon: "droplet" },
+        { sno: 10, name: "Firefighting Equipment", icon: "flame" }
+    ];
+
+    function populateAmenitiesTable() {
+        const tbody = document.getElementById('amenities-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = amenitiesData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 500; font-size: 13px; text-align: left; padding-left: 24px;">${item.name}</td>
+                <td style="text-align: center; padding: 12px;">
+                    <div style="width: 80px; height: 80px; background: #f8fafc; border-radius: 8px; margin: 0 auto; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #e2e8f0;">
+                         <i data-lucide="${item.icon}" style="width: 40px; height: 40px; color: #64748b;"></i>
+                    </div>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const videosData = [
+        { sno: 1, title: "How to Sell Houses Like A Champ", url: "https://www.youtube.com/embed/cc779xpBCTE" },
+        { sno: 2, title: "5 Biggest Home Buying Mistakes", url: "https://www.youtube.com/embed/yjpzD7vzxu8" },
+        { sno: 3, title: "10 Benefits of Staying on Rent", url: "https://www.youtube.com/embed/5piSOItzVF4" },
+        { sno: 4, title: "HUNT PROPERTY PRESENTATION", url: "https://www.youtube.com/embed/HsYT1aTnTYE" },
+        { sno: 5, title: "Hunt Property Presentation", url: "https://www.youtube.com/embed/n40yg-YPcd0" }
+    ];
+
+    function populateVideosTable() {
+        const tbody = document.getElementById('videos-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = videosData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 500; font-size: 13px; text-align: left; padding-left: 20px;">${item.title}</td>
+                <td style="color: #337ab7; font-size: 13px; text-align: left; padding-left: 20px;">${item.url}</td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="#" style="color: #337ab7; text-decoration: none; font-size: 13px;">view image</a>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="btn" style="background: #337ab7; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 11px;">Deactive</button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const createVideoForm = document.getElementById('create-video-form');
+    if (createVideoForm) {
+        createVideoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Video created successfully!');
+            switchView('videos-list');
+        });
+    }
+
+    const newspaperData = [
+        { sno: 1, title: "Yogi Pics 1000", paper: "Times City", date: "2020-09-23", page: 1 },
+        { sno: 2, title: "Yamuna Express", paper: "Notice", date: "2020-09-18", page: 4 },
+        { sno: 3, title: "Center to Meet", paper: "Times Group", date: "2020-09-18", page: 2 },
+        { sno: 4, title: "IGI Airport", paper: "Property Times", date: "2020-09-18", page: 3 },
+        { sno: 5, title: "Transpor Nagar", paper: "Dainik Jagran", date: "2020-09-18", page: 1 },
+        { sno: 6, title: "News 6", paper: "NBT", date: "2020-09-18", page: 2 },
+        { sno: 7, title: "Smart City", paper: "My City", date: "2020-09-19", page: 3 },
+        { sno: 8, title: "Yamuna Express", paper: "My City", date: "2020-09-20", page: 4 },
+        { sno: 9, title: "Jewar Airport", paper: "NBT", date: "2020-09-21", page: 5 },
+        { sno: 10, title: "Jewar Airport", paper: "NBT", date: "2020-09-22", page: 6 }
+    ];
+
+    function populateNewspaperTable() {
+        const tbody = document.getElementById('newspaper-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = newspaperData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 500; font-size: 13px; text-align: left; padding-left: 20px;">${item.title}</td>
+                <td style="color: var(--text-muted); font-size: 13px; text-align: left; padding-left: 20px;">${item.paper}</td>
+                <td style="color: var(--text-muted); font-size: 13px; text-align: center;">${item.date}</td>
+                <td style="color: var(--text-muted); font-size: 13px; text-align: center;">${item.page}</td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="#" style="color: #337ab7; text-decoration: none; font-size: 13px;">view image</a>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="btn" style="background: #337ab7; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 11px;">Deactive</button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const createNewspaperForm = document.getElementById('create-newspaper-form');
+    if (createNewspaperForm) {
+        createNewspaperForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Newspaper entry created successfully!');
+            switchView('newspaper-list');
+        });
+    }
+
+    const knowledgeData = [
+        { sno: 1, title: "RERA Andhra Pradesh", category: "RERA" },
+        { sno: 2, title: "RERA Bihar", category: "RERA" },
+        { sno: 3, title: "RERA Dadra aand Nagar Haveli", category: "RERA" },
+        { sno: 4, title: "RERA Goa", category: "RERA" },
+        { sno: 5, title: "RERA Haryana", category: "RERA" },
+        { sno: 6, title: "RERA Kerala", category: "RERA" },
+        { sno: 7, title: "RERA Maharashtra", category: "RERA" },
+        { sno: 8, title: "RERA Odisha", category: "RERA" },
+        { sno: 9, title: "RERA Punjab", category: "RERA" },
+        { sno: 10, title: "RERA Rajasthan", category: "RERA" },
+        { sno: 11, title: "RERA Tamilnadu", category: "RERA" },
+        { sno: 12, title: "RERA UP", category: "RERA" },
+        { sno: 13, title: "RERA Uttrakhand", category: "RERA" },
+        { sno: 14, title: "Master Plan Allahabad", category: "Master Plan" },
+        { sno: 15, title: "Master Plan Ambala Punjab", category: "Master Plan" },
+        { sno: 16, title: "Master Plan Aurangabad", category: "Master Plan" },
+        { sno: 17, title: "Master Plan Bhilwara Rajasthan", category: "Master Plan" },
+        { sno: 18, title: "Master Plan Dehradun", category: "Master Plan" },
+        { sno: 19, title: "Master Plan Goa", category: "Master Plan" },
+        { sno: 20, title: "Master Plan Gorakhpur UP", category: "Master Plan" }
+    ];
+
+    function populateKnowledgeTable() {
+        const tbody = document.getElementById('knowledge-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = knowledgeData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 500; font-size: 13px; text-align: left; padding-left: 20px;">${item.title}</td>
+                <td style="color: var(--text-muted); font-size: 13px; text-align: center;">${item.category}</td>
+                <td style="color: var(--text-muted); font-size: 13px; text-align: center;">...</td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="#" style="color: #337ab7; text-decoration: none; font-size: 13px;">Download</a>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="btn" style="background: #337ab7; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 11px;">Deactive</button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const createKnowledgeForm = document.getElementById('create-knowledge-form');
+    if (createKnowledgeForm) {
+        createKnowledgeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Knowledge entry created successfully!');
+            switchView('knowledge-list');
+        });
+    }
+
+    const notificationData = [
+        { sno: 1, title: "TRI PARTY AGREEMENT", message: "TRI PARTY AGREEMENT TRI PARTY AGREEMENT TRI PARTY AGREEMENT TRI PARTY AGREEMENT" },
+        { sno: 2, title: "Title One", message: "Description for title one will be here." },
+        { sno: 3, title: "dfhhghg", message: "hfghhghgh" },
+        { sno: 4, title: "dfhhghg", message: "hfghhghgh" },
+        { sno: 5, title: "dfhhghg", message: "hfghhghgh" },
+        { sno: 6, title: "hello", message: "hello, this is resting" },
+        { sno: 7, title: "Indian Railways Installs Solar Panels On Local Trains", message: "Indian Railways Installs Solar Panels On Local Trains Indian Railways Installs Solar Panels On Local Trains" },
+        { sno: 8, title: "Indian Railways Installs Solar Panels On Local Trains", message: "Indian Railways Installs Solar Panels On Local Trains Indian Railways Installs Solar Panels On Local Trains Indian Railways Installs Solar Panels On Local Trains" },
+        { sno: 9, title: "Indian Railways Installs Solar Panels On Local Trains", message: "Indian Railways Installs Solar Panels On Local Trains Indian Railways Installs Solar Panels On Local Trains Indian Railways Installs Solar Panels On Local Trains" },
+        { sno: 10, title: "Indian Railways Installs Solar Panels On Local Trains", message: "Indian Railways Installs Solar Panels On Local Trains Indian Railways Installs Solar Panels On Local Trains Indian Railways Installs Solar Panels On Local Trains" }
+    ];
+
+    function populateNotificationTable() {
+        const tbody = document.getElementById('notification-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = notificationData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 500; font-size: 13px; text-align: left; padding-left: 20px;">${item.title}</td>
+                <td style="color: var(--text-muted); font-size: 13px; text-align: left; padding-left: 20px;">${item.message}</td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="btn" style="background: #337ab7; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 11px;">Deactive</button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const createNotificationForm = document.getElementById('create-notification-form');
+    if (createNotificationForm) {
+        createNotificationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Notification created successfully!');
+            switchView('notification-list');
+        });
     }
 
     // Global switchView exposure
