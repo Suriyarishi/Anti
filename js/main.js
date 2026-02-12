@@ -33,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'services-list': document.getElementById('services-list-view'),
         'create-service': document.getElementById('create-service-view'),
         'packages-list': document.getElementById('packages-list-view'),
-        'create-package': document.getElementById('create-package-view')
+        'create-package': document.getElementById('create-package-view'),
+        'sell-rent-advice-list': document.getElementById('sell-rent-advice-list-view'),
+        'create-sell-rent-advice': document.getElementById('create-sell-rent-advice-view')
     };
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
@@ -104,6 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (viewKey === 'packages-list') {
             populatePackagesTable();
         } else if (viewKey === 'create-package') {
+            lucide.createIcons();
+        } else if (viewKey === 'sell-rent-advice-list') {
+            populateSellRentAdviceTable();
+        } else if (viewKey === 'create-sell-rent-advice') {
             lucide.createIcons();
         }
 
@@ -346,6 +352,16 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Package created successfully!');
             switchView('packages-list');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Packages';
+        });
+    }
+
+    const createSellRentAdviceForm = document.getElementById('create-sell-rent-advice-form');
+    if (createSellRentAdviceForm) {
+        createSellRentAdviceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Sell/Rent Advice created successfully!');
+            switchView('sell-rent-advice-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Sell/Rent Advice';
         });
     }
 
@@ -1362,6 +1378,104 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="color: var(--text-muted); font-weight: 500;">${item.createdOn}</td>
                 <td>
                     <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    }
+
+    const sellRentAdviceData = [
+        {
+            sno: 1,
+            name: "DO'S & DONT'S FOR SELLING",
+            brief: [
+                "Documents a landlord should have",
+                "Keep latest electricity/water bills",
+                "Preparing sell agreement",
+                "How to protect your selling property?",
+                "Mention the purpose of tenancy"
+            ]
+        },
+        {
+            sno: 2,
+            name: "DOCUMENTS KEPT READY FOR RENTING",
+            brief: [
+                "Documents a landlord should have",
+                "Keep latest electricity/water bills",
+                "Preparing rent agreement",
+                "How to protect your rental property?",
+                "Mention the purpose of tenancy"
+            ]
+        },
+        {
+            sno: 3,
+            name: "DOCUMENTS KEPT READY FOR SELLING",
+            brief: [
+                "Keep ownership documents handy",
+                "Documents sellers should have",
+                "Checklist of statutory documents",
+                "Have a lawyer review documents",
+                "Relevance of Encumbrance Certificate"
+            ]
+        },
+        {
+            sno: 4,
+            name: "RENTING MY HOUSE",
+            brief: [
+                "Get your home ready for renters",
+                "Offer lucrative rentals",
+                "Tips for screening tenants",
+                "How to choose the right tenant?",
+                "Protect your rights as a landlord"
+            ]
+        },
+        {
+            sno: 5,
+            name: "KEY STAGES OF SELLING YOUR HOUSE",
+            brief: [
+                "Keep an eye on the market trends",
+                "Sell your property online",
+                "Factors that affect property prices",
+                "Ask an expert to assist you",
+                "Hire a real estate broker"
+            ]
+        },
+        {
+            sno: 6,
+            name: "DO'S & DONT'S FOR RENTING",
+            brief: [
+                "Do a reference check of the tenant",
+                "Modify to create additional space",
+                "Keep fixtures in working conditions",
+                "Don't keep tenants without police verification",
+                "Don't allow tenants to stay without a rent agreement"
+            ]
+        }
+    ];
+
+    function populateSellRentAdviceTable() {
+        const tbody = document.getElementById('sell-rent-advice-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = sellRentAdviceData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 600; font-size: 13px; text-align: left; vertical-align: middle; padding-left: 24px;">${item.name}</td>
+                <td style="color: var(--text-muted); font-size: 12px; padding: 12px 24px;">
+                    <ul style="list-style-type: disc; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding-left: 20px;">
+                        ${item.brief.map(point => `<li style="text-align: left; width: 100%; border: none;">${point}</li>`).join('')}
+                    </ul>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
                         <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
                             <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
                         </button>

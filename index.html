@@ -169,7 +169,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-view="sell-rent-advice-list">
                     <i data-lucide="help-circle"></i>
                     <span>Sell/Rent Advice</span>
                 </a>
@@ -3023,6 +3023,199 @@
                                 <button type="submit" class="btn"
                                     style="background: #26b99a; color: white; border: none; padding: 8px 24px; border-radius: 4px; font-weight: 500; font-size: 13px; cursor: pointer;">Submit</button>
                                 <button type="button" class="btn" onclick="switchView('packages-list')"
+                                    style="background: #337ab7; color: white; border: none; padding: 8px 24px; border-radius: 4px; font-weight: 500; font-size: 13px; cursor: pointer;">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sell/Rent Advice List View -->
+            <div id="sell-rent-advice-list-view" style="display: none;">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <h3 class="chart-title">Sell/Rent Advice List</h3>
+                        </div>
+                        <button class="btn btn-primary" onclick="switchView('create-sell-rent-advice')"
+                            style="background: #337ab7; border: none;">
+                            <i data-lucide="plus"></i>
+                            <span>Add New Sell/Rent Advice</span>
+                        </button>
+                    </div>
+
+                    <div class="table-controls"
+                        style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-bottom: 1px solid var(--border);">
+                        <div
+                            style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted);">
+                            <span>Show</span>
+                            <select
+                                style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
+                        <div class="search-bar" style="width: 240px;">
+                            <i data-lucide="search" style="width: 14px;"></i>
+                            <input type="text" placeholder="Search:" style="height: 36px; font-size: 12px;">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px; text-align: center;">S.no.</th>
+                                    <th>Name</th>
+                                    <th>Brief</th>
+                                    <th style="text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sell-rent-advice-table-body">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div
+                        style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+                        <span id="sell-rent-advice-pagination-info"
+                            style="font-size: 13px; color: var(--text-muted);">Showing 1 to 6 of 6 entries</span>
+                        <div style="display: flex; gap: 4px;">
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Previous</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: var(--primary); color: white;">1</button>
+                            <button class="btn"
+                                style="padding: 6px 12px; font-size: 12px; background: #F1F5F9;">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Sell/Rent Advice View -->
+            <div id="create-sell-rent-advice-view" style="display: none;">
+                <div class="table-card">
+                    <div class="table-header" style="border-bottom: 1px solid #e2e8f0; padding: 20px 32px;">
+                        <h3 class="chart-title" style="font-size: 18px; color: #475569;">Add Sell/Rent Advice</h3>
+                    </div>
+
+                    <div style="padding: 40px 100px;">
+                        <form id="create-sell-rent-advice-form">
+                            <!-- Name -->
+                            <div class="form-row-horizontal"
+                                style="display: flex; align-items: center; margin-bottom: 24px;">
+                                <label
+                                    style="width: 200px; text-align: right; padding-right: 32px; font-weight: 500; color: #64748b; font-size: 13px;">Name
+                                    <span style="color: #ef4444;">*</span></label>
+                                <input type="text" class="form-control-premium"
+                                    style="flex: 1; height: 38px; border: 1px solid #CBD5E1; border-radius: 4px; padding: 0 12px; font-size: 13px;"
+                                    required>
+                            </div>
+
+                            <!-- Brief (Fake Rich Text) -->
+                            <div class="form-row-horizontal"
+                                style="display: flex; align-items: flex-start; margin-bottom: 24px;">
+                                <label
+                                    style="width: 200px; text-align: right; padding-right: 32px; font-weight: 500; color: #64748b; font-size: 13px; margin-top: 10px;">Brief
+                                    <span style="color: #ef4444;">*</span></label>
+                                <div style="flex: 1; border: 1px solid #CBD5E1; border-radius: 4px; background: white;">
+                                    <div
+                                        style="padding: 8px 12px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; display: flex; gap: 12px; font-size: 12px; color: #475569;">
+                                        <span>File ▼</span><span>Edit ▼</span><span>Insert ▼</span><span>View
+                                            ▼</span><span>Format ▼</span><span>Table ▼</span><span>Tools ▼</span>
+                                    </div>
+                                    <div
+                                        style="padding: 8px 12px; border-bottom: 1px solid #E2E8F0; display: flex; gap: 16px; align-items: center;">
+                                        <i data-lucide="undo" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="redo" style="width: 14px; color: #64748b;"></i>
+                                        <span
+                                            style="font-weight: 600; font-size: 13px; border-right: 1px solid #e2e8f0; padding-right: 10px;">Formats
+                                            ▼</span>
+                                        <i data-lucide="bold" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="italic" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-left" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-center" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-right" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-justify" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="list" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="list-ordered" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="link" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="image" style="width: 14px; color: #64748b;"></i>
+                                    </div>
+                                    <textarea
+                                        style="width: 100%; border: none; outline: none; padding: 12px; min-height: 150px; font-size: 13px; color: #1e293b; resize: vertical;"></textarea>
+                                    <div
+                                        style="padding: 4px 12px; background: #F8FAFC; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; font-size: 11px; color: #64748b;">
+                                        <span>Powered by TinyMCE</span>
+                                        <span>Words: 0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Description (Fake Rich Text) -->
+                            <div class="form-row-horizontal"
+                                style="display: flex; align-items: flex-start; margin-bottom: 24px;">
+                                <label
+                                    style="width: 200px; text-align: right; padding-right: 32px; font-weight: 500; color: #64748b; font-size: 13px; margin-top: 10px;">Description
+                                    <span style="color: #ef4444;">*</span></label>
+                                <div style="flex: 1; border: 1px solid #CBD5E1; border-radius: 4px; background: white;">
+                                    <div
+                                        style="padding: 8px 12px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; display: flex; gap: 12px; font-size: 12px; color: #475569;">
+                                        <span>File ▼</span><span>Edit ▼</span><span>Insert ▼</span><span>View
+                                            ▼</span><span>Format ▼</span><span>Table ▼</span><span>Tools ▼</span>
+                                    </div>
+                                    <div
+                                        style="padding: 8px 12px; border-bottom: 1px solid #E2E8F0; display: flex; gap: 16px; align-items: center;">
+                                        <i data-lucide="undo" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="redo" style="width: 14px; color: #64748b;"></i>
+                                        <span
+                                            style="font-weight: 600; font-size: 13px; border-right: 1px solid #e2e8f0; padding-right: 10px;">Formats
+                                            ▼</span>
+                                        <i data-lucide="bold" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="italic" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-left" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-center" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-right" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="align-justify" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="list" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="list-ordered" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="link" style="width: 14px; color: #64748b;"></i>
+                                        <i data-lucide="image" style="width: 14px; color: #64748b;"></i>
+                                    </div>
+                                    <textarea
+                                        style="width: 100%; border: none; outline: none; padding: 12px; min-height: 150px; font-size: 13px; color: #1e293b; resize: vertical;"></textarea>
+                                    <div
+                                        style="padding: 4px 12px; background: #F8FAFC; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; font-size: 11px; color: #64748b;">
+                                        <span>Powered by TinyMCE</span>
+                                        <span>Words: 0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="form-row-horizontal"
+                                style="display: flex; align-items: center; margin-bottom: 32px;">
+                                <label
+                                    style="width: 200px; text-align: right; padding-right: 32px; font-weight: 500; color: #64748b; font-size: 13px;">Status
+                                    <span style="color: #ef4444;">*</span></label>
+                                <select class="form-control-premium"
+                                    style="flex: 1; height: 38px; border: 1px solid #CBD5E1; border-radius: 4px; padding: 0 12px; font-size: 13px;"
+                                    required>
+                                    <option value="">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="form-footer"
+                                style="padding-left: 200px; display: flex; gap: 12px; border-top: 1px solid #f1f5f9; padding-top: 24px;">
+                                <button type="submit" class="btn"
+                                    style="background: #26b99a; color: white; border: none; padding: 8px 24px; border-radius: 4px; font-weight: 500; font-size: 13px; cursor: pointer;">Submit</button>
+                                <button type="button" class="btn" onclick="switchView('sell-rent-advice-list')"
                                     style="background: #337ab7; color: white; border: none; padding: 8px 24px; border-radius: 4px; font-weight: 500; font-size: 13px; cursor: pointer;">Cancel</button>
                             </div>
                         </form>
