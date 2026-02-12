@@ -26,66 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'agent-list': document.getElementById('agent-list-view'),
         'builder-list': document.getElementById('builder-list-view'),
         'create-user': document.getElementById('create-user-view'),
-        'testimonials-list': document.getElementById('testimonials-list-view'),
         'associates-list': document.getElementById('associates-list-view'),
-        'create-testimonial': document.getElementById('create-testimonial-view'),
-        'create-associate': document.getElementById('create-associate-view'),
-        'news-list': document.getElementById('news-list-view'),
-        'create-news': document.getElementById('create-news-view'),
-        'subscribers-list': document.getElementById('subscribers-list-view'),
-        'add-newsletter-view': document.getElementById('add-newsletter-view'),
-        'contact-enquiry-list': document.getElementById('contact-enquiry-list-view'),
-        'lead-management-list': document.getElementById('lead-management-list-view'),
-        'create-lead': document.getElementById('create-lead-view'),
-        'client-registration': document.getElementById('client-registration-view'),
-        'client-kyc': document.getElementById('client-kyc-view'),
-        'create-client-kyc': document.getElementById('create-client-kyc-view'),
-        'lead-profile': document.getElementById('lead-profile-view'),
-        'career-leads': document.getElementById('career-leads-view'),
-        'loan-leads': document.getElementById('loan-leads-view'),
-        'channel-partner-leads': document.getElementById('channel-partner-leads-view')
+        'create-associates': document.getElementById('create-associates-view'),
+        'testimonials-list': document.getElementById('testimonials-list-view'),
+        'create-testimonials': document.getElementById('create-testimonials-view'),
+        'services-list': document.getElementById('services-list-view'),
+        'create-service': document.getElementById('create-service-view'),
+        'packages-list': document.getElementById('packages-list-view'),
+        'create-package': document.getElementById('create-package-view')
     };
-
-    const viewRoutes = {
-        'dashboard': { title: 'Dashboard', init: initDashboard },
-        'categories': { title: 'Property Category', init: populateCategoriesTable, create: 'create-category' },
-        'create-category': { title: 'Create Property Category' },
-        'property-list': { title: 'Property List', init: populatePropertyListTable },
-        'project-attr-cat': { title: 'Project Attribute Category', init: populateProjectAttrCatTable, create: 'create-project-attr-cat' },
-        'create-project-attr-cat': { title: 'Create Project Attributes Category' },
-        'project-attr': { title: 'Project Attributes', init: populateProjectAttributesTable, create: 'create-project-attr' },
-        'create-project-attr': { title: 'Create Project Attribute' },
-        'builder-project-list': { title: 'Builder Project List', init: populateBuilderProjectTable },
-        'create-project': { title: 'Create Project', init: () => { if (window.resetCreateProjectForm) window.resetCreateProjectForm(); } },
-        'attributes-category-list': { title: 'Attributes Category', init: populateAttributesCategoryListTable, create: 'create-attributes-category' },
-        'create-attributes-category': { title: 'Create Attributes Category' },
-        'attributes-list': { title: 'Attributes', init: populateAttributesListTable, create: 'create-attribute' },
-        'create-attribute': { title: 'Create Attribute' },
-        'users-list': { title: 'Users List', init: populateUsersTable, create: 'create-user' },
-        'agent-list': { title: 'Agent List', init: populateAgentTable, create: 'create-user' },
-        'builder-list': { title: 'Builder List', init: populateBuilderTable, create: 'create-user' },
-        'create-user': { title: 'Create User' },
-        'testimonials-list': { title: 'Testimonials List', init: populateTestimonialsTable, create: 'create-testimonial' },
-        'associates-list': { title: 'Associates List', init: populateAssociatesTable, create: 'create-associate' },
-        'create-testimonial': { title: 'Create Testimonial' },
-        'create-associate': { title: 'Create Associate' },
-        'news-list': { title: 'News', init: typeof populateNewsTable === 'function' ? populateNewsTable : null, create: 'create-news' },
-        'create-news': { title: 'Add News' },
-        'subscribers-list': { title: 'Subscribers List' },
-        'add-newsletter-view': { title: 'Add Newsletter' },
-        'contact-enquiry-list': { title: 'Contact Enquiry', init: typeof populateContactEnquiryTable === 'function' ? populateContactEnquiryTable : null },
-        'lead-management-list': { title: 'View Lead List', init: typeof populateLeadManagementTable === 'function' ? populateLeadManagementTable : null, create: 'create-lead' },
-        'create-lead': { title: 'Add Property' },
-        'client-registration': { title: 'Client Registration', init: typeof populateClientRegistrationTable === 'function' ? populateClientRegistrationTable : null },
-        'client-kyc': { title: 'Client KYC List', init: typeof populateClientKycTable === 'function' ? populateClientKycTable : null, create: 'create-client-kyc' },
-        'create-client-kyc': { title: 'Create Client KYC' },
-        'lead-profile': { title: 'User Profile' },
-        'career-leads': { title: 'Career Leads', init: typeof populateCareerLeadsTable === 'function' ? populateCareerLeadsTable : null },
-        'loan-leads': { title: 'Loan Leads', init: typeof populateLoanLeadsTable === 'function' ? populateLoanLeadsTable : null },
-        'channel-partner-leads': { title: 'Channel Partner Leads', init: typeof populateChannelPartnerLeadsTable === 'function' ? populateChannelPartnerLeadsTable : null }
-    };
-
-
     const navItems = document.querySelectorAll('.nav-item, .submenu-item');
     const breadcrumbActive = document.getElementById('breadcrumb-active');
     let chartInstances = [];
@@ -95,51 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chartInstances = [];
     }
 
-    function goToCreateLeadStep(step) {
-        const step1 = document.getElementById('create-lead-step-1');
-        const step2 = document.getElementById('create-lead-step-2');
-        const nextBtn = document.getElementById('create-lead-next-btn');
-        const prevBtn = document.getElementById('create-lead-prev-btn');
-        const stepperItems = document.querySelectorAll('#create-lead-stepper .stepper-item');
-
-        if (step === 1) {
-            if (step1) step1.style.display = 'block';
-            if (step2) step2.style.display = 'none';
-            if (nextBtn) nextBtn.style.display = 'block';
-            if (prevBtn) prevBtn.style.display = 'none';
-
-            stepperItems.forEach(item => {
-                if (item.getAttribute('data-step') === '1') {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-        } else if (step === 2) {
-            if (step1) step1.style.display = 'none';
-            if (step2) step2.style.display = 'block';
-            if (nextBtn) nextBtn.style.display = 'none';
-            if (prevBtn) prevBtn.style.display = 'block';
-
-            stepperItems.forEach(item => {
-                if (item.getAttribute('data-step') === '2') {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-        }
-    }
-    window.goToCreateLeadStep = goToCreateLeadStep;
-
     function switchView(viewKey) {
-        console.log('Switching to view:', viewKey);
-
-        const route = viewRoutes[viewKey];
-        if (!route) {
-            console.warn('Route config not found:', viewKey);
-        }
-
         // Hide all views first
         Object.values(views).forEach(v => {
             if (v) v.style.display = 'none';
@@ -147,30 +52,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const targetView = views[viewKey];
         if (!targetView) {
-            console.warn('View element not found in switchView:', viewKey);
+            console.warn('View not found:', viewKey);
             return;
         }
 
         targetView.style.display = 'block';
-        window.currentView = viewKey; // Track current view globally
 
-        // Update Breadcrumb
-        if (breadcrumbActive && route) {
-            breadcrumbActive.textContent = route.title;
-        }
-
-        // Update sidebar active state
-        navItems.forEach(item => {
-            if (item.getAttribute('data-view') === viewKey) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
-        });
-
-        // Initialize view data if needed
-        if (route && route.init) {
-            route.init();
+        if (viewKey === 'dashboard') {
+            cleanupCharts();
+            initDashboard();
+        } else if (viewKey === 'categories') {
+            populateCategoriesTable();
+        } else if (viewKey === 'create-category') {
+            lucide.createIcons();
+        } else if (viewKey === 'property-list') {
+            populatePropertyListTable();
+        } else if (viewKey === 'project-attr-cat') {
+            populateProjectAttrCatTable();
+        } else if (viewKey === 'project-attr') {
+            populateProjectAttributesTable();
+        } else if (viewKey === 'project-list') {
+            populateProjectListTable();
+        } else if (viewKey === 'builder-project-list') {
+            populateBuilderProjectTable();
+        } else if (viewKey === 'create-project') {
+            if (window.resetCreateProjectForm) window.resetCreateProjectForm();
+        } else if (viewKey === 'attributes-category-list') {
+            populateAttributesCategoryListTable();
+        } else if (viewKey === 'attributes-list') {
+            populateAttributesListTable();
+        } else if (viewKey === 'users-list') {
+            populateUsersTable();
+        } else if (viewKey === 'agent-list') {
+            populateAgentTable();
+        } else if (viewKey === 'builder-list') {
+            populateBuilderTable();
+        } else if (viewKey === 'create-user') {
+            lucide.createIcons();
+        } else if (viewKey === 'associates-list') {
+            populateAssociatesTable();
+        } else if (viewKey === 'create-associates') {
+            lucide.createIcons();
+        } else if (viewKey === 'testimonials-list') {
+            populateTestimonialsTable();
+        } else if (viewKey === 'create-testimonials') {
+            lucide.createIcons();
+        } else if (viewKey === 'services-list') {
+            populateServicesTable();
+        } else if (viewKey === 'create-service') {
+            lucide.createIcons();
+        } else if (viewKey === 'packages-list') {
+            populatePackagesTable();
+        } else if (viewKey === 'create-package') {
+            lucide.createIcons();
         }
 
         // Animated entry
@@ -183,11 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.style.transform = "translateY(0)";
             }, i * 50);
         });
-
-        // Shared initializers
-        lucide.createIcons();
     }
-
 
     function initDashboard() {
         chartInstances.push(drawChart('leadsEnquiryChart', ['Property', 'Leads', 'Enquiry', 'Users'], [988, 303, 128, 303], '#2FED9A'));
@@ -257,73 +187,105 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle Buttons from views
     document.addEventListener('click', (e) => {
-        const target = e.target;
-
-        // Create button
-        const createBtn = target.closest('.btn-primary, .btn-premium');
+        // Create button (dynamic check for both List views)
+        const createBtn = e.target.closest('.btn-primary');
         if (createBtn && (createBtn.textContent.trim().includes('Create') || createBtn.textContent.trim().includes('Add'))) {
-            // Special check: skip if it's already a submit button inside a form we don't want to redirect from
-            if (createBtn.type === 'submit' && createBtn.closest('form')) return;
+            const currentView = Object.keys(views).find(key => views[key].style.display === 'block');
 
-            const route = viewRoutes[window.currentView];
-            if (route && route.create) {
-                switchView(route.create);
-                return;
+            if (currentView === 'property-list') {
+                // Do nothing or implement generic Create logic if needed
+                // For now, keeping it as requested: just delete the module.
+            } else if (currentView === 'project-list') {
+                switchView('create-project');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Add Project';
+            } else if (currentView === 'project-attr-cat') {
+                switchView('create-project-attr-cat');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes Category';
+            } else if (currentView === 'project-attr') {
+                switchView('create-project-attr');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Project Attributes';
+            } else if (currentView === 'attributes-category-list') {
+                switchView('create-attributes-category');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attributes Category';
+            } else if (currentView === 'attributes-list') {
+                switchView('create-attribute');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attribute';
+            } else if (currentView === 'users-list') {
+                switchView('create-user');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create User';
+            } else {
+                switchView('create-category');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Create Property Category';
             }
         }
 
-        // Action Buttons inside tables (View/Edit)
-        const actionBtn = target.closest('.action-btn');
-        if (actionBtn) {
-            const title = actionBtn.getAttribute('title');
-            if (title === 'View' && window.currentView === 'lead-management-list') {
-                switchView('lead-profile');
-                return;
-            }
+        // Create Button Specific ID handler (if needed explicitly)
+        if (e.target.closest('#btn-create-attr-cat')) {
+            switchView('create-attributes-category');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attributes Category';
         }
 
-        // Cancel buttons - Back to list
-        if (target.classList.contains('btn-cancel') || target.closest('.btn-cancel')) {
+        if (e.target.closest('#btn-create-attr')) {
+            switchView('create-attribute');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Create Attribute';
+        }
+
+        // Cancel button in Form
+        if (e.target.classList.contains('btn-cancel')) {
             switchView('categories');
-        } else if (target.classList.contains('btn-cancel-attr-cat')) {
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Property Category';
+        }
+
+        // Attributes Category Cancel
+        if (e.target.classList.contains('btn-cancel-attr-cat')) {
             switchView('attributes-category-list');
-        } else if (target.classList.contains('btn-cancel-attr')) {
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Attributes Category';
+        }
+
+        // Attribute Cancel
+        if (e.target.classList.contains('btn-cancel-attr')) {
             switchView('attributes-list');
-        } else if (target.closest('#btn-create-user-cancel')) {
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Attributes';
+        }
+
+        // Create User Cancel
+        if (e.target.closest('#btn-create-user-cancel')) {
             switchView('users-list');
-        } else if (target.id === 'btn-create-news-cancel') {
-            switchView('news-list');
-        } else if (target.id === 'btn-create-testimonial-cancel') {
-            switchView('testimonials-list');
-        } else if (target.id === 'btn-create-associate-cancel') {
-            switchView('associates-list');
-        } else if (target.id === 'btn-project-cancel') {
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Users List';
+        }
+
+        // Project Form Cancel
+        if (e.target.id === 'btn-project-cancel') {
             if (confirm('Are you sure you want to cancel? All progress will be lost.')) {
                 switchView('project-list');
+                if (breadcrumbActive) breadcrumbActive.textContent = 'Project Management';
             }
-        } else if (target.classList.contains('btn-cancel-project-attr')) {
+        }
+
+        // Project Attr Cancel
+        if (e.target.classList.contains('btn-cancel-project-attr')) {
             switchView('project-attr-cat');
-        } else if (target.classList.contains('btn-cancel-project-attr-details')) {
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attribute Category';
+        }
+
+        // Project Attr Details Cancel
+        if (e.target.classList.contains('btn-cancel-project-attr-details')) {
             switchView('project-attr');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Project Attributes';
         }
-
-        // Back buttons (explicit)
-        if (target.closest('.btn-back-to-kyc-list')) {
-            switchView('client-kyc');
-        }
-
-        // Module Specific Create Buttons (by ID)
-        if (target.closest('#btn-create-attr-cat')) switchView('create-attributes-category');
-        if (target.closest('#btn-create-attr')) switchView('create-attribute');
-        if (target.closest('#btn-create-kyc')) switchView('create-client-kyc');
 
         // Select All logic
-        if (target.classList.contains('btn-select-all')) {
-            const section = target.getAttribute('data-section');
+        if (e.target.classList.contains('btn-select-all')) {
+            const section = e.target.getAttribute('data-section');
             const checkboxes = document.querySelectorAll(`.${section}-cb`);
             const allChecked = Array.from(checkboxes).every(cb => cb.checked);
             checkboxes.forEach(cb => cb.checked = !allChecked);
         }
+
+        // Project Form Navigation (Refactored for reliability)
+        // Project Form Navigation - Handled by specific listeners in initCreateProjectFormLogic
+        // Delegated logic removed to prevent double-binding and conflicts
+
     });
 
     // Form Submissions
@@ -364,6 +326,26 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('User created successfully!');
             switchView('users-list');
             if (breadcrumbActive) breadcrumbActive.textContent = 'Users List';
+        });
+    }
+
+    const createServiceForm = document.getElementById('create-service-form');
+    if (createServiceForm) {
+        createServiceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Service created successfully!');
+            switchView('services-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Services';
+        });
+    }
+
+    const createPackageForm = document.getElementById('create-package-form');
+    if (createPackageForm) {
+        createPackageForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Package created successfully!');
+            switchView('packages-list');
+            if (breadcrumbActive) breadcrumbActive.textContent = 'Packages';
         });
     }
 
@@ -830,7 +812,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="color: var(--text-muted);">${item.mobile}</td>
                 <td style="color: var(--text-muted);">${item.joinedDate}</td>
                 <td>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 8px; justify-content: center;">
                         <button class="action-btn" style="background: #22c55e; color: white;">
                              <i data-lucide="eye" style="width: 14px;"></i>
                         </button>
@@ -869,7 +851,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="color: var(--text-muted);">${item.email}</td>
                 <td style="color: var(--text-muted);">${item.mobile}</td>
                 <td>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 8px; justify-content: center;">
                          <button class="action-btn" style="background: #22c55e; color: white;">
                              <i data-lucide="eye" style="width: 14px;"></i>
                         </button>
@@ -911,7 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="color: var(--text-muted);">${item.email}</td>
                  <td style="color: var(--text-muted);">${item.mobile}</td>
                  <td>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 8px; justify-content: center;">
                          <button class="action-btn" style="background: #22c55e; color: white;">
                              <i data-lucide="eye" style="width: 14px;"></i>
                         </button>
@@ -925,55 +907,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
             </tr>
         `).join('');
-        lucide.createIcons();
-    }
-
-    const testimonialsData = [
-        { sno: 1, name: 'John Doe', email: 'john@example.com', phone: '9876543210', message: 'Great service! Highly recommended.', location: 'New York', image: 'profile1.jpg', status: 'active' },
-        { sno: 2, name: 'Jane Smith', email: 'jane@example.com', phone: '9876543211', message: 'Very professional team.', location: 'London', image: 'profile2.jpg', status: 'active' },
-        { sno: 3, name: 'Mike Johnson', email: 'mike@example.com', phone: '9876543212', message: 'Helped me find my dream home.', location: 'Sydney', image: 'profile3.jpg', status: 'inactive' },
-        { sno: 4, name: 'Sarah Wilson', email: 'sarah@example.com', phone: '9876543213', message: 'Smooth transaction process.', location: 'Tokyo', image: 'profile4.jpg', status: 'active' },
-        { sno: 5, name: 'David Brown', email: 'david@example.com', phone: '9876543214', message: 'Excellent support throughout.', location: 'Paris', image: 'profile5.jpg', status: 'inactive' }
-    ];
-
-    function populateTestimonialsTable() {
-        const tbody = document.getElementById('testimonials-table-body');
-        if (!tbody) return;
-
-        tbody.innerHTML = testimonialsData.map((item, index) => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${index + 1}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
-                <td style="color: var(--text-muted);">${item.email}</td>
-                <td style="color: var(--text-muted);">${item.phone}</td>
-                <td style="color: var(--text-muted);" title="${item.message}">
-                    <div style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        ${item.message}
-                    </div>
-                </td>
-                <td style="color: var(--text-muted);">${item.location}</td>
-                <td>
-                    <button class="action-btn" title="View Image" style="background:none; border:none; color: #3b82f6; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 13px;">
-                         <i data-lucide="image" style="width: 14px;"></i>
-                         view image
-                    </button>
-                </td>
-                <td>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
-                             <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="status-btn" style="background-color: #3b82f6; color: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
-                            ${item.status === 'active' ? 'Active' : 'Deactive'}
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-
         lucide.createIcons();
     }
 
@@ -1024,7 +957,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 lucide.createIcons();
             }
         };
-
 
         // Navigation Event Listeners
         if (nextBtn) {
@@ -1080,13 +1012,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 newRow.className = 'form-row-horizontal unit-row';
                 newRow.style.marginTop = '12px';
                 newRow.innerHTML = `
-                <label></label>
+                    <label></label>
                     <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: center;">
                         <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Unit in sqft">
-                            <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Price in INR">
-                                <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; width: 100%; min-width: 100px; font-size: 13px; font-weight: 500; border-radius: 8px;">Remove</button>
-                            </div>
-                            `;
+                        <input type="text" class="form-control-premium" style="background-color: #F8FAFC; border-color: #E2E8F0;" placeholder="Price in INR">
+                        <button type="button" class="btn btn-remove" style="background: #FFF1F2; color: #E11D48; border: 1px solid #FFE4E6; height: 42px; width: 100%; min-width: 100px; font-size: 13px; font-weight: 500; border-radius: 8px;">Remove</button>
+                    </div>
+                `;
                 unitsContainer.appendChild(newRow);
                 newRow.querySelector('.btn-remove').addEventListener('click', () => newRow.remove());
             });
@@ -1144,9 +1076,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             div.style.border = '1px solid #E2E8F0';
 
                             div.innerHTML = `
-                            <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
                                 <button type="button" style="position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 10px;">×</button>
-                                `;
+                            `;
 
                             div.querySelector('button').onclick = () => div.remove();
                             mediaPreview.appendChild(div);
@@ -1159,102 +1091,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize state
         window.updateProjectStep(1);
-    }
-
-    const associatesData = [
-        { sno: 1, name: 'Premium Partners', link: 'https://premium.com', image: 'associate1.jpg', status: 'active' },
-        { sno: 2, name: 'Global Real Estate', link: 'https://globalre.com', image: 'associate2.jpg', status: 'active' },
-        { sno: 3, name: 'Home Solutions', link: 'https://homesol.com', image: 'associate3.jpg', status: 'deactive' },
-        { sno: 4, name: 'Elite Builders', link: 'https://elite.com', image: 'associate4.jpg', status: 'active' },
-        { sno: 5, name: 'City Living', link: 'https://cityliving.com', image: 'associate5.jpg', status: 'deactive' }
-    ];
-
-    function populateAssociatesTable() {
-        const tbody = document.getElementById('associates-table-body');
-        if (!tbody) return;
-
-        tbody.innerHTML = associatesData.map((item, index) => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${index + 1}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
-                <td style="color: #3b82f6; text-decoration: none;">${item.link}</td>
-                <td>
-                    <button class="action-btn" title="View Image" style="background:none; border:none; color: #3b82f6; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 13px;">
-                         <i data-lucide="image" style="width: 14px;"></i>
-                         view image
-                    </button>
-                </td>
-                <td>
-                     <button class="status-btn" style="background-color: #3b82f6; color: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
-                        ${item.status === 'active' ? 'Active' : 'Deactive'}
-                    </button>
-                </td>
-                <td>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
-                             <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-
-        lucide.createIcons();
-    }
-
-    const newsData = [
-        { sno: 1, title: 'Buyers to move court against UP-RERA "ongoing projects" clause', description: 'NOIDA: A day after chief minister Yogi Adityanath launched the RERA website to help all promoters, builders and agents to get registered and for buyers to lodge complaints, buyers groups have announce', date: '2017-07-27' },
-        { sno: 2, title: 'Haryana RERA portal may be operational in 2-3 months: Dilbag Singh Sihag', description: 'Editor | October 5, 2017 @ 02:05 PM Delhi/NCR: Haryana Real Estate Regulatory Authority\'s portal may get operational over the next 2-3 months, said Dilbag Singh Sihag, Executive Director, Haryana RERA', date: '2017-10-05' },
-        { sno: 3, title: '50% drop in housing launches in NCR this Diwali: Report', description: 'Editor | October 5, 2017 @ 11:47 AM Delhi/NCR: A triple whammy from demonetisation, RERA implementation and GST has hit launch of new residential projects in the real-estate hubs of NCR, and the tr', date: '2017-10-05' },
-        { sno: 4, title: 'Foreign funds invest $10 billion in realty in 2 years!', description: 'Editor | October 4, 2017 @ 10:42 AM Delhi/NCR With over $10 billion investments in the last two years, which is more than half of the total investments since 2013, the Indian real estate sector ha', date: '2017-10-04' },
-        { sno: 5, title: 'Builders assure delivery of 20,000 flats in three months in Noida', description: 'Updated: Oct 05, 2017 22:14 IST | Vinod Rajput | Hindustan Times Builders on Thursday assured a committee of three ministers, appointed by the Uttar Pradesh state cabinet, that they will be delivering', date: '2017-10-05' },
-        { sno: 6, title: 'UP to fund Jewar airport, YEIDA to be nodal agency', description: 'Vandana Keelor| TNN | Aug 2, 2017, 12:33 AM IST Greater Noida: The Yamuna Expressway Industrial Development Authority (YEIDA) will be the nodal agency to set up the international airport in Jewar, Gre', date: '2017-08-02' },
-        { sno: 7, title: 'Circle rates not to be hiked in Noida this year', description: 'TNN| Updated: Jul 17, 2017, 10:16 AM IST NOIDA: The district administration has decided against increasing the circle rates of property under the three authorities. The decision reflects the groun', date: '2017-07-17' },
-        { sno: 8, title: 'Builders give flat buyers one delivery deadline and Rera a later one', description: 'Nauzer Bharucha| TNN | Sep 14, 2017, 03:20 IST MUMBAI: Builders are pushing back the date of delivery of flats by several months and even years as a result of the new real estate law in the', date: '2017-09-14' },
-        { sno: 9, title: 'Real estate to get real: How Modi is setting India\'s Housing in order', description: 'ET Online| Date : 30th Nov 2017 It is clear that Prime Minister Narendra Modi wants homes to be more affordable for the masses. The real estate sector has been under his hard gaze as is evident from', date: '2017-11-30' },
-        { sno: 10, title: 'Maharashtra to lift construction curbs in eco-sensitive Gorai-Manori belt', description: 'Source: Express News Service | Mumbai | Published: December 2, 2017 6:21 am Image Courtesy: Gorai Pagoda (Express photo) Curbs on construction activity in the eco-sensitive Gorai-Manori belt in Mumbai', date: '2017-12-02' }
-    ];
-
-    function populateNewsTable() {
-        const tbody = document.getElementById('news-table-body');
-        if (!tbody) return;
-
-        tbody.innerHTML = newsData.map(item => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.title}</td>
-                <td style="color: var(--text-muted); font-size: 13px;">
-                    <div style="max-width: 400px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 1.5;">
-                        ${item.description}
-                    </div>
-                </td>
-                <td style="color: var(--text-muted); white-space: nowrap;">${item.date}</td>
-                <td>
-                    <button class="action-btn" title="View Image" style="background:none; border:none; color: #3b82f6; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 13px;">
-                         <i data-lucide="image" style="width: 14px;"></i>
-                         view image
-                    </button>
-                </td>
-                <td>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
-                             <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="status-btn" style="background-color: #3b82f6; color: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
-                            Active
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-
-        lucide.createIcons();
     }
 
     // Kick off initial view
@@ -1270,460 +1106,276 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Error initializing project form:', error);
     }
 
-    // Form Submission Logic
-    const testimonialForm = document.getElementById('create-testimonial-form');
-    if (testimonialForm) {
-        testimonialForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Testimonial submitted successfully!');
-            switchView('testimonials-list');
-            testimonialForm.reset();
-            const preview = document.getElementById('testimonial-image-preview');
-            if (preview) {
-                preview.style.display = 'none';
-                preview.querySelector('img').src = '';
-            }
-        });
-    }
-
-    // Image Preview Logic
-    const testimonialImageInput = document.getElementById('testimonial-image-input');
-    const testimonialImagePreview = document.getElementById('testimonial-image-preview');
-
-    if (testimonialImageInput && testimonialImagePreview) {
-        testimonialImageInput.addEventListener('change', function () {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = testimonialImagePreview.querySelector('img');
-                    img.src = e.target.result;
-                    testimonialImagePreview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                testimonialImagePreview.style.display = 'none';
-                testimonialImagePreview.querySelector('img').src = '';
-            }
-        });
-    }
-
-    const associateForm = document.getElementById('create-associate-form');
-    if (associateForm) {
-        associateForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Associate submitted successfully!');
-            switchView('associates-list');
-            associateForm.reset();
-        });
-    }
-
-    const newsForm = document.getElementById('create-news-form');
-    if (newsForm) {
-        newsForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Capture rich text content
-            const editor = document.getElementById('news-description-editor');
-            const description = editor ? editor.innerHTML : '';
-
-            console.log('Creating news with description:', description);
-
-            alert('News created successfully!');
-            switchView('news-list');
-            newsForm.reset();
-
-            // Reset editor content
-            if (editor) editor.innerHTML = '<p>Start typing your news content here...</p>';
-
-            const preview = document.getElementById('news-image-preview');
-            if (preview) preview.style.display = 'none';
-        });
-
-        // Initialize Rich Text Editor Toolbar logic
-        const editor = document.getElementById('news-description-editor');
-        if (editor) {
-            // Simple execCommand based toolbar
-            document.querySelectorAll('.wp-toolbar-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const title = btn.getAttribute('title');
-
-                    if (title === 'Bold') document.execCommand('bold', false, null);
-                    else if (title === 'Italic') document.execCommand('italic', false, null);
-                    else if (title === 'Bullet List') document.execCommand('insertUnorderedList', false, null);
-                    else if (title === 'Numbered List') document.execCommand('insertOrderedList', false, null);
-                    else if (title === 'Align Left') document.execCommand('justifyLeft', false, null);
-                    else if (title === 'Align Center') document.execCommand('justifyCenter', false, null);
-                    else if (title === 'Align Right') document.execCommand('justifyRight', false, null);
-                    else if (title === 'Insert Link') {
-                        const url = prompt('Enter the link URL:');
-                        if (url) document.execCommand('createLink', false, url);
-                    }
-                    else if (title === 'Insert Image') {
-                        const url = prompt('Enter the image URL:');
-                        if (url) document.execCommand('insertImage', false, url);
-                    }
-
-                    editor.focus();
-                });
-            });
-
-            // Handle Font types (Heading/Paragraph)
-            const fontSelect = document.querySelector('.wp-toolbar-select');
-            if (fontSelect) {
-                fontSelect.addEventListener('change', () => {
-                    const value = fontSelect.value;
-                    if (value === 'Paragraph') document.execCommand('formatBlock', false, 'p');
-                    else if (value === 'Heading 1') document.execCommand('formatBlock', false, 'h1');
-                    else if (value === 'Heading 2') document.execCommand('formatBlock', false, 'h2');
-                    else if (value === 'Heading 3') document.execCommand('formatBlock', false, 'h3');
-                    editor.focus();
-                });
-            }
-
-            // Word Count logic
-            editor.addEventListener('input', () => {
-                const text = editor.innerText.trim();
-                const words = text ? text.split(/\s+/).length : 0;
-                const statusSpan = document.querySelector('.wp-editor-status span:last-child');
-                if (statusSpan) statusSpan.textContent = `Word Count: ${words}`;
-            });
-        }
-    }
-
-    const newsImageInput = document.getElementById('news-image-input');
-    const newsImagePreview = document.getElementById('news-image-preview');
-    if (newsImageInput && newsImagePreview) {
-        newsImageInput.addEventListener('change', function () {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    newsImagePreview.querySelector('img').src = e.target.result;
-                    newsImagePreview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                newsImagePreview.style.display = 'none';
-            }
-        });
-    }
-
-    const subscribersData = [
-        { sno: 1, name: 'Suriya Rishi', email: 'suriya.rishi@anti.com', date: '2017-05-31 17:13:27' },
-        { sno: 2, name: 'Devesh Kumar', email: 'devesh.k@gmail.com', date: '2017-05-31 17:10:54' },
-        { sno: 3, name: 'Anjali Sharma', email: 'anjali.s@outlook.com', date: '2017-05-31 16:41:01' },
-        { sno: 4, name: 'Rahul Varma', email: 'rahul.v@example.com', date: '2017-06-05 10:20:15' },
-        { sno: 5, name: 'Priya Patel', email: 'priya.p@gmail.com', date: '2017-06-12 14:45:30' },
-        { sno: 6, name: 'Amit Singh', email: 'amit.s88@yahoo.com', date: '2017-06-20 09:12:44' },
-        { sno: 7, name: 'Sonia Gupta', email: 'sonia.g@outlook.com', date: '2017-07-01 16:33:12' },
-        { sno: 8, name: 'Vikram Mehta', email: 'vikram.m@company.in', date: '2017-07-10 11:05:55' },
-        { sno: 9, name: 'Anjali Desai', email: 'anjali_d@live.com', date: '2017-07-15 13:50:22' },
-        { sno: 10, name: 'Rajesh Khanna', email: 'rajesh.k@protonmail.com', date: '2017-07-22 18:22:11' },
-        { sno: 11, name: 'Sneha Rao', email: 'sneha.rao@gmail.com', date: '2017-08-05 10:15:22' },
-        { sno: 12, name: 'Karan Malhotra', email: 'karan.m@yahoo.com', date: '2017-08-12 11:30:45' },
-        { sno: 13, name: 'Pooja Hegde', email: 'pooja.h@outlook.com', date: '2017-08-18 14:20:10' },
-        { sno: 14, name: 'Arjun Kapoor', email: 'arjun.k@example.com', date: '2017-09-02 09:10:55' },
-        { sno: 15, name: 'Neha Kakkar', email: 'neha.k@gmail.com', date: '2017-09-10 16:45:33' },
-        { sno: 16, name: 'Siddharth Roy', email: 'sid.roy@company.com', date: '2017-09-15 13:22:11' },
-        { sno: 17, name: 'Esha Gupta', email: 'esha.g@live.com', date: '2017-10-01 11:05:44' },
-        { sno: 18, name: 'Varun Dhawan', email: 'varun.d@yahoo.com', date: '2017-10-08 15:40:22' },
-        { sno: 19, name: 'Alia Bhatt', email: 'alia.b@outlook.com', date: '2017-10-15 10:12:33' },
-        { sno: 20, name: 'Ranbir Kapoor', email: 'ranbir.k@gmail.com', date: '2017-10-22 17:55:44' },
-        { sno: 21, name: 'Deepika P', email: 'deepika.p@example.com', date: '2017-11-05 12:30:11' },
-        { sno: 22, name: 'Ranveer S', email: 'ranveer.s@yahoo.com', date: '2017-11-12 09:44:22' },
-        { sno: 23, name: 'Katrina K', email: 'katrina.k@outlook.com', date: '2017-11-20 14:20:55' },
-        { sno: 24, name: 'Vicky K', email: 'vicky.k@gmail.com', date: '2017-12-01 10:05:33' },
-        { sno: 25, name: 'Ayushmann K', email: 'ayush.k@example.com', date: '2017-12-10 16:40:44' }
-    ];
-
-    function populateSubscribersTable() {
-        const tbody = document.getElementById('subscribers-table-body');
+    // Associates Module Logic
+    function populateAssociatesTable() {
+        const tbody = document.getElementById('associates-table-body');
         if (!tbody) return;
 
-        tbody.innerHTML = subscribersData.map(item => `
+        const associatesData = [
+            { id: 1, name: 'John Doe', role: 'Sales Associate', email: 'john@example.com', phone: '9876543210', status: 'Active' },
+            { id: 2, name: 'Jane Smith', role: 'Marketing Associate', email: 'jane@example.com', phone: '9876543211', status: 'Inactive' },
+            { id: 3, name: 'Mike Ross', role: 'Technical Associate', email: 'mike@example.com', phone: '9876543212', status: 'Active' },
+            { id: 4, name: 'Rachel Zane', role: 'Legal Associate', email: 'rachel@example.com', phone: '9876543213', status: 'Active' },
+            { id: 5, name: 'Harvey Specter', role: 'Senior Associate', email: 'harvey@example.com', phone: '9876543214', status: 'Active' }
+        ];
+
+        tbody.innerHTML = associatesData.map((item, index) => `
             <tr>
-                <td><input type="checkbox" class="subscriber-checkbox"></td>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.name || '---'}</td>
-                <td style="color: var(--text-muted);">${item.email}</td>
-                <td style="color: var(--text-muted);">${item.date}</td>
-            </tr>
-        `).join('');
-
-        // Handle Select All
-        const selectAll = document.getElementById('select-all-subscribers');
-        if (selectAll) {
-            selectAll.addEventListener('change', (e) => {
-                document.querySelectorAll('.subscriber-checkbox').forEach(cb => {
-                    cb.checked = e.target.checked;
-                });
-            });
-        }
-    }
-
-    // Add NewsLetter Button logic
-    const addNewsletterBtn = document.getElementById('btn-add-newsletter');
-    if (addNewsletterBtn) {
-        addNewsletterBtn.addEventListener('click', () => {
-            switchView('add-newsletter-view');
-        });
-    }
-
-    // View Subscribers Button logic
-    const viewSubscribersBtn = document.getElementById('btn-view-subscribers');
-    if (viewSubscribersBtn) {
-        viewSubscribersBtn.addEventListener('click', () => {
-            switchView('subscribers-list');
-        });
-    }
-
-    // Add Newsletter Form logic
-    const addNewsletterForm = document.getElementById('add-newsletter-form');
-    if (addNewsletterForm) {
-        addNewsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Newsletter saved successfully!');
-            addNewsletterForm.reset();
-            populateNewslettersTable(); // Refresh table (mock)
-        });
-    }
-
-    // Send Newsletter Form logic
-    const sendNewsletterForm = document.getElementById('send-newsletter-form');
-    if (sendNewsletterForm) {
-        sendNewsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Newsletter sent successfully!');
-            sendNewsletterForm.reset();
-        });
-    }
-
-    const contactEnquiryData = [
-        { sno: 1, name: 'Suriya Rishi', email: 'suriya.rishi@anti.com', phone: '9876543210', subject: 'Project Enquiry', message: 'Interested in the new downtown project.', date: '2017-05-31 17:13:27' },
-        { sno: 2, name: 'Rahul Varma', email: 'rahul.v@example.com', phone: '9123456780', subject: 'Pricing Details', message: 'Can you send the pricing for 3BHK?', date: '2017-06-05 10:20:15' },
-        { sno: 3, name: 'Priya Patel', email: 'priya.p@gmail.com', phone: '8899776655', subject: 'Site Visit', message: 'I would like to schedule a site visit.', date: '2017-06-12 14:45:30' },
-        { sno: 4, name: 'Amit Singh', email: 'amit.s88@yahoo.com', phone: '7766554433', subject: 'Loan Options', message: 'What are the available loan options?', date: '2017-06-20 09:12:44' },
-        { sno: 5, name: 'Sonia Gupta', email: 'sonia.g@outlook.com', phone: '9988776655', subject: 'General Enquiry', message: 'Looking for investment opportunities.', date: '2017-07-01 16:33:12' }
-    ];
-
-    function populateContactEnquiryTable() {
-        const tbody = document.getElementById('contact-enquiry-table-body');
-        if (!tbody) return;
-
-        tbody.innerHTML = contactEnquiryData.map(item => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
-                <td style="color: var(--text-muted);">${item.email}</td>
-                <td style="color: var(--text-muted);">${item.phone}</td>
-
-                <td style="color: var(--text-muted); font-size: 13px;">
-                    <div style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        ${item.message}
-                    </div>
+                <td style="text-align: center;">${index + 1}</td>
+                <td style="text-align: left;">${item.name}</td>
+                <td style="text-align: left;">${item.role}</td>
+                <td style="text-align: left;">${item.email}</td>
+                <td style="text-align: left;">${item.phone}</td>
+                <td style="text-align: center;">
+                    <span class="status-badge ${item.status === 'Active' ? 'status-active' : 'status-inactive'}">
+                        ${item.status}
+                    </span>
                 </td>
-                <td style="color: var(--text-muted); white-space: nowrap;">${item.date}</td>
-            </tr>
-        `).join('');
-
-        lucide.createIcons();
-    }
-
-    const leadManagementData = [
-        { sno: 1, name: 'Sonu Singh', email: 'sonukrsingh204@gmail.com', phone: '9771013204', whoIs: 'Individual', date: '06-Aug-2018', leadFrom: 'Website', verified: 'Verified' },
-        { sno: 2, name: 'HuntTest', email: 'HuntTest@yopmail.com', phone: '9718039015', whoIs: 'Builder', date: '06-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
-        { sno: 3, name: 'Agent', email: 'agent@huntproperty.com', phone: '7415212847', whoIs: 'Agent', date: '03-May-2021', leadFrom: 'Website', verified: 'Not Verified' },
-        { sno: 4, name: 'Harvin', email: 'harvinkaur.dutta@gmail.com', phone: '7827079311', whoIs: 'Owner', date: '07-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
-        { sno: 5, name: 'HuntTest', email: 'HuntTest@yopmail.com', phone: '9718039015', whoIs: 'Builder', date: '07-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
-        { sno: 6, name: 'HuntTest', email: 'HuntTest@yopmail.com', phone: '9718039015', whoIs: 'Builder', date: '07-Aug-2018', leadFrom: 'View Property Mobile', verified: 'Verified' },
-        { sno: 7, name: 'shashi boodha', email: 'shashi.boodha@codeflowtech.com', phone: '9899746044', whoIs: 'Owner', date: '13-Sep-2018', leadFrom: 'Website', verified: 'Not Verified' },
-        { sno: 8, name: 'shashi boodha', email: 'shashi.boodha@codeflowtech.com', phone: '9899746044', whoIs: 'Owner', date: '13-Sep-2018', leadFrom: 'View Property', verified: 'Verified' },
-        { sno: 9, name: 'Ravi kumar Jaiswal', email: 'ravijaiswal007@gmail.com', phone: '8860083743', whoIs: 'Owner', date: '14-Sep-2018', leadFrom: 'Website', verified: 'Not Verified' },
-        { sno: 10, name: 'Hassan Kalam', email: 'hassankalam@gmail.com', phone: '7838359881', whoIs: 'Individual', date: '14-Sep-2018', leadFrom: 'Website', verified: 'Verified' }
-    ];
-
-    function populateLeadManagementTable() {
-        const tbody = document.getElementById('lead-management-table-body');
-        if (!tbody) return;
-
-        tbody.innerHTML = leadManagementData.map(item => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="font-weight: 500; color: #475569;">${item.name}</td>
-                <td style="color: var(--text-muted);">${item.email}</td>
-                <td style="color: var(--text-muted);">${item.phone}</td>
-                <td style="color: var(--text-muted);">${item.whoIs}</td>
-                <td style="color: var(--text-muted);">${item.date}</td>
-                <td style="color: var(--text-muted);">${item.leadFrom}</td>
-                <td style="color: ${item.verified === 'Verified' ? '#10b981' : '#64748b'};">${item.verified}</td>
-                <td>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View" onclick="viewLeadProfile(${item.sno})">
-                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-
-        lucide.createIcons();
-    }
-
-    window.viewLeadProfile = function (id) {
-        const lead = leadManagementData.find(l => l.sno === id);
-        if (!lead) return;
-
-        const nameEl = document.getElementById('profile-name');
-        const emailEl = document.getElementById('profile-email');
-        const phoneEl = document.getElementById('profile-phone');
-        const whoisEl = document.getElementById('profile-whois');
-        const leadfromEl = document.getElementById('profile-leadfrom');
-        const verifiedEl = document.getElementById('profile-verified');
-
-        if (nameEl) nameEl.textContent = lead.name;
-        if (emailEl) emailEl.textContent = lead.email;
-        if (phoneEl) phoneEl.textContent = lead.phone;
-        if (whoisEl) whoisEl.textContent = lead.whoIs;
-        if (leadfromEl) leadfromEl.textContent = lead.leadFrom;
-        if (verifiedEl) verifiedEl.textContent = lead.verified;
-
-        switchView('lead-profile');
-    }
-
-
-
-
-
-    const clientRegistrationData = [
-        { sno: 1, postedBy: 'Agent', name: 'Tejasvi Kapoor', email: 'tejasvikapoor@gmail.com', phone: '9899095939', type: 'Residential' },
-        { sno: 2, postedBy: 'Agent', name: 'Vidit G Gupta', email: 'vidit.gupta@huntproperty.com', phone: '9699007767', type: 'Residential' },
-        { sno: 3, postedBy: 'Satyam Kaushik', name: 'satyam', email: 'saty@gmail.com', phone: '9811316160', type: 'Residential' },
-        { sno: 4, postedBy: 'Satyam Kaushik', name: 'kunal', email: 'saty@gmail.com', phone: '9811316160', type: 'Residential' },
-        { sno: 5, postedBy: 'Agent', name: 'SK', email: 'lookingproperty@gmail.com', phone: '9600776688', type: 'Residential' },
-        { sno: 6, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
-        { sno: 7, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
-        { sno: 8, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
-        { sno: 9, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' },
-        { sno: 10, postedBy: 'Builder', name: 'Rajesh Kumar', email: 'rajesh@yopmail.com', phone: '9753124680', type: 'Residential' }
-    ];
-
-    function populateClientRegistrationTable() {
-        const tbody = document.getElementById('client-registration-table-body');
-        if (!tbody) return;
-        tbody.innerHTML = clientRegistrationData.map(item => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="color: var(--text-muted);">${item.postedBy}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.name}</td>
-                <td style="color: var(--text-muted);">${item.email}</td>
-                <td style="color: var(--text-muted);">${item.phone}</td>
-                <td style="color: var(--text-muted);">${item.type}</td>
-                <td>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
-                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-        lucide.createIcons();
-    }
-
-    const clientKycData = [
-        { sno: 1, bookingBy: 'Satyam Kaushik', builder: 'Agent', project: 'Nitesh', client: 'John Doe', date: '2026-02-10' },
-        { sno: 2, bookingBy: 'Satyam Kaushik', builder: 'Builder', project: 'Prestige', client: 'Jane Smith', date: '2026-02-11' }
-    ];
-
-    function populateClientKycTable() {
-        const tbody = document.getElementById('client-kyc-table-body');
-        if (!tbody) return;
-        tbody.innerHTML = clientKycData.map(item => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="color: var(--text-muted);">${item.bookingBy}</td>
-                <td style="color: var(--text-muted);">${item.builder}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.project}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.client}</td>
-                <td style="color: var(--text-muted);">${item.date}</td>
-                <td>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="action-btn" style="background: #22c55e; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="View">
-                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-        lucide.createIcons();
-    }
-
-    const newslettersData = [
-        { sno: 1, title: 'Weekly Updates', date: '2017-06-01' },
-        { sno: 2, title: 'Monthly Digest', date: '2017-06-05' }
-    ];
-
-    function populateNewslettersTable() {
-        const tbody = document.getElementById('newsletters-history-table-body');
-        if (!tbody) return;
-
-        tbody.innerHTML = newslettersData.map(item => `
-            <tr>
-                <td style="font-weight: 500; color: var(--text-muted)">${item.sno}</td>
-                <td style="font-weight: 600; color: #64748b;">${item.title}</td>
-                <td style="color: var(--text-muted);">${item.date}</td>
-                <td>
-                    <button class="action-btn" style="background: #ef4444; color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;" title="Delete">
-                            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                <td style="text-align: center;">
+                    <button class="action-btn view-btn" title="View">
+                        <i data-lucide="eye"></i>
+                    </button>
+                    <button class="action-btn delete-btn" title="Delete">
+                        <i data-lucide="trash-2"></i>
                     </button>
                 </td>
             </tr>
         `).join('');
+        lucide.createIcons();
+    }
+
+    // Testimonials Module Logic
+    function populateTestimonialsTable() {
+        const tbody = document.getElementById('testimonials-table-body');
+        if (!tbody) return;
+
+        const testimonialsData = [
+            { name: 'Amit Sharma', email: 'N/A', phone: 'N/A', message: 'I would like to thank Mr. Tejasvi Kapoor for his valued assistance in bringing this sale to completion. I have been so impressed with his approachability, professionalism and can do attitude which is very refreshing and obviously achieves great results. Hope to work with you again in the future', location: 'New Delhi' },
+            { name: 'Nem Chand Sanghal', email: 'N/A', phone: 'N/A', message: 'We were looking for an apartment in Noida Extension and while searching for the same we came to know about Hunt Property. Our brief was to find for us an apartment with the quality of services he and his team provided. We were in particular impressed with the transparency and firmness while finalizing the deal. At the end - "we made sure to do 100%". We have got witness to the commitment he makes to whoever he meets or deals. "Our best wishes to the company.', location: 'India' },
+            { name: 'Ashok Kumar', email: 'N/A', phone: 'N/A', message: 'Associating with Hunt Property was a hassle free experience for me and my family. I would highly recommend them to all who are looking for a new house. Thanks to Mr. Kapoor and his whole team for all the hard work & support they have given to us completing the negotiation process of my plot in Supertach. I will be glad recommend with Hunt Property for future deals.', location: 'India' },
+            { name: 'Rajinder Sharma', email: 'N/A', phone: 'N/A', message: 'This is the era where property dealers sell the property, close the transaction, take money and forget. But, Hunt Property is an exception. , after buying the property, when I needed them back for re-sale of the same. But, they closely coupled with full responsibility. This is a classic example for Customer Relationship Management. I am impressed with his professional attitude and commitment.', location: 'India' },
+            { name: 'John', email: 'N/A', phone: 'N/A', message: 'This is a reliable program for anyone looking for plot to invest. I had to no regularly, keep in touch', location: 'Taiwan' },
+            { name: 'Harry', email: 'N/A', phone: 'N/A', message: 'My family and me want to thank you for helping us find a great opportunity to make money online. Very happy with how things are going!', location: 'Australia' },
+            { name: 'Guill Marte', email: 'N/A', phone: 'N/A', message: 'I love to have extra money. If I have time I invest by myself, but sometimes you want to have time for your family or friends, especially when you are on holidays. HPP\'s "one of the best investment program with extra returns". Short work, gain!', location: 'Makati, Philippines' },
+            { name: 'Guill Marte', email: 'N/A', phone: 'N/A', message: 'We are so grateful to have been recommended the services of Hunt Property. We were fortunate enough to have Hunt Property team to play a role in setting our first home promptly, professionally and effortlessly.', location: 'Makati, Philippines' },
+            { name: 'Rajesh', email: 'N/A', phone: 'N/A', message: 'Always easy and convenient to approach, pulling real estate jargon that is not tip of the tongue for most, into a manner that we were able to understand and digest. Most super important to us.', location: 'New Delhi' },
+            { name: 'Saurabh Singh', email: 'N/A', phone: 'N/A', message: 'These guys delivered a great outcome for our first home sale.', location: 'India' }
+        ];
+
+        tbody.innerHTML = testimonialsData.map((item, index) => `
+            <tr>
+                <td style="text-align: center;">${index + 1}</td>
+                <td style="text-align: left;">${item.name}</td>
+                <td style="text-align: left;">${item.email}</td>
+                <td style="text-align: left;">${item.phone}</td>
+                <td style="text-align: left;" title="${item.message}">
+                    ${item.message.length > 100 ? item.message.substring(0, 100) + '...' : item.message}
+                </td>
+                <td style="text-align: left;">${item.location}</td>
+                <td style="text-align: center;">
+                    <a href="#" style="color: #3B82F6; text-decoration: none;">view image</a>
+                </td>
+                <td style="text-align: center;">
+                    <div class="action-buttons" style="display: flex; gap: 4px; justify-content: center;">
+                        <button class="action-btn" style="background-color: #22C55E; color: white; border: none; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;" title="Approve">
+                            <i data-lucide="check" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background-color: #EF4444; color: white; border: none; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;" title="Reject">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background-color: #3B82F6; color: white; border: none; padding: 4px 12px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px;" title="Delete">
+                            delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    // Event Listeners for Associates and Testimonials
+    const createAssociatesBtn = document.querySelector('.create-btn[data-target="create-associates"]');
+    if (createAssociatesBtn) {
+        createAssociatesBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchView('create-associates');
+        });
+    }
+
+    const createTestimonialsBtn = document.querySelector('.create-btn[data-target="create-testimonials"]');
+    if (createTestimonialsBtn) {
+        createTestimonialsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchView('create-testimonials');
+        });
+    }
+
+    // Handle Form Submissions (Dummy)
+    const associatesForm = document.getElementById('create-associates-form'); // Assuming this ID exists or will be added
+    if (associatesForm) {
+        associatesForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Associate Created Successfully!');
+            switchView('associates-list');
+        });
+    }
+
+    const testimonialsForm = document.getElementById('create-testimonials-form'); // Assuming this ID exists or will be added
+    if (testimonialsForm) {
+        testimonialsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Testimonial Created Successfully!');
+            switchView('testimonials-list');
+        });
+    }
+
+    const servicesData = [
+        { sno: 1, name: 'Owner Basic Services', for: 'Owner', heading: 'Owner Basic Services' },
+        { sno: 2, name: 'Agent Basic Services', for: 'Agent', heading: 'Agent Basic Services' },
+        { sno: 3, name: 'Builder Basic Services', for: 'Builder', heading: 'Builder Basic Services' }
+    ];
+
+    function populateServicesTable() {
+        const tbody = document.getElementById('services-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = servicesData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 500;">${item.name}</td>
+                <td style="color: var(--text-muted); font-weight: 500;">${item.for}</td>
+                <td style="color: var(--text-muted); font-weight: 500;">${item.heading}</td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
 
         lucide.createIcons();
     }
 
-    function getStatusColor(status) {
-        switch (status) {
-            case 'New': return '#3b82f6'; // Blue
-            case 'In Progress': return '#f59e0b'; // Amber
-            case 'Converted': return '#10b981'; // Green
-            case 'Closed': return '#ef4444'; // Red
-            default: return '#64748b'; // Slate
+    const packagesData = [
+        {
+            sno: 1,
+            service: 'Owner Basic Services',
+            packageCode: 'Owner-FOX-FREE',
+            createdOn: '2017-10-24 17:14:57',
+            desc: {
+                dashboard: 'Free',
+                posts: '1',
+                imageUpload: '2',
+                duration: '1 month',
+                video: 'No',
+                advertisement: 'No',
+                mailer: 'Yes',
+                sms: 'No',
+                rss: 'No',
+                content: 'No'
+            }
+        },
+        {
+            sno: 2,
+            service: 'Owner Basic Services',
+            packageCode: 'Owner-WOLFS-300',
+            createdOn: '2017-10-24 17:24:24',
+            desc: {
+                dashboard: 'Free',
+                posts: '2',
+                imageUpload: '3/post',
+                duration: '2 month',
+                video: 'No',
+                advertisement: 'No',
+                mailer: 'Yes',
+                sms: 'Yes',
+                rss: 'Yes',
+                content: 'No'
+            }
+        },
+        {
+            sno: 3,
+            service: 'Owner Basic Services',
+            packageCode: 'Owner-BULL-850',
+            createdOn: '2017-10-24 18:10:31',
+            desc: {
+                dashboard: 'Free',
+                posts: '6',
+                imageUpload: '4/post',
+                duration: '3 month',
+                video: 'No',
+                advertisement: 'No',
+                mailer: 'Yes',
+                sms: 'Yes',
+                rss: 'Yes',
+                content: 'No'
+            }
+        },
+        {
+            sno: 4,
+            service: 'Agent Basic Services',
+            packageCode: 'Agent-FOX-Free',
+            createdOn: '2017-10-25 15:12:35',
+            desc: {
+                dashboard: 'Free',
+                posts: '2',
+                imageUpload: '1',
+                duration: '1 month',
+                video: 'No',
+                advertisement: 'No',
+                mailer: 'No',
+                sms: 'No',
+                rss: 'No',
+                content: 'No'
+            }
         }
+    ];
+
+    function populatePackagesTable() {
+        const tbody = document.getElementById('packages-table-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = packagesData.map(item => `
+            <tr>
+                <td style="text-align: center; color: var(--text-muted); font-weight: 500;">${item.sno}</td>
+                <td style="color: var(--text-muted); font-weight: 500;">${item.service}</td>
+                <td style="color: var(--text-muted); font-size: 11px; padding: 12px;">
+                    <div style="display: grid; grid-template-columns: 120px 1fr; gap: 4px; text-align: left;">
+                        <span style="color: #64748b;">Dashboard</span><span style="color: #334155;">${item.desc.dashboard}</span>
+                        <span style="color: #64748b;">Posts</span><span style="color: #334155;">${item.desc.posts}</span>
+                        <span style="color: #64748b;">Image Upload</span><span style="color: #334155;">${item.desc.imageUpload}</span>
+                        <span style="color: #64748b;">Duration</span><span style="color: #334155;">${item.desc.duration}</span>
+                        <span style="color: #64748b;">Video</span><span style="color: #334155;">${item.desc.video}</span>
+                        <span style="color: #64748b;">Advertisement</span><span style="color: #334155;">${item.desc.advertisement}</span>
+                        <span style="color: #64748b;">Mailer Support</span><span style="color: #334155;">${item.desc.mailer}</span>
+                        <span style="color: #64748b;">SMS Support</span><span style="color: #334155;">${item.desc.sms}</span>
+                        <span style="color: #64748b;">RSS Feeds</span><span style="color: #334155;">${item.desc.rss}</span>
+                        <span style="color: #64748b;">Content Designing</span><span style="color: #334155;">${item.desc.content}</span>
+                    </div>
+                </td>
+                <td style="color: var(--text-muted); font-weight: 500;">${item.packageCode}</td>
+                <td style="color: var(--text-muted); font-weight: 500;">${item.createdOn}</td>
+                <td>
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button class="action-btn" style="background: #22c55e; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="action-btn" style="background: #ef4444; color: white; border: none; padding: 6px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
     }
 
-    // KYC Form Submission
-    const kycForm = document.getElementById('create-client-kyc-form');
-    if (kycForm) {
-        kycForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Client KYC submitted successfully!');
-            switchView('client-kyc');
-        });
-    }
-
-    // Export switchView globally
+    // Global switchView exposure
     window.switchView = switchView;
-
-    // Explicit listener for Career Leads to ensure it works
-    const careerLeadsLink = document.getElementById('nav-career-leads');
-    if (careerLeadsLink) {
-        careerLeadsLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('Career Leads link clicked manually');
-            switchView('career-leads');
-        });
-    }
 });
